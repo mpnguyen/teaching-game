@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Register Form</h1>
+    <form (submit)="resetPass()">
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm_pass">Confirm password</label>
+            <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" [(ngModel)]="confirmPass" required>
+        </div>
+
+        <button type="submit" class="btn btn-default">Reset password</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+</div>

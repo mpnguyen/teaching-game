@@ -4,26 +4,27 @@
 import { Component } from '@angular/core';
 import { User } from "./models/user.model";
 import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 import { UserService } from "./services/user.service"
 
 @Component({
     moduleId: module.id,
-    selector: 'user-login',
-    templateUrl: './login.component.html'
+    selector: 'forget-pass',
+    templateUrl: './forget.component.html'
 })
-export class LoginComponent {
+export class ForgetComponent {
 
     user:User = new User();
 
     message: string = null;
 
-    constructor(private router: Router, private userService: UserService) {}
+    constructor(private router: Router, private location: Location, private userService: UserService) {}
 
-    login(): void {
-        this.userService.login(this.user)
+    forgetPass(): void {
+        this.userService.forgetPass(this.user)
             .then(res => {
+                console.log(res);
                 if (res.success) {
-                    this.message = null;
                     alert("Success!");
                 } else {
                     this.message = res.message;
@@ -32,12 +33,8 @@ export class LoginComponent {
             .catch(err => console.log(err));
     }
 
-    register(): void {
-        this.router.navigate(['/register']);
-    }
-
-    forgetPass(): void {
-        this.router.navigate(['/forget']);
+    cancel(): void {
+        this.location.back();
     }
 
 }

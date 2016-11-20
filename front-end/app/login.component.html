@@ -9,7 +9,9 @@
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>
         </div>
+        <div class="alert alert-danger" *ngIf="message" role="alert">{{message}}</div>
         <button type="submit" class="btn btn-default">Login</button>
+        <button type="button" class="btn btn-default" (click)="forgetPass()">Forget Password</button>
         <button type="button" class="btn btn-default" (click)="register()">Register</button>
     </form>
 </div>

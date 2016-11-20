@@ -9,7 +9,7 @@ import {User} from "../models/user.model";
 
 @Injectable()
 export class UserService {
-    private baseUrl = 'https://localhost:3000/';
+    private baseUrl = 'http://192.168.2.5:3000/';
 
     constructor(private http: Http) { }
 
@@ -36,4 +36,31 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    forgetPass(user: User): Promise<any> {
+        let url = this.baseUrl + "users/forget";
+        return this.http.post(url, JSON.stringify(user), { headers: this.headers })
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    checkToken(token: string): Promise<any> {
+        let url = this.baseUrl + "users/reset?token=" + token;
+        return this.http.get(url)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    resetPass(password: string, token: string): Promise<any>{
+        let url = this.baseUrl + "users/reset";
+        let body = {
+            password: password,
+            token: token
+        }
+        return this.http.post(url, body, { headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
 }
