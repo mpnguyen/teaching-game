@@ -19,17 +19,57 @@ router.post('/', function (req, res, next) {
   temp.save(function (err, temp) {
     if(err) {return next(err);}
     res.json(temp);
+  });
+});
+
+router.get('/isusernamevalid', function (req, res, next) {
+  console.log(req.query.username);
+  User.findOne({username: req.query.username}, function (err, user) {
+    if(user){
+      return res.json({
+        success: false,
+        message: 'Invalid username'
+      })
+    }
+    res.json({
+      success: true,
+      message: 'Valid username'
+    })
+  })
+});
+
+router.get('/isemailvalid', function (req, res, next) {
+  console.log(req.query.email);
+  User.findOne({email: req.query.email}, function (err, user) {
+    if(user){
+      return res.json({
+        success: false,
+        message: 'Invalid email'
+      })
+    }
+    res.json({
+      success: true,
+      message: 'Valid email'
+    })
   })
 });
 
 router.post('/authenticate', function (req, res, next) {
-  console.log(req.body.username);
+  console.log(req.body);
   User.findOne({username: req.body.username}, function (err, user) {
     if(err) {return next(err);}
-    if(user!=null) {
+    if(!user){
+      return res.json({
+      success: false,
+      message: 'Cant find user'
+      });
+    }
       user.comparePassword(req.body.password, function (err, isMatch) {
         if(err){return next(err);}
-        if(!isMatch){return next(new Error('Wrong password'))}
+        if(!isMatch){return res.json({
+          success: false,
+          message: 'Wrong password'
+        });}
         var token = jwt.sign(user, "user", {
           expiresIn: 60*60*24
         });
@@ -39,11 +79,6 @@ router.post('/authenticate', function (req, res, next) {
           token: token
         });
       });
-    }
-    else
-    {
-      res.json(null);
-    }
   })
 });
 
@@ -77,7 +112,10 @@ router.get('/profiles/:user', function (req, res, next) {
 router.post('/forget', function (req, res, next) {
   User.findOne({email: req.body.email}, function (err, user) {
     if(err){return next(err);}
-    if(!user) {return next(new Error("Email not found"));}
+    if(!user) {return res.json({
+      success: false,
+      message: 'Email not found'
+    })}
 
     var token;
 
@@ -91,18 +129,16 @@ router.post('/forget', function (req, res, next) {
         if(err) {return next(err);}
 
         var smtpTransport = mailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true, // use SSL
+          service: 'SendGrid',
           auth: {
-            user: 'reset.spqcorp@gmail.com',
+            user: 'spqcorp',
             pass: 'spq123456'
           }
         });
 
         var mailOptions = {
           to: user.email,
-          from: 'reset.spqcorp@gmail.com',
+          from: 'noreply@spqcorp.com',
           subject: 'Teaching-game Password Reset',
           text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -111,7 +147,12 @@ router.post('/forget', function (req, res, next) {
         };
 
         smtpTransport.sendMail(mailOptions, function(err) {
-          if(err){return next(err);}
+          console.log(err);
+          if(err){return res.json({
+            success: false,
+            message: 'Internal server error, try again later',
+            token: user.resetPasswordToken
+          });}
           res.json({success: true});
         });
       });
@@ -120,18 +161,29 @@ router.post('/forget', function (req, res, next) {
 
 });
 
-router.get('/reset/:token', function (req, res, next) {
-  console.log(req.params.token);
-  User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
+router.get('/reset', function (req, res, next) {
+  console.log(req.query.token);
+  User.findOne({resetPasswordToken: req.query.token, resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
     if(err) {return next(err)};
-    console.log(user);
-    if(!user){return next(new Error('Cant find user'))}
-    res.json({success: true});
+    if(!user){return res.json({
+      success: false,
+      message: 'Link invaid'
+    })}
+    res.json({
+      token: user.resetPasswordToken,
+      success: true
+    });
   })
 });
 
-router.post('/reset/:token', function (req, res, next) {
-  User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
+router.post('/reset', function (req, res, next) {
+  console.log(req.body.token);
+
+  User.findOne({resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
+    console.log(user);
+    if(!user){return  res.json({
+      success:false
+    })}
     user.password = req.body.password;
     user.save(function (err) {
       if(err) {return next(err);}
