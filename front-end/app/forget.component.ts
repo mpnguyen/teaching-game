@@ -25,9 +25,10 @@ export class ForgetComponent {
             .then(res => {
                 console.log(res);
                 if (res.success) {
-                    alert("Success!");
+                    alert("Success! Please check your email!");
+                    this.router.navigate(['/home']);
                 } else {
-                    this.message = res.message;
+                    this.message = res.messageUsername;
                 }
             })
             .catch(err => console.log(err));

@@ -9,7 +9,7 @@ import {User} from "../models/user.model";
 
 @Injectable()
 export class UserService {
-    private baseUrl = 'http://192.168.2.5:3000/';
+    private baseUrl = 'http://192.168.1.13:3000/';
 
     constructor(private http: Http) { }
 
@@ -17,7 +17,7 @@ export class UserService {
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+        return Promise.reject(error.messageUsername || error);
     }
 
     login(user: User): Promise<any> {
@@ -59,6 +59,22 @@ export class UserService {
             token: token
         }
         return this.http.post(url, body, { headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    checkValidUsername(user: User): Promise<any>  {
+        let url = this.baseUrl + "users/isusernamevalid/?username=" + user.username;
+        return this.http.get(url)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    checkValidEmail(user: User): Promise<any> {
+        let url = this.baseUrl + "users/isemailvalid/?email=" + user.email;
+        return this.http.get(url)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

@@ -26,12 +26,9 @@ export class ResetComponent implements OnInit{
         this.route.params
             .switchMap((params: Params) => this.userService.checkToken(params['token']))
             .subscribe(res => {
-                console.log(res);
                 let response: any = res;
                 if (response.success) {
-                    console.log(response);
                     this.token = response.token;
-                    console.log(this.token);
                 } else {
                     alert("False");
                     this.router.navigate(['/home']);
@@ -53,6 +50,7 @@ export class ResetComponent implements OnInit{
             .then(res => {
                 if (res.success) {
                     alert("Success!");
+                    this.router.navigate(['/home']);
                 } else {
                     alert("Error!");
                 }

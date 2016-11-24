@@ -17,6 +17,9 @@ export class RegisterComponent {
 
     confirmPass: string = "";
 
+    messageUsername: string;
+    messageEmail: string;
+
     constructor(private router: Router, private userService: UserService) {}
 
     login(): void {
@@ -25,7 +28,38 @@ export class RegisterComponent {
 
     register(): void {
         this.userService.register(this.user)
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.success) {
+                    alert(res.message);
+                    this.router.navigate(['home']);
+                } else {
+                    this.messageUsername = res.message;
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    checkValidUsername() {
+        this.userService.checkValidUsername(this.user)
+            .then(res => {
+                if (res.success) {
+                    this.messageUsername = null;
+                } else {
+                    this.messageUsername = res.message;
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    checkValidEmail() {
+        this.userService.checkValidEmail(this.user)
+            .then(res => {
+                if (res.success) {
+                    this.messageEmail = null;
+                } else {
+                    this.messageEmail = res.message;
+                }
+            })
             .catch(err => console.log(err));
     }
 

@@ -3,12 +3,14 @@
     <form (submit)="register()">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required>
+            <input type="text" class="form-control" (blur)="checkValidUsername()" id="username" name="username" [(ngModel)]="user.username" required>
         </div>
+        <div class="alert alert-danger" *ngIf="messageUsername" role="alert">{{messageUsername}}</div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" required>
+            <input type="email" class="form-control" (blur)="checkValidEmail()" id="email" name="email" [(ngModel)]="user.email" required>
         </div>
+        <div class="alert alert-danger" *ngIf="messageEmail" role="alert">{{messageEmail}}</div>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>

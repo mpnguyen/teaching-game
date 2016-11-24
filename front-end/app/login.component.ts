@@ -25,8 +25,9 @@ export class LoginComponent {
                 if (res.success) {
                     this.message = null;
                     alert("Success!");
+                    this.router.navigate(['/home']);
                 } else {
-                    this.message = res.message;
+                    this.message = res.messageUsername;
                 }
             })
             .catch(err => console.log(err));
