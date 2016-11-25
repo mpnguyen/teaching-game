@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Register Form</h1>
+    <form (submit)="register()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" (blur)="checkValidUsername()" id="username" name="username" [(ngModel)]="user.username" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="messageUsername" role="alert">{{messageUsername}}</div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" (blur)="checkValidEmail()" id="email" name="email" [(ngModel)]="user.email" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="messageEmail" role="alert">{{messageEmail}}</div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm_pass">Confirm password</label>
+            <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" [(ngModel)]="confirmPass" required>
+        </div>
+
+        <button type="submit" class="btn btn-default">Register</button>
+        <button type="button" class="btn btn-default" (click)="login()">Login</button>
+    </form>
+</div>
