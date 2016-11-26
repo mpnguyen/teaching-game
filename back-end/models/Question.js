@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 
 var QuestionSchema = new mongoose.Schema({
     id: String,
-    question: String,
+    question: { type: String, required: true },
+    image: String,
     answers: [String],
+    correct: { type: Number, required: true },
     package: {type: mongoose.Schema.Types.ObjectId, ref: 'Package'}
 });
 

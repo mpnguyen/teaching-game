@@ -2,7 +2,9 @@ var mongoose = require('mongoose');
 
 var PackageSchema = new mongoose.Schema({
     id: String,
-    package: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}]
+    title: String,
+    questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
 mongoose.model('Package', PackageSchema);
