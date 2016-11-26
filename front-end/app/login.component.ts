@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { User } from "./models/user.model";
 import {Router} from "@angular/router";
 import { UserService } from "./services/user.service"
+import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
     moduleId: module.id,
@@ -17,17 +18,19 @@ export class LoginComponent {
 
     message: string = null;
 
-    constructor(private router: Router, private userService: UserService) {}
+    constructor(private router: Router, private userService: UserService, private storage:LocalStorageService) {}
 
     login(): void {
         this.userService.login(this.user)
             .then(res => {
                 if (res.success) {
                     this.message = null;
-                    alert("Success!");
+                    this.storage.store('access_token', res.token);
+                    this.storage.store('is_login', true);
+                    alert('Success!');
                     this.router.navigate(['/home']);
                 } else {
-                    this.message = res.messageUsername;
+                    this.message = res.message;
                 }
             })
             .catch(err => console.log(err));

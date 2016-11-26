@@ -8,6 +8,9 @@ export class User {
     public password: string;
 
     constructor() {
+        this.username = '';
+        this.email = '';
+        this.password = '';
     }
 
 }

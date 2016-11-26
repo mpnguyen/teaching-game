@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule }     from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+import {Ng2Webstorage} from 'ng2-webstorage';
 
 import { UserService } from "./services/user.service"
 
@@ -15,7 +16,7 @@ import { ResetComponent }  from './reset.component';
 import {DashboardComponent} from "./dashboard.component";
 
 @NgModule({
-    imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule ],
+    imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage ],
     providers: [ UserService ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
         ForgetComponent, ResetComponent, DashboardComponent ],
