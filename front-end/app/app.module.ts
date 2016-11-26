@@ -12,11 +12,13 @@ import { LoginComponent }  from './login.component';
 import { RegisterComponent }  from './register.component';
 import { ForgetComponent }  from './forget.component';
 import { ResetComponent }  from './reset.component';
+import {DashboardComponent} from "./dashboard.component";
 
 @NgModule({
     imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule ],
     providers: [ UserService ],
-    declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, ForgetComponent, ResetComponent ],
+    declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
+        ForgetComponent, ResetComponent, DashboardComponent ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
