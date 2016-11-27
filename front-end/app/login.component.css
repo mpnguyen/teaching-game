@@ -1,0 +1,48 @@
+.imagebackground{
+    background-color: #03A9F4;
+
+    height: 100vh;
+}
+.labeldangnhap{
+    color: #757575;
+}
+.div1{
+    margin-top: 15%;
+}
+.buttondangnhap{
+    background-color: #0288D1;
+
+    margin-left: 11%;
+    width: 30%;
+    font-size: 25px;
+}
+#email{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    margin-left: 11%;
+    width: 80%;
+}
+#pwd{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    margin-left: 11%;
+    width: 80%;
+}
+#emailLabel{
+    font-size:25px;
+    margin-left: 11%;
+    color: #757575;
+}
+#passwordLabel{
+    font-size:25px;
+    margin-left: 11%;
+    color: #757575;
+}
+.introduction{
+    font-size: 45px;
+    text-align: center;
+    color: #212121;
+}
+.abc{
+    margin-left: 3%;
+}
