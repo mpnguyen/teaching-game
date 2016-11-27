@@ -10,6 +10,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 @Component({
     moduleId: module.id,
     selector: 'user-login',
+    styleUrls: ['./login.component.css'],
     templateUrl: './login.component.html'
 })
 export class LoginComponent {
