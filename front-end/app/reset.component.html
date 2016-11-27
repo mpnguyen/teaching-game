@@ -1,16 +1,18 @@
-<div class="container">
-    <h1>Reset Form</h1>
-    <form (submit)="resetPass()">
+<div class="container col-md-4">
+    <h3 class="logo">SPQ Corp</h3>
+    <h1 class="title-form">Reset Pass</h1>
+    <form class="my-form" (submit)="resetPass()">
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>
+            <input type="password" class="form-control input-field center-block" (blur)="checkValidPassword()" id="pwd"
+                   placeholder="Password" [(ngModel)]="user.password" name="password" required>
         </div>
         <div class="form-group">
-            <label for="confirm_pass">Confirm password</label>
-            <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" [(ngModel)]="confirmPass" required>
+            <input type="password" class="form-control input-field center-block" id="cf_pwd" (blur)="checkValidPassword()"
+                   placeholder="Confirm password" [(ngModel)]="confirmPass" name="confirm_pass" required>
         </div>
-
-        <button type="submit" class="btn btn-default">Reset password</button>
-        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+        <div class="alert alert-danger message center-block" *ngIf="messageConfirmPass" role="alert">{{messageConfirmPass}}</div>
+        <button type="submit" class="btn btn-info btn-submit center-block">Reset password</button>
     </form>
+</div>
+<div class="col-md-8 content">
 </div>

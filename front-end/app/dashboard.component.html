@@ -1,64 +1,113 @@
-<div class="w3-container w3-content" style="max-width:1400px;">
-    <div class="w3-row">
-        <div class="w3-col m4">
-            <!-- Profile -->
-            <div class="w3-margin">
-                <div class="w3-card-2 w3-round w3-white">
-                    <div class="w3-container">
-                        <h4 class="w3-center">My Profile</h4>
-                        <p class="w3-center"><img src="http://192.168.43.243:3000/files/f9931d0096de99fc8cac4c6aafbb01c3" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-                        <hr>
-                        <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> {{user.username}} </p>
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> {{user.email}} </p>
-                        <a><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> Sign out</a>
-                        <p></p>
-                    </div>
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="logo">SPQ Corp</h3>
+            <h1 class="title-form">Dashboard</h1>
+            <!--<label class="center-block title-package">Create package</label>-->
+            <input type="text" class="center-block form-control input-field" placeholder="Add new package....">
+        </div><!-- /.col-lg-6 -->
+    </div>
+
+    <div class="content-package">
+        <ul class="list-group list-package center-block">
+            <a class="list-group-item item-package" *ngFor="let package of packages"
+               (click)="loadQuestion(package.id)">{{package.title}}</a>
+        </ul>
+    </div>
+</div>
+<div class="col-md-8 content">
+    <div class="content-question">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingAdd">
+                    <h4 class="panel-title">
+                        <input type="text" class="input-question" (click)="openAddForm()" placeholder="Add new question...">
+                        <a role="button" data-toggle="collapse" style="display: none;" id="btn_add"
+                           data-parent="#accordion" href="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd"></a>
+                    </h4>
                 </div>
-                <br>
-
-                <!-- Accordion -->
-                <div class="w3-card-2 w3-round">
-                    <div class="w3-accordion w3-white">
-                        <button class="w3-btn-block w3-theme-l1 w3-left-align" onclick="document.getElementById('id01').style.display='block'">
-                            <i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> New package
-                        </button>
-
-                        <div id="id01" class="w3-modal">
-                            <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
-                                <form class="w3-container" action="form.asp">
-                                    <div class="w3-section">
-                                        <label><b>Package</b></label>
-                                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>
-                                        <button class="w3-btn-block w3-green w3-section w3-padding" type="submit">Login</button>
-                                    </div>
-                                </form>
-                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                    <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-btn w3-red">Cancel</button>
-                                    <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
-                                </div>
-
+                <div id="collapseAdd" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAdd">
+                    <div class="panel-body">
+                        <form>
+                            <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer A">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
 
-                <div class="w3-card-2 w3-round">
-                    <div class="w3-accordion w3-white">
-                        <ul class="w3-ul w3-card-4 w3-hoverable" style="width:100%">
-                            <li *ngFor="let package of packages" (click)="loadQuestion(package.id)"><h3>{{package.title}}</h3></li>
-                        </ul>
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer B">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer C">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer D">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <button type="submit" class="btn pull-right btn-submit btn-success">Save</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Middle Column -->
-        <div class="w3-col m8" style="height: 100%" *ngFor="let question of questions">
-            <div class="w3-container w3-card-2 w3-white w3-round w3-margin w3-hover-shadow"><br>
-                <h4>{{question.question}}</h4><br>
-                <hr class="w3-clear">
-                <h5>{{question.answers[question.correct]}}</h5>
+            <div class="panel panel-default" *ngFor="let question of questions">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a class="collapsed title-question" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{question.id}}" aria-expanded="false">
+                            {{question.question}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="{{question.id}}" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        <form>
+                            <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer A" value="{{question.answers[0]}}">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer B"  value="{{question.answers[1]}}">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer C"  value="{{question.answers[2]}}">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer D"  value="{{question.answers[3]}}">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer">
+                                </span>
+                            </div>
+
+                            <button type="submit" class="btn pull-right btn-submit btn-success">Save</button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>

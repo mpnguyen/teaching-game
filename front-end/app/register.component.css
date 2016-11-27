@@ -18,7 +18,7 @@
 }
 
 .my-form {
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 .btn-submit {
@@ -36,7 +36,11 @@
 .title-form {
     font-size: 5.5rem;
     opacity: 0.8;
-    margin-top: 20%;
-    margin-right: 10%;
+    margin-top: 10%;
     margin-left: 10%;
+    margin-right: 10%;
+}
+
+.message {
+    width: 80%;
 }

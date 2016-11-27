@@ -10,6 +10,7 @@ import { UserService } from "./services/user.service"
 @Component({
     moduleId: module.id,
     selector: 'forget-pass',
+    styleUrls: ['./forget.component.css'],
     templateUrl: './forget.component.html'
 })
 export class ForgetComponent {
@@ -32,10 +33,6 @@ export class ForgetComponent {
                 }
             })
             .catch(err => console.log(err));
-    }
-
-    cancel(): void {
-        this.location.back();
     }
 
 }

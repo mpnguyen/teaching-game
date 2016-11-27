@@ -10,6 +10,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
     moduleId: module.id,
     selector: 'reset-pass',
+    styleUrls: ['./reset.component.css'],
     templateUrl: './reset.component.html'
 })
 export class ResetComponent implements OnInit{
@@ -19,6 +20,8 @@ export class ResetComponent implements OnInit{
     confirmPass: string = "";
 
     token: string;
+
+    messageConfirmPass: string;
 
     constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
 
@@ -36,8 +39,12 @@ export class ResetComponent implements OnInit{
             });
     }
 
-    cancel(): void {
-        this.router.navigate(['/home']);
+    checkValidPassword() {
+        if (this.user.password === this.confirmPass) {
+            this.messageConfirmPass = null;
+        } else {
+            this.messageConfirmPass = "Please check your confirm password"
+        }
     }
 
     resetPass(): void {

@@ -9,9 +9,12 @@ import {User} from "./models/user.model";
 import {Package} from "./models/package.model";
 import {Question} from "./models/question.model";
 
+declare let $: any;
+
 @Component({
     moduleId: module.id,
     selector: 'dashboard',
+    styleUrls: ['./dashboard.component.css'],
     templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
@@ -20,19 +23,20 @@ export class DashboardComponent implements OnInit {
     user: User = new User();
     packages: Package[];
     questions: Question[];
+    isOpenAdd: boolean = false;
 
     ngOnInit(): void {
         this.access_token = this.storage.retrieve("access_token");
         if (this.access_token == null || this.access_token == "")
             this.router.navigate(['login']);
-        this.userService.getProfile(this.access_token)
-            .then(res => {
-                if (res.success) {
-                    this.user = res.profile;
-                } else {
-                    alert(res.message);
-                }
-            }).catch(err => console.log(err));
+        // this.userService.getProfile(this.access_token)
+        //     .then(res => {
+        //         if (res.success) {
+        //             this.user = res.profile;
+        //         } else {
+        //             alert(res.message);
+        //         }
+        //     }).catch(err => console.log(err));
 
         this.userService.getPackage(this.access_token)
             .then(res => {
@@ -42,6 +46,7 @@ export class DashboardComponent implements OnInit {
                     alert(res.message);
                 }
             }).catch(err => console.log(err));
+
     }
 
     loadQuestion(id: string) {
@@ -53,6 +58,10 @@ export class DashboardComponent implements OnInit {
                     alert(res.message);
                 }
             }).catch(err => console.log(err));
+    }
+
+    openAddForm() {
+        $('#btn_add').click();
     }
 
     constructor(private router: Router, private userService: UserService, private storage:LocalStorageService) {}
