@@ -18,10 +18,11 @@
 <div class="col-md-8 content">
     <div class="content-question">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
+            <div class="panel panel-default" *ngIf="idPackage">
                 <div class="panel-heading" role="tab" id="headingAdd">
                     <h4 class="panel-title">
-                        <input type="text" class="input-question" (click)="openAddForm()" placeholder="Add new question...">
+                        <input type="text" class="input-question" (click)="openAddForm()" name="question"
+                               placeholder="Add new question..." [(ngModel)]="newQuestion.question">
                         <a role="button" data-toggle="collapse" style="display: none;" id="btn_add"
                            data-parent="#accordion" href="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd"></a>
                     </h4>
@@ -31,34 +32,38 @@
                         <form>
                             <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer A">
+                                <input type="text" class="form-control text-answer" name="answerA"
+                                       placeholder="Answer A" [(ngModel)]="newQuestion.answers[0]">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 0" checked="true">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer B">
+                                <input type="text" class="form-control text-answer" name="answerB"
+                                       placeholder="Answer B"  [(ngModel)]="newQuestion.answers[1]">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 1">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer C">
+                                <input type="text" class="form-control text-answer" name="answerC"
+                                       placeholder="Answer C"  [(ngModel)]="newQuestion.answers[2]">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 2">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer D">
+                                <input type="text" class="form-control text-answer" name="answerD"
+                                       placeholder="Answer D"  [(ngModel)]="newQuestion.answers[3]">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 3">
                                 </span>
                             </div>
 
-                            <button type="submit" class="btn pull-right btn-submit btn-success">Save</button>
+                            <button type="submit" class="btn pull-right btn-submit btn-success" (click)="addNewQuestion(newQuestion)">Save</button>
                         </form>
                     </div>
                 </div>
@@ -67,44 +72,46 @@
             <div class="panel panel-default" *ngFor="let question of questions">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
-                        <a class="collapsed title-question" role="button" data-toggle="collapse" data-parent="#accordion" href="#{{question.id}}" aria-expanded="false">
-                            {{question.question}}
+                        <input type="text" class="input-question" (click)="openEditForm(question._id)" name="question"
+                               placeholder="Add new question..." [(ngModel)]="question.question">
+                        <a class="collapsed title-question" role="button" data-toggle="collapse" style="display: none;"
+                           data-parent="#accordion" href="#{{question._id}}" id="btn{{question._id}}" aria-expanded="false">
                         </a>
                     </h4>
                 </div>
-                <div id="{{question.id}}" class="panel-collapse collapse" role="tabpanel">
+                <div id="{{question._id}}" class="panel-collapse collapse" role="tabpanel">
                     <div class="panel-body">
                         <form>
                             <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer A" value="{{question.answers[0]}}">
+                                <input type="text" class="form-control text-answer" placeholder="Answer A" [(ngModel)]="question.answers[0]" name="answerA">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 0" (click)="question.correct = 0">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer B"  value="{{question.answers[1]}}">
+                                <input type="text" class="form-control text-answer" placeholder="Answer B"  [(ngModel)]="question.answers[1]" name="answerB">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 1" (click)="question.correct = 1">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer C"  value="{{question.answers[2]}}">
+                                <input type="text" class="form-control text-answer" placeholder="Answer C"  [(ngModel)]="question.answers[2]" name="answerC">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 2" (click)="question.correct = 2">
                                 </span>
                             </div>
 
                             <div class="input-group answer-control">
-                                <input type="text" class="form-control text-answer" placeholder="Answer D"  value="{{question.answers[3]}}">
+                                <input type="text" class="form-control text-answer" placeholder="Answer D"  [(ngModel)]="question.answers[3]" name="answerD">
                                 <span class="input-group-addon radio-button">
-                                    <input type="radio" name="selectAnswer">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 3" (click)="question.correct = 3">
                                 </span>
                             </div>
 
-                            <button type="submit" class="btn pull-right btn-submit btn-success">Save</button>
+                            <button type="submit" class="btn pull-right btn-submit btn-success" (click)="editQuestion(question)">Save</button>
                         </form>
                     </div>
                 </div>
