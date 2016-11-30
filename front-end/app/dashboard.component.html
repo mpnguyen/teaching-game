@@ -4,17 +4,22 @@
             <h3 class="logo">SPQ Corp</h3>
             <h1 class="title-form">Dashboard</h1>
             <!--<label class="center-block title-package">Create package</label>-->
-            <input type="text" class="center-block form-control input-field" placeholder="Add new package....">
+            <div class="input-group input-field">
+                <input type="text" [(ngModel)]="newPackage" class="center-block form-control input-name-package" placeholder="Add new package....">
+                <span class="input-group-btn">
+                    <button class="btn btn-default input-add-package" type="button" (click)="addNewPackage()">
+                        <span class="button-add glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
         </div><!-- /.col-lg-6 -->
     </div>
 
     <div class="content-package">
         <ul class="list-group list-package center-block">
             <div class="list-group-item item-package list-group-package-css" *ngFor="let package of packages">
-                <a class="listname-package" (click)="loadQuestion(package.id)">{{package.title}}</a>
-
-                <span class="button-delete glyphicon glyphicon-remove" aria-hidden="true"></span>
-
+                <a class="list-name-package" (click)="loadQuestion(package.id)">{{package.title}}</a>
+                <span class="button-delete glyphicon glyphicon-remove" aria-hidden="true" (click)="deletePackage(package.id)"></span>
             </div>
 
         </ul>
@@ -77,8 +82,15 @@
             <div class="panel panel-default" *ngFor="let question of questions">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
-                        <input type="text" class="input-question" (click)="openEditForm(question._id)" name="question"
-                               placeholder="Add new question..." [(ngModel)]="question.question">
+                        <div class="input-group">
+                            <input type="text" class="input-question center-block" [(ngModel)]="question.question"
+                                   placeholder="Input question..." (click)="openEditForm(question._id)" name="question">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default input-add-question" type="button" (click)="deleteQuestion(question._id)">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
                         <a class="collapsed title-question" role="button" data-toggle="collapse" style="display: none;"
                            data-parent="#accordion" href="#{{question._id}}" id="btn{{question._id}}" aria-expanded="false">
                         </a>

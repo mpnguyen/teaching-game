@@ -6,11 +6,10 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {User} from "../models/user.model";
-import {Question} from "../models/question.model";
 
 @Injectable()
 export class UserService {
-    private baseUrl = 'http://192.168.11.24:3000/';
+    private baseUrl = 'http://localhost:3000/';
 
     constructor(private http: Http) { }
 
@@ -85,54 +84,6 @@ export class UserService {
         let url = this.baseUrl + 'users/profile';
         let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token });
         return this.http.get(url, { headers: headers })
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
-    }
-
-    getPackage(access_token: string): Promise<any> {
-        let url = this.baseUrl + 'users/profile/packages';
-        let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token });
-        return this.http.get(url, { headers: headers })
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
-    }
-
-    getQuestion(id: string, access_token: string): Promise<any> {
-        let url = this.baseUrl + 'users/profile/packages/' + id + "/questions/" ;
-        let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token });
-        return this.http.get(url, { headers: headers })
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
-    }
-
-    editQuestion(question: Question, idPackage: string, access_token: string): Promise<any> {
-        let url = this.baseUrl + 'users/profile/packages/' + idPackage + "/questions/" + question._id;
-        let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token});
-        let body = {
-            'question': question.question,
-            'answers': question.answers,
-            'image': question.image,
-            'correct': question.correct
-        };
-        return this.http.put(url, body, { headers: headers })
-            .toPromise()
-            .then(res => res.json())
-            .catch(this.handleError);
-    }
-
-    newQuestion(question: Question, idPackage: string, access_token: string): Promise<any> {
-        let url = this.baseUrl + 'users/profile/packages/' + idPackage + "/questions/";
-        let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token});
-        let body = {
-            'question': question.question,
-            'answers': question.answers,
-            'image': question.image,
-            'correct': question.correct
-        };
-        return this.http.post(url, body, { headers: headers })
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

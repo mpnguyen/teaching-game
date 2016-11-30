@@ -10,7 +10,7 @@
             <input type="password" class="form-control input-field center-block" id="pwd"
                    placeholder="Password" [(ngModel)]="user.password" name="password" required>
         </div>
-        <div class="alert alert-danger" *ngIf="message" role="alert">{{message}}</div>
+        <div class="alert alert-danger message center-block" *ngIf="message" role="alert">{{message}}</div>
         <button type="submit" class="btn btn-info btn-submit center-block">Login</button>
         <button type="button" class="btn btn-success btn-second center-block" (click)="forgetPass()">Foget Password</button>
         <button type="button" class="btn btn-warning btn-second center-block" (click)="register()">Register</button>

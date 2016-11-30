@@ -14,10 +14,11 @@ import { RegisterComponent }  from './register.component';
 import { ForgetComponent }  from './forget.component';
 import { ResetComponent }  from './reset.component';
 import {DashboardComponent} from "./dashboard.component";
+import {QuestionService} from "./services/question.service";
 
 @NgModule({
     imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage ],
-    providers: [ UserService ],
+    providers: [ UserService, QuestionService ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
         ForgetComponent, ResetComponent, DashboardComponent ],
     bootstrap:    [ AppComponent ]

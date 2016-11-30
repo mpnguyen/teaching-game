@@ -2,12 +2,11 @@
  * Created by mp_ng on 11/25/2016.
  */
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "./services/user.service";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "ng2-webstorage";
-import {User} from "./models/user.model";
 import {Package} from "./models/package.model";
 import {Question} from "./models/question.model";
+import {QuestionService} from "./services/question.service";
 
 declare let $: any;
 
@@ -20,18 +19,18 @@ declare let $: any;
 export class DashboardComponent implements OnInit {
 
     access_token: string;
-    user: User = new User();
-    packages: Package[];
+    packages: Package[] = new Array();
     questions: Question[];
     newQuestion: Question = new Question();
     idPackage: string;
+    newPackage: string = '';
 
     ngOnInit(): void {
         this.access_token = this.storage.retrieve("access_token");
         if (this.access_token == null || this.access_token == "")
             this.router.navigate(['login']);
 
-        this.userService.getPackage(this.access_token)
+        this.questionService.getPackage(this.access_token)
             .then(res => {
                 if (res.success) {
                     this.packages = res.packages;
@@ -43,7 +42,7 @@ export class DashboardComponent implements OnInit {
     }
 
     loadQuestion(id: string) {
-        this.userService.getQuestion(id, this.access_token)
+        this.questionService.getQuestion(id, this.access_token)
             .then(res => {
                 if (res.success) {
                     this.idPackage = id;
@@ -56,24 +55,24 @@ export class DashboardComponent implements OnInit {
 
     editQuestion(question: Question){
 
-        if(question.question == ''){
-            alert("Question can not empty!!");
+        if (question.question == ''){
+            alert('Question can not empty!!');
             return;
         }
 
-        for(let i = 0;i<=3;i++){
+        for (let i = 0;i<=3;i++){
             if(question.answers[i] == ''){
-                alert("The answer of each question can not empty!!!");
+                alert('The answer of each question can not empty!!!');
                 return;
             }
         }
 
-        this.userService.editQuestion(question, this.idPackage, this.access_token)
+        this.questionService.editQuestion(question, this.idPackage, this.access_token)
             .then(res => {
                 if (res.success) {
 
                 } else {
-                    alert("Fail!");
+                    alert('Fail!');
                 }
             }).catch(err => console.log(err));
 
@@ -82,22 +81,23 @@ export class DashboardComponent implements OnInit {
 
     addNewQuestion(question: Question){
 
-        if(question.question == ''){
-            alert("Question can not empty!!");
+        if (question.question == ''){
+            alert('Question can not empty!!');
             return;
         }
 
-        for(let i = 0;i<=3;i++){
+        for (let i = 0;i<=3;i++){
             if(question.answers[i] == ''){
-                alert("The answer of each question can not empty!!!");
+                alert('The answer of each question can not empty!!!');
                 return;
             }
         }
 
-        this.userService.newQuestion(question, this.idPackage, this.access_token)
+        this.questionService.newQuestion(question, this.idPackage, this.access_token)
             .then(res => {
                 if(res.success) {
                     let question: Question = res.question;
+                    console.log(question);
                     this.questions.push(question);
                 } else {
                     alert(res.message);
@@ -108,6 +108,46 @@ export class DashboardComponent implements OnInit {
         this.openAddForm();
     }
 
+    addNewPackage() {
+        if (this.newPackage == '') {
+            alert('Package name can not empty');
+            return;
+        }
+
+        this.questionService.addNewPackage(this.newPackage, this.access_token)
+            .then(res => {
+                debugger;
+                if (res.success) {
+                    this.packages = res.packages;
+                    this.newPackage = '';
+                } else {
+                    alert(res.message);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    deletePackage(idPackage: string) {
+        this.questionService.deletePackage(idPackage, this.access_token)
+            .then(res => {
+                debugger;
+                if (res.success) {
+                    let item = this.packages.find(item => item.id == idPackage);
+                    this.packages.splice(this.packages.indexOf(item), 1);
+                }
+            }).catch(err => console.log(err));
+    }
+
+    deleteQuestion(idQuestion: string) {
+        this.questionService.deleteQuestion(idQuestion, this.idPackage, this.access_token)
+            .then(res => {
+                if (res.success) {
+                    let item = this.questions.find(item => item._id == idQuestion);
+                    this.questions.splice(this.questions.indexOf(item), 1);
+                }
+            }).catch(err => console.log(err))
+    }
+
     openAddForm() {
         $('#btn_add').click();
     }
@@ -116,5 +156,5 @@ export class DashboardComponent implements OnInit {
         $('#btn' + id).click();
     }
 
-    constructor(private router: Router, private userService: UserService, private storage:LocalStorageService) {}
+    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService) {}
 }

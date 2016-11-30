@@ -6,7 +6,7 @@
             <input type="text" class="form-control input-field center-block" (blur)="checkValidUsername()" id="username"
                    placeholder="Username" [(ngModel)]="user.username" name="username" required>
         </div>
-        <div class="alert alert-dange messager center-block" *ngIf="messageUsername" role="alert">{{messageUsername}}</div>
+        <div class="alert alert-danger message center-block" *ngIf="messageUsername" role="alert">{{messageUsername}}</div>
         <div class="form-group " >
             <input type="text" class="form-control input-field center-block" (blur)="checkValidEmail()" id="email"
                    placeholder="Email" [(ngModel)]="user.email" name="username" required>
