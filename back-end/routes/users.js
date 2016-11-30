@@ -284,8 +284,14 @@ router.get('/profile/packages/:package', function (req, res, next) {
 
 router.delete('/profile/packages/:package', function (req, res, next) {
    req.package.remove(function (err, result) {
-       if(err){return next(err)}
-       res.json(result);
+       if(err){return res.json({
+           success: false,
+           message: err
+       })}
+       res.json({
+           success: true,
+           message: result
+       });
    })
 });
 
