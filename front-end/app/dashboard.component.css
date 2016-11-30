@@ -129,3 +129,17 @@
     margin-right: 10%;
     margin-left: 10%;
 }
+.button-delete{
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.listname-package{
+    display: inline-block;
+    width: 85%;
+    margin: 0;
+    padding: 10px 15px;
+}
+.list-group-package-css{
+    padding: 0px !important;
+}

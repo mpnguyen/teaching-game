@@ -10,8 +10,13 @@
 
     <div class="content-package">
         <ul class="list-group list-package center-block">
-            <a class="list-group-item item-package" *ngFor="let package of packages"
-               (click)="loadQuestion(package.id)">{{package.title}}</a>
+            <div class="list-group-item item-package list-group-package-css" *ngFor="let package of packages">
+                <a class="listname-package" (click)="loadQuestion(package.id)">{{package.title}}</a>
+
+                <span class="button-delete glyphicon glyphicon-remove" aria-hidden="true"></span>
+
+            </div>
+
         </ul>
     </div>
 </div>
@@ -77,6 +82,7 @@
                         <a class="collapsed title-question" role="button" data-toggle="collapse" style="display: none;"
                            data-parent="#accordion" href="#{{question._id}}" id="btn{{question._id}}" aria-expanded="false">
                         </a>
+
                     </h4>
                 </div>
                 <div id="{{question._id}}" class="panel-collapse collapse" role="tabpanel">
@@ -88,6 +94,7 @@
                                 <span class="input-group-addon radio-button">
                                     <input type="radio" name="selectAnswer" [checked]="question.correct == 0" (click)="question.correct = 0">
                                 </span>
+
                             </div>
 
                             <div class="input-group answer-control">
