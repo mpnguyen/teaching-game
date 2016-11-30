@@ -282,6 +282,13 @@ router.get('/profile/packages/:package', function (req, res, next) {
     });
 });
 
+router.delete('/profile/packages/:package', function (req, res, next) {
+   req.package.remove(function (err, result) {
+       if(err){return next(err)}
+       res.json(result);
+   })
+});
+
 router.get('/profile/packages/:package/questions', function (req, res, next) {
    req.package.populate('questions', function (err, package) {
        if(err) {return res.json({
@@ -306,7 +313,7 @@ router.post('/profile/packages/:package/questions', function (req, res, next) {
             if(err){return next(err)}
             res.json({
                 success: true,
-                questions: package.questions
+                question: question
             })
         })
     })
@@ -332,9 +339,45 @@ router.get('/profile/packages/:package/questions/:question', function (req, res,
     })
 });
 
-router.post('/file', upload.single('avatar'), function (req, res, next) {
+router.put('/profile/packages/:package/questions/:question', function (req, res, next) {
+   req.question.update(req.body, function (err, question) {
+       if(err){return res.json({
+           success: false,
+           message: "Error occurred"
+       })}
+       res.json({
+           success: true,
+           message: "Update successful"
+       })
+   })
+});
+
+router.delete('/profile/packages/:package/questions/:question', function (req, res, next) {
+   req.question.remove(function (err, result) {
+       if(err){return res.json({
+           success: false,
+           message: err
+       })}
+       res.json({
+           success: true,
+           message: result
+       })
+   })
+});
+
+router.post('/file', upload.single('image'), function (req, res, next) {
     console.log(req.file);
-    res.json(req.body);
+    if(req.file === undefined || req.file === null){
+        return res.json({
+            success: false,
+            message: "Error occurred"
+        })
+    }
+    var image = req.file.filename;
+    res.json({
+        success: true,
+        image: image
+    });
 });
 
 module.exports = router;

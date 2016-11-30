@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 var QuestionSchema = new mongoose.Schema({
-    id: String,
     question: { type: String, required: true },
     image: String,
     answers: [String],
