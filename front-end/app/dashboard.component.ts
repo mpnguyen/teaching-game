@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
             .then(res => {
                 debugger;
                 if (res.success) {
-                    this.packages = res.packages;
+                    this.packages.push(res.package);
                     this.newPackage = '';
                 } else {
                     alert(res.message);
