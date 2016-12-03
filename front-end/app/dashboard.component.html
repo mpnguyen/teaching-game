@@ -101,6 +101,12 @@
                     <div class="panel-body">
                         <form>
                             <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
+
+                            <div class="fileUpload btn btn-primary">
+                                <span>Select image</span>
+                                <input id="uploadBtn" type="file" class="upload" (change)="uploadImage($event)" />
+                            </div>
+
                             <div class="input-group answer-control">
                                 <input type="text" class="form-control text-answer" placeholder="Answer A" [(ngModel)]="question.answers[0]" name="answerA">
                                 <span class="input-group-addon radio-button">

@@ -41,6 +41,10 @@ export class DashboardComponent implements OnInit {
 
     }
 
+    ngAfterViewInit():void {
+
+    }
+
     loadQuestion(id: string) {
         this.questionService.getQuestion(id, this.access_token)
             .then(res => {
@@ -146,6 +150,11 @@ export class DashboardComponent implements OnInit {
                     this.questions.splice(this.questions.indexOf(item), 1);
                 }
             }).catch(err => console.log(err))
+    }
+
+    uploadImage(event: any) {
+        let files = event.srcElement.files;
+        console.log(files);
     }
 
     openAddForm() {
