@@ -15,12 +15,13 @@ import { ForgetComponent }  from './forget.component';
 import { ResetComponent }  from './reset.component';
 import {DashboardComponent} from "./dashboard.component";
 import {QuestionService} from "./services/question.service";
+import {ErrorComponent} from "./error.component";
 
 @NgModule({
     imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage ],
     providers: [ UserService, QuestionService ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
-        ForgetComponent, ResetComponent, DashboardComponent ],
+        ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

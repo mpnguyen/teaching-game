@@ -9,6 +9,7 @@ import {RegisterComponent} from "./register.component";
 import {ForgetComponent} from "./forget.component";
 import {ResetComponent} from "./reset.component";
 import {DashboardComponent} from "./dashboard.component";
+import {ErrorComponent} from "./error.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'register',     component: RegisterComponent },
     { path: 'forget',     component: ForgetComponent },
     { path: 'dashboard',     component: DashboardComponent },
-    { path: 'reset/:token',     component: ResetComponent }
+    { path: 'reset/:token',     component: ResetComponent },
+    { path: 'error', component: ErrorComponent}
 ];
 
 @NgModule({
