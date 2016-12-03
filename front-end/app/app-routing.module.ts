@@ -10,6 +10,7 @@ import {ForgetComponent} from "./forget.component";
 import {ResetComponent} from "./reset.component";
 import {DashboardComponent} from "./dashboard.component";
 import {ErrorComponent} from "./error.component";
+import {PlayComponent} from "./play.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'forget',     component: ForgetComponent },
     { path: 'dashboard',     component: DashboardComponent },
     { path: 'reset/:token',     component: ResetComponent },
-    { path: 'error', component: ErrorComponent}
+    { path: 'error', component: ErrorComponent},
+    { path: 'play', component: PlayComponent}
 ];
 
 @NgModule({

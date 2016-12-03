@@ -6,10 +6,11 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {User} from "../models/user.model";
+import {Constants} from "../others/Config";
 
 @Injectable()
 export class UserService {
-    private baseUrl = 'http://localhost:3000/';
+    private baseUrl = Constants.BASE_URL;
 
     constructor(private http: Http) { }
 

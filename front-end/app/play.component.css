@@ -1,0 +1,39 @@
+.content {
+    background-color: #842c81;
+    height: 100vh;
+}
+
+.logo {
+    margin: 8px;
+    height: 37px;
+}
+
+.image-question {
+    height: 480px;
+    max-width: 80%;
+}
+
+.question {
+    width: 80%;
+}
+
+.button-answer {
+    margin-top: 10px;
+    font-size: 4rem;
+    line-height: 6rem;
+}
+
+.group-button-answer {
+    margin-top: 20%;
+}
+
+.countdown {
+    margin-top: 20%;
+    width: 100%;
+}
+
+.time-countdown {
+    font-size: 10rem;
+    text-align: center;
+    color: white;
+}

@@ -6,10 +6,11 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Question} from "../models/question.model";
+import {Constants} from "../others/Config";
 
 @Injectable()
 export class QuestionService {
-    private baseUrl = 'http://localhost:3000/';
+    private baseUrl = Constants.BASE_URL;
 
     constructor(private http: Http) { }
 
@@ -93,6 +94,20 @@ export class QuestionService {
             title: titlePackage
         };
         return this.http.post(url, body, { headers: headers })
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    uploadQuestionImage(file: File|any, access_token: string): Promise<any> {
+        console.log(file);
+        let url = this.baseUrl + 'files';
+        let headers = new Headers({'x-access-token': access_token});
+
+        let formData:FormData = new FormData();
+        formData.append('image', file);
+
+        return this.http.post(url, formData, headers)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

@@ -16,12 +16,13 @@ import { ResetComponent }  from './reset.component';
 import {DashboardComponent} from "./dashboard.component";
 import {QuestionService} from "./services/question.service";
 import {ErrorComponent} from "./error.component";
+import {PlayComponent} from "./play.component";
 
 @NgModule({
     imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage ],
     providers: [ UserService, QuestionService ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
-        ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent ],
+        ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

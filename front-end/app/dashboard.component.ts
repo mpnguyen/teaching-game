@@ -7,6 +7,7 @@ import {LocalStorageService} from "ng2-webstorage";
 import {Package} from "./models/package.model";
 import {Question} from "./models/question.model";
 import {QuestionService} from "./services/question.service";
+import {Constants} from "./others/Config";
 
 declare let $: any;
 
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
     newQuestion: Question = new Question();
     idPackage: string;
     newPackage: string = '';
+    baseUrl: string = Constants.BASE_URL;
 
     ngOnInit(): void {
         this.access_token = this.storage.retrieve("access_token");
@@ -152,9 +154,24 @@ export class DashboardComponent implements OnInit {
             }).catch(err => console.log(err))
     }
 
-    uploadImage(event: any) {
+    uploadImage(event: any, question: Question = null) {
         let files = event.srcElement.files;
-        console.log(files);
+
+        if (files.length > 0) {
+            this.questionService.uploadQuestionImage(files[0], this.access_token)
+                .then(res => {
+                    if (res.success) {
+                        console.log(res.image);
+                        if (question) {
+                            question.image = res.image;
+                        } else {
+                            this.newQuestion.image = res.image;
+                        }
+                    } else {
+                        console.log(res.message);
+                    }
+                }).catch(err => console.log(err));
+        }
     }
 
     openAddForm() {

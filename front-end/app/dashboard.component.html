@@ -27,6 +27,9 @@
 </div>
 <div class="col-md-8 content">
     <div class="content-question">
+
+        <button class="btn btn-success btn-play-game" *ngIf="idPackage">Play game</button>
+
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default" *ngIf="idPackage">
                 <div class="panel-heading" role="tab" id="headingAdd">
@@ -40,7 +43,13 @@
                 <div id="collapseAdd" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAdd">
                     <div class="panel-body">
                         <form>
-                            <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
+                            <img class="center-block image-picker" *ngIf="newQuestion.image" src="{{baseUrl}}/{{newQuestion.image}}">
+
+                            <div class="fileUpload btn btn-primary">
+                                <span>Select image</span>
+                                <input id="uploadNewBtn" type="file" class="upload" (change)="uploadImage($event)" />
+                            </div>
+
                             <div class="input-group answer-control">
                                 <input type="text" class="form-control text-answer" name="answerA"
                                        placeholder="Answer A" [(ngModel)]="newQuestion.answers[0]">
@@ -100,11 +109,11 @@
                 <div id="{{question._id}}" class="panel-collapse collapse" role="tabpanel">
                     <div class="panel-body">
                         <form>
-                            <img class="center-block image-picker" src="http://ajaxuploader.com/images/drag-drop-file-upload.png">
+                            <img class="center-block image-picker" *ngIf="question.image" src="{{baseUrl}}/{{question.image}}">
 
                             <div class="fileUpload btn btn-primary">
                                 <span>Select image</span>
-                                <input id="uploadBtn" type="file" class="upload" (change)="uploadImage($event)" />
+                                <input id="uploadBtn" type="file" class="upload" (change)="uploadImage($event, question)" />
                             </div>
 
                             <div class="input-group answer-control">
