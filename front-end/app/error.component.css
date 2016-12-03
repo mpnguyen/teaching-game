@@ -1,0 +1,26 @@
+
+.typeDetailInfo{
+    border-left-color: #a94442;
+}
+.typeDetail{
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid #a94442;
+    border-left-width: 5px;
+    border-radius: 3px;
+    background-color: #f2dede;
+    display:inline-block;
+}
+.error{
+    color:#a94442;
+}
+.detail{
+
+}
+.backHome{
+    font-size: 15px;
+    float:right;
+
+    color:#a94442;
+
+}
