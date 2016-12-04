@@ -6,6 +6,7 @@ import { HttpModule }    from '@angular/http';
 import {Ng2Webstorage} from 'ng2-webstorage';
 
 import { UserService } from "./services/user.service"
+import {QuestionService} from "./services/question.service";
 
 import { AppComponent }  from './app.component';
 import { HomeComponent }  from './home.component';
@@ -14,7 +15,6 @@ import { RegisterComponent }  from './register.component';
 import { ForgetComponent }  from './forget.component';
 import { ResetComponent }  from './reset.component';
 import {DashboardComponent} from "./dashboard.component";
-import {QuestionService} from "./services/question.service";
 import {ErrorComponent} from "./error.component";
 import {PlayComponent} from "./play.component";
 

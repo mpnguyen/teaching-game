@@ -2,7 +2,7 @@
  * Created by mp_ng on 12/3/2016.
  */
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {GameService} from "./services/game.service";
+import * as io from 'socket.io-client'
 
 declare let $: any;
 
@@ -10,15 +10,13 @@ declare let $: any;
     moduleId: module.id,
     selector: 'play',
     styleUrls: ['./play.component.css'],
-    templateUrl: './play.component.html',
-    providers: [GameService]
+    templateUrl: './play.component.html'
 })
 export class PlayComponent implements OnInit, OnDestroy{
 
-    constructor(private gameService: GameService) {}
+    constructor() {}
 
     ngOnInit(): void {
-        this.gameService.connected();
     }
 
     ngOnDestroy(): void {
@@ -30,13 +28,8 @@ export class PlayComponent implements OnInit, OnDestroy{
 
         $('#clock').countdown(deadline.toLocaleString())
             .on('update.countdown', function(event:any) {
-                var format = '%S';
-                // if(event.offset.totalDays > 0) {
-                //     format = '%-d day%!d ' + format;
-                // }
-                // if(event.offset.weeks > 0) {
-                //     format = '%-w week%!w ' + format;
-                // }
+                let format = '%S';
+
                 $(this).html(event.strftime(format));
             })
             .on('finish.countdown', function(event: any) {
