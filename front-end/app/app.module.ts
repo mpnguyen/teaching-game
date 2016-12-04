@@ -4,6 +4,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import {Ng2Webstorage} from 'ng2-webstorage';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 import { UserService } from "./services/user.service"
 import {QuestionService} from "./services/question.service";
@@ -19,7 +20,7 @@ import {ErrorComponent} from "./error.component";
 import {PlayComponent} from "./play.component";
 
 @NgModule({
-    imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage ],
+    imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule ],
     providers: [ UserService, QuestionService ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
         ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent ],

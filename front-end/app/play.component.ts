@@ -1,7 +1,8 @@
 /**
  * Created by mp_ng on 12/3/2016.
  */
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import * as io from 'socket.io-client'
 
 declare let $: any;
@@ -14,7 +15,7 @@ declare let $: any;
 })
 export class PlayComponent implements OnInit, OnDestroy{
 
-    constructor() {}
+    constructor(private toastr: ToastsManager, private containerRef: ViewContainerRef) {};
 
     ngOnInit(): void {
     }
@@ -22,7 +23,16 @@ export class PlayComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {
     }
 
+    showSuccess() {
+        this.toastr.success('You are awesome!', 'Success!');
+    }
+
+    showError() {
+        this.toastr.error('You are awesome!', 'Error!');
+    }
+
     ngAfterViewInit() {
+        this.showSuccess()
         let deadline = new Date(Date.now());
         deadline.setSeconds(deadline.getSeconds() + 10);
 
