@@ -1,7 +1,8 @@
 /**
  * Created by mp_ng on 12/3/2016.
  */
-import { Component } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {GameService} from "./services/game.service";
 
 declare let $: any;
 
@@ -9,9 +10,20 @@ declare let $: any;
     moduleId: module.id,
     selector: 'play',
     styleUrls: ['./play.component.css'],
-    templateUrl: './play.component.html'
+    templateUrl: './play.component.html',
+    providers: [GameService]
 })
-export class PlayComponent {
+export class PlayComponent implements OnInit, OnDestroy{
+
+    constructor(private gameService: GameService) {}
+
+    ngOnInit(): void {
+        this.gameService.connected();
+    }
+
+    ngOnDestroy(): void {
+    }
+
     ngAfterViewInit() {
         let deadline = new Date(Date.now());
         deadline.setSeconds(deadline.getSeconds() + 10);
