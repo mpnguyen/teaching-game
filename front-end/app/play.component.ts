@@ -24,6 +24,8 @@ export class PlayComponent implements OnInit, OnDestroy{
     }
 
     showSuccess() {
+
+
         this.toastr.success('You are awesome!', 'Success!');
     }
 

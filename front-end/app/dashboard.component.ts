@@ -8,6 +8,7 @@ import {Package} from "./models/package.model";
 import {Question} from "./models/question.model";
 import {QuestionService} from "./services/question.service";
 import {Constants} from "./others/Config";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 declare let $: any;
 
@@ -36,8 +37,9 @@ export class DashboardComponent implements OnInit {
             .then(res => {
                 if (res.success) {
                     this.packages = res.packages;
+                    this.showSuccessQuestionService();
                 } else {
-                    alert(res.message);
+                    this.showError(res.message);
                 }
             }).catch(err => console.log(err));
 
@@ -53,8 +55,9 @@ export class DashboardComponent implements OnInit {
                 if (res.success) {
                     this.idPackage = id;
                     this.questions = res.questions;
+                    this.showSuccessQuestionServiceLoading();
                 } else {
-                    alert(res.message);
+                    this.showError(res.message);
                 }
             }).catch(err => console.log(err));
     }
@@ -62,13 +65,13 @@ export class DashboardComponent implements OnInit {
     editQuestion(question: Question){
 
         if (question.question == ''){
-            alert('Question can not empty!!');
+            this.showErrorQuestionEmpty();
             return;
         }
 
         for (let i = 0;i<=3;i++){
             if(question.answers[i] == ''){
-                alert('The answer of each question can not empty!!!');
+                this.showErrorQuestionAnswerEmpty();
                 return;
             }
         }
@@ -76,9 +79,9 @@ export class DashboardComponent implements OnInit {
         this.questionService.editQuestion(question, this.idPackage, this.access_token)
             .then(res => {
                 if (res.success) {
-
+                    this.showSuccessEditingQuestion();
                 } else {
-                    alert('Fail!');
+                    this.showError(res.message);
                 }
             }).catch(err => console.log(err));
 
@@ -88,13 +91,13 @@ export class DashboardComponent implements OnInit {
     addNewQuestion(question: Question){
 
         if (question.question == ''){
-            alert('Question can not empty!!');
+            this.showErrorQuestionEmpty();
             return;
         }
 
         for (let i = 0;i<=3;i++){
             if(question.answers[i] == ''){
-                alert('The answer of each question can not empty!!!');
+                this.showErrorQuestionAnswerEmpty();
                 return;
             }
         }
@@ -105,8 +108,9 @@ export class DashboardComponent implements OnInit {
                     let question: Question = res.question;
                     console.log(question);
                     this.questions.push(question);
+                    this.showSuccessAddingQuestion();
                 } else {
-                    alert(res.message);
+                    this.showError(res.message);
                 }
             }).catch(err => console.log(err));
 
@@ -116,18 +120,19 @@ export class DashboardComponent implements OnInit {
 
     addNewPackage() {
         if (this.newPackage == '') {
-            alert('Package name can not empty');
+            this.showErrorPackageName();
             return;
         }
 
         this.questionService.addNewPackage(this.newPackage, this.access_token)
             .then(res => {
-                debugger;
+
                 if (res.success) {
                     this.packages.push(res.package);
                     this.newPackage = '';
+                    this.showSuccessAddingPackages();
                 } else {
-                    alert(res.message);
+                    this.showError(res.message);
                 }
             })
             .catch(err => console.log(err));
@@ -136,10 +141,13 @@ export class DashboardComponent implements OnInit {
     deletePackage(idPackage: string) {
         this.questionService.deletePackage(idPackage, this.access_token)
             .then(res => {
-                debugger;
+
                 if (res.success) {
                     let item = this.packages.find(item => item.id == idPackage);
                     this.packages.splice(this.packages.indexOf(item), 1);
+                    this.showSuccessDeletingPackages();
+                } else {
+                    this.showError(res.message);
                 }
             }).catch(err => console.log(err));
     }
@@ -150,8 +158,12 @@ export class DashboardComponent implements OnInit {
                 if (res.success) {
                     let item = this.questions.find(item => item._id == idQuestion);
                     this.questions.splice(this.questions.indexOf(item), 1);
+                    this.showSuccessDeletingPackages();
+                } else {
+                    this.showError(res.message);
                 }
-            }).catch(err => console.log(err))
+
+            }).catch(err => console.log(err));
     }
 
     uploadImage(event: any, question: Question = null) {
@@ -161,14 +173,14 @@ export class DashboardComponent implements OnInit {
             this.questionService.uploadQuestionImage(files[0], this.access_token)
                 .then(res => {
                     if (res.success) {
-                        console.log(res.image);
+                        this.showSuccessUploadingImage();
                         if (question) {
                             question.image = res.image;
                         } else {
                             this.newQuestion.image = res.image;
                         }
                     } else {
-                        console.log(res.message);
+                        this.showError(res.message);
                     }
                 }).catch(err => console.log(err));
         }
@@ -182,5 +194,52 @@ export class DashboardComponent implements OnInit {
         $('#btn' + id).click();
     }
 
-    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService) {}
+    showSuccess() {
+        this.toastr.success('You are awesome! You have got all the questions!', 'Success!');
+    }
+
+    showSuccessAddingPackages() {
+        this.toastr.success('Ding dong! Your package has been updated right below!', 'Success!');
+    }
+
+    showSuccessAddingQuestion() {
+        this.toastr.success('Your questions have been added perfectly!', 'Success!');
+    }
+    showSuccessEditingQuestion() {
+        this.toastr.success('Your questions have been edited successfully!', 'Success!');
+    }
+
+    showSuccessQuestionService() {
+        this.toastr.success('Question services are excellent!', 'Success!');
+    }
+
+    showSuccessQuestionServiceLoading() {
+        this.toastr.success('Loading question is perfect!', 'Success!');
+    }
+
+    showSuccessDeletingPackages() {
+        this.toastr.success('Packages have been deleted successfully ', 'Success!');
+    }
+
+    showSuccessUploadingImage() {
+        this.toastr.success('Your images are wonderful!', 'Success!');
+    }
+
+    showErrorQuestionEmpty() {
+        this.toastr.error('Questions could not be empty!', 'Error!');
+    }
+
+    showErrorQuestionAnswerEmpty() {
+        this.toastr.error('The answers of each question can not be empty!', 'Error!');
+    }
+
+    showErrorPackageName() {
+        this.toastr.error('The package name could not be empty!', 'Error!');
+    }
+
+    showError(error: string) {
+        this.toastr.error(error, 'Error!');
+    }
+
+    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService,private toastr: ToastsManager) {}
 }
