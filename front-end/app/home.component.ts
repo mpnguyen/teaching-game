@@ -4,7 +4,11 @@
 import { Component } from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'my-home',
-    template: `<h1>Home</h1>`
+    styles: [''],
+    templateUrl: './home.component.html'
 })
-export class HomeComponent {}
+export class HomeComponent {
+
+}

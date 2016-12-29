@@ -6,10 +6,11 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {User} from "../models/user.model";
+import {Constants} from "../others/Config";
 
 @Injectable()
 export class UserService {
-    private baseUrl = 'http://192.168.1.13:3000/';
+    private baseUrl = Constants.BASE_URL;
 
     constructor(private http: Http) { }
 
@@ -21,7 +22,7 @@ export class UserService {
     }
 
     login(user: User): Promise<any> {
-        let url = this.baseUrl + "users/authenticate";
+        let url = this.baseUrl + 'users/authenticate';
         return this.http.post(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(res => res.json())
@@ -29,7 +30,7 @@ export class UserService {
     }
 
     register(user: User): Promise<any> {
-        let url = this.baseUrl + "users";
+        let url = this.baseUrl + 'users';
         return this.http.post(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(res => res.json())
@@ -37,7 +38,7 @@ export class UserService {
     }
 
     forgetPass(user: User): Promise<any> {
-        let url = this.baseUrl + "users/forget";
+        let url = this.baseUrl + 'users/forget';
         return this.http.post(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(res => res.json())
@@ -45,7 +46,7 @@ export class UserService {
     }
 
     checkToken(token: string): Promise<any> {
-        let url = this.baseUrl + "users/reset?token=" + token;
+        let url = this.baseUrl + 'users/reset?token=' + token;
         return this.http.get(url)
             .toPromise()
             .then(res => res.json())
@@ -53,7 +54,7 @@ export class UserService {
     }
 
     resetPass(password: string, token: string): Promise<any>{
-        let url = this.baseUrl + "users/reset";
+        let url = this.baseUrl + 'users/reset';
         let body = {
             password: password,
             token: token
@@ -65,7 +66,7 @@ export class UserService {
     }
 
     checkValidUsername(user: User): Promise<any>  {
-        let url = this.baseUrl + "users/isusernamevalid/?username=" + user.username;
+        let url = this.baseUrl + 'users/isusernamevalid/?username=' + user.username;
         return this.http.get(url)
             .toPromise()
             .then(res => res.json())
@@ -73,8 +74,17 @@ export class UserService {
     }
 
     checkValidEmail(user: User): Promise<any> {
-        let url = this.baseUrl + "users/isemailvalid/?email=" + user.email;
+        let url = this.baseUrl + 'users/isemailvalid/?email=' + user.email;
         return this.http.get(url)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    getProfile(access_token: string): Promise<any> {
+        let url = this.baseUrl + 'users/profile';
+        let headers = new Headers({'Content-Type': 'application/json', 'x-access-token': access_token });
+        return this.http.get(url, { headers: headers })
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

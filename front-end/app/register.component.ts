@@ -9,6 +9,7 @@ import {UserService} from "./services/user.service";
 @Component({
     moduleId: module.id,
     selector: 'user-register',
+    styleUrls: ['./register.component.css'],
     templateUrl: './register.component.html'
 })
 export class RegisterComponent {
@@ -19,6 +20,7 @@ export class RegisterComponent {
 
     messageUsername: string;
     messageEmail: string;
+    messageConfirmPass: string;
 
     constructor(private router: Router, private userService: UserService) {}
 
@@ -61,6 +63,14 @@ export class RegisterComponent {
                 }
             })
             .catch(err => console.log(err));
+    }
+
+    checkValidPassword() {
+        if (this.user.password === this.confirmPass) {
+            this.messageConfirmPass = null;
+        } else {
+            this.messageConfirmPass = "Please check your confirm password"
+        }
     }
 
 }

@@ -1,17 +1,20 @@
-<div class="container">
-    <h1>Login Form</h1>
-    <form (submit)="login()">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required>
+<div class="container col-md-4">
+    <h3 class="logo">SPQ Corp</h3>
+    <h1 class="title-form">Login</h1>
+    <form class="my-form" (submit)="login()">
+        <div class="form-group " >
+            <input type="text" class="form-control input-field center-block" id="username"
+                   placeholder="Username" [(ngModel)]="user.username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" required>
+            <input type="password" class="form-control input-field center-block" id="pwd"
+                   placeholder="Password" [(ngModel)]="user.password" name="password" required>
         </div>
-        <div class="alert alert-danger" *ngIf="message" role="alert">{{message}}</div>
-        <button type="submit" class="btn btn-default">Login</button>
-        <button type="button" class="btn btn-default" (click)="forgetPass()">Forget Password</button>
-        <button type="button" class="btn btn-default" (click)="register()">Register</button>
+        <div class="alert alert-danger message center-block" *ngIf="message" role="alert">{{message}}</div>
+        <button type="submit" class="btn btn-info btn-submit center-block">Login</button>
+        <button type="button" class="btn btn-success btn-second center-block" (click)="forgetPass()">Foget Password</button>
+        <button type="button" class="btn btn-warning btn-second center-block" (click)="register()">Register</button>
     </form>
+</div>
+<div class="col-md-8 content">
 </div>

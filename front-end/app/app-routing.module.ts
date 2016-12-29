@@ -8,6 +8,9 @@ import { LoginComponent }  from './login.component';
 import {RegisterComponent} from "./register.component";
 import {ForgetComponent} from "./forget.component";
 import {ResetComponent} from "./reset.component";
+import {DashboardComponent} from "./dashboard.component";
+import {ErrorComponent} from "./error.component";
+import {PlayComponent} from "./play.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,7 +18,10 @@ const routes: Routes = [
     { path: 'login',     component: LoginComponent },
     { path: 'register',     component: RegisterComponent },
     { path: 'forget',     component: ForgetComponent },
-    { path: 'reset/:token',     component: ResetComponent }
+    { path: 'dashboard',     component: DashboardComponent },
+    { path: 'reset/:token',     component: ResetComponent },
+    { path: 'error', component: ErrorComponent},
+    { path: 'play', component: PlayComponent}
 ];
 
 @NgModule({

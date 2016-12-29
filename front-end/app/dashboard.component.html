@@ -1,0 +1,156 @@
+<div class="col-md-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="logo">SPQ Corp</h3>
+            <h1 class="title-form">Dashboard</h1>
+            <!--<label class="center-block title-package">Create package</label>-->
+            <div class="input-group input-field">
+                <input type="text" [(ngModel)]="newPackage" class="center-block form-control input-name-package" placeholder="Add new package....">
+                <span class="input-group-btn">
+                    <button class="btn btn-default input-add-package" type="button" (click)="addNewPackage()">
+                        <span class="button-add glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+
+    <div class="content-package">
+        <ul class="list-group list-package center-block">
+            <div class="list-group-item item-package list-group-package-css" *ngFor="let package of packages">
+                <a class="list-name-package" (click)="loadQuestion(package.id)">{{package.title}}</a>
+                <span class="button-delete glyphicon glyphicon-remove" aria-hidden="true" (click)="deletePackage(package.id)"></span>
+            </div>
+
+        </ul>
+    </div>
+</div>
+<div class="col-md-8 content">
+    <div class="content-question">
+
+        <button class="btn btn-success btn-play-game" *ngIf="idPackage">Play game</button>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default" *ngIf="idPackage">
+                <div class="panel-heading" role="tab" id="headingAdd">
+                    <h4 class="panel-title">
+                        <input type="text" class="input-question" (click)="openAddForm()" name="question"
+                               placeholder="Add new question..." [(ngModel)]="newQuestion.question">
+                        <a role="button" data-toggle="collapse" style="display: none;" id="btn_add"
+                           data-parent="#accordion" href="#collapseAdd" aria-expanded="true" aria-controls="collapseAdd"></a>
+                    </h4>
+                </div>
+                <div id="collapseAdd" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAdd">
+                    <div class="panel-body">
+                        <form>
+                            <img class="center-block image-picker" *ngIf="newQuestion.image" src="{{baseUrl}}/{{newQuestion.image}}">
+
+                            <div class="fileUpload btn btn-primary">
+                                <span>Select image</span>
+                                <input id="uploadNewBtn" type="file" class="upload" (change)="uploadImage($event)" />
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" name="answerA"
+                                       placeholder="Answer A" [(ngModel)]="newQuestion.answers[0]">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 0" checked="true">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" name="answerB"
+                                       placeholder="Answer B"  [(ngModel)]="newQuestion.answers[1]">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 1">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" name="answerC"
+                                       placeholder="Answer C"  [(ngModel)]="newQuestion.answers[2]">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 2">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" name="answerD"
+                                       placeholder="Answer D"  [(ngModel)]="newQuestion.answers[3]">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" (click)="newQuestion.correct = 3">
+                                </span>
+                            </div>
+
+                            <button type="submit" class="btn pull-right btn-submit btn-success" (click)="addNewQuestion(newQuestion)">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" *ngFor="let question of questions">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <div class="input-group">
+                            <input type="text" class="input-question center-block" [(ngModel)]="question.question"
+                                   placeholder="Input question..." (click)="openEditForm(question._id)" name="question">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default input-add-question" type="button" (click)="deleteQuestion(question._id)">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
+                        <a class="collapsed title-question" role="button" data-toggle="collapse" style="display: none;"
+                           data-parent="#accordion" href="#{{question._id}}" id="btn{{question._id}}" aria-expanded="false">
+                        </a>
+
+                    </h4>
+                </div>
+                <div id="{{question._id}}" class="panel-collapse collapse" role="tabpanel">
+                    <div class="panel-body">
+                        <form>
+                            <img class="center-block image-picker" *ngIf="question.image" src="{{baseUrl}}/{{question.image}}">
+
+                            <div class="fileUpload btn btn-primary">
+                                <span>Select image</span>
+                                <input id="uploadBtn" type="file" class="upload" (change)="uploadImage($event, question)" />
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer A" [(ngModel)]="question.answers[0]" name="answerA">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 0" (click)="question.correct = 0">
+                                </span>
+
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer B"  [(ngModel)]="question.answers[1]" name="answerB">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 1" (click)="question.correct = 1">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer C"  [(ngModel)]="question.answers[2]" name="answerC">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 2" (click)="question.correct = 2">
+                                </span>
+                            </div>
+
+                            <div class="input-group answer-control">
+                                <input type="text" class="form-control text-answer" placeholder="Answer D"  [(ngModel)]="question.answers[3]" name="answerD">
+                                <span class="input-group-addon radio-button">
+                                    <input type="radio" name="selectAnswer" [checked]="question.correct == 3" (click)="question.correct = 3">
+                                </span>
+                            </div>
+
+                            <button type="submit" class="btn pull-right btn-submit btn-success" (click)="editQuestion(question)">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
