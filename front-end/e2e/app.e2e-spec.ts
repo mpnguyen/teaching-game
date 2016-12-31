@@ -1,10 +1,10 @@
-import { TeachingCliPage } from './app.po';
+import { TeachingGamePage } from './app.po';
 
-describe('teaching-cli App', function() {
-  let page: TeachingCliPage;
+describe('teaching-game App', function() {
+  let page: TeachingGamePage;
 
   beforeEach(() => {
-    page = new TeachingCliPage();
+    page = new TeachingGamePage();
   });
 
   it('should display message saying app works', () => {
