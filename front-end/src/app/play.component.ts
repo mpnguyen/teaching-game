@@ -3,19 +3,20 @@
  */
 import {Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import * as io from 'socket.io-client'
+import * as io from 'socket.io-client';
 
 declare let $: any;
 
 @Component({
-    moduleId: module.id,
     selector: 'play',
     styleUrls: ['./play.component.css'],
     templateUrl: './play.component.html'
 })
 export class PlayComponent implements OnInit, OnDestroy{
 
-    constructor(private toastr: ToastsManager, private containerRef: ViewContainerRef) {};
+    constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vRef);
+    }
 
     ngOnInit(): void {
     }
@@ -24,8 +25,6 @@ export class PlayComponent implements OnInit, OnDestroy{
     }
 
     showSuccess() {
-
-
         this.toastr.success('You are awesome!', 'Success!');
     }
 
@@ -34,7 +33,7 @@ export class PlayComponent implements OnInit, OnDestroy{
     }
 
     ngAfterViewInit() {
-        this.showSuccess()
+        this.showSuccess();
         let deadline = new Date(Date.now());
         deadline.setSeconds(deadline.getSeconds() + 10);
 

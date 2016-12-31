@@ -9,7 +9,6 @@ import {LocalStorageService} from 'ng2-webstorage';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
-    moduleId: module.id,
     selector: 'user-login',
     styleUrls: ['./login.component.css'],
     templateUrl: './login.component.html'

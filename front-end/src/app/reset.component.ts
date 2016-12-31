@@ -8,7 +8,6 @@ import {UserService} from "./services/user.service";
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-    moduleId: module.id,
     selector: 'reset-pass',
     styleUrls: ['./reset.component.css'],
     templateUrl: './reset.component.html'

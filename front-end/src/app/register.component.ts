@@ -7,7 +7,6 @@ import { Router} from "@angular/router";
 import {UserService} from "./services/user.service";
 
 @Component({
-    moduleId: module.id,
     selector: 'user-register',
     styleUrls: ['./register.component.css'],
     templateUrl: './register.component.html'

@@ -1,7 +1,7 @@
 /**
  * Created by mp_ng on 11/25/2016.
  */
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {Router} from "@angular/router";
 import {LocalStorageService} from "ng2-webstorage";
 import {Package} from "./models/package.model";
@@ -13,7 +13,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 declare let $: any;
 
 @Component({
-    moduleId: module.id,
     selector: 'dashboard',
     styleUrls: ['./dashboard.component.css'],
     templateUrl: './dashboard.component.html'
@@ -30,8 +29,10 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.access_token = this.storage.retrieve("access_token");
-        if (this.access_token == null || this.access_token == "")
+        if (this.access_token == null || this.access_token == "") {
             this.router.navigate(['login']);
+            return;
+        }
 
         this.questionService.getPackage(this.access_token)
             .then(res => {
@@ -241,5 +242,7 @@ export class DashboardComponent implements OnInit {
         this.toastr.error(error, 'Error!');
     }
 
-    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService,private toastr: ToastsManager) {}
+    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService,private toastr: ToastsManager, vRef: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vRef);
+    }
 }
