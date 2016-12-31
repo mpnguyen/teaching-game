@@ -10,13 +10,12 @@ var upload = multer({ dest: 'uploads/' });
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/teaching-game');
-
 require('./models/User');
 require('./models/Package');
 require('./models/Question');
 
 
-
+var game = require('./gameplay');
 var routes = require('./routes/index');
 var files = require('./routes/files');
 var users = require('./routes/users');
@@ -92,5 +91,12 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var server = require('http').createServer(app).listen(process.env.PORT || 3000);
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  game.initGame(io, socket);
+});
 
 module.exports = app;
