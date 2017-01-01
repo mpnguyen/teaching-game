@@ -9,6 +9,7 @@ import {Question} from "./models/question.model";
 import {QuestionService} from "./services/question.service";
 import {Constants} from "./others/Config";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {isBoolean} from "util";
 
 declare let $: any;
 
@@ -54,9 +55,12 @@ export class DashboardComponent implements OnInit {
         this.questionService.getQuestion(id, this.access_token)
             .then(res => {
                 if (res.success) {
+                    if (this.idPackage !== id) {
+                        this.showSuccessQuestionServiceLoading();
+                    }
+
                     this.idPackage = id;
                     this.questions = res.questions;
-                    this.showSuccessQuestionServiceLoading();
                 } else {
                     this.showError(res.message);
                 }
