@@ -1,10 +1,12 @@
 /**
  * Created by mp_ng on 11/20/2016.
  */
-import { Component } from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import { User } from "./models/user.model";
 import { Router} from "@angular/router";
 import {UserService} from "./services/user.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 @Component({
     selector: 'user-register',
@@ -21,8 +23,15 @@ export class RegisterComponent {
     messageEmail: string;
     messageConfirmPass: string;
 
-    constructor(private router: Router, private userService: UserService) {}
-
+    constructor(private router: Router, private userService: UserService,public toastr: ToastsManager, vRef: ViewContainerRef) {
+      this.toastr.setRootViewContainerRef(vRef);
+    }
+    showSuccess(success: string){
+      this.toastr.success(success,'Success!');
+    }
+    showError(error: string){
+      this.toastr.success(error,'Error!');
+    }
     login(): void {
         this.router.navigate(['/login']);
     }
@@ -31,10 +40,16 @@ export class RegisterComponent {
         this.userService.register(this.user)
             .then(res => {
                 if (res.success) {
-                    alert(res.message);
-                    this.router.navigate(['home']);
+                  this.showSuccess(res.message);
+                  setTimeout(() => {
+                    this.router.navigate(['/home']);
+                  }, 2000);
+
                 } else {
-                    this.messageUsername = res.message;
+                  this.showError(res.message);
+                  setTimeout(() => {
+                    this.router.navigate(['/home']);
+                  }, 2000);
                 }
             })
             .catch(err => console.log(err));

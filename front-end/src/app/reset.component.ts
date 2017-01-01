@@ -1,11 +1,12 @@
 /**
  * Created by mp_ng on 11/20/2016.
  */
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import { User } from "./models/user.model";
 import {Router, Params, ActivatedRoute} from "@angular/router";
 import {UserService} from "./services/user.service";
 import 'rxjs/add/operator/switchMap';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'reset-pass',
@@ -22,7 +23,16 @@ export class ResetComponent implements OnInit{
 
     messageConfirmPass: string;
 
-    constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
+    constructor(private toastr: ToastsManager, vRef: ViewContainerRef,private router: Router, private route: ActivatedRoute, private userService: UserService) {
+      this.toastr.setRootViewContainerRef(vRef);
+    }
+
+  showSuccess(success: string){
+    this.toastr.success(success,'Success!');
+  }
+  showError(error: string){
+    this.toastr.success(error,'Error!');
+  }
 
     ngOnInit(): void {
         this.route.params
@@ -31,9 +41,15 @@ export class ResetComponent implements OnInit{
                 let response: any = res;
                 if (response.success) {
                     this.token = response.token;
+                    this.showSuccess(response.token);
+                    setTimeout(() => {
+                      this.router.navigate(['/home']);
+                    }, 2000);
                 } else {
-                    alert("False");
+                  this.showError("Failed!");
+                  setTimeout(() => {
                     this.router.navigate(['/home']);
+                  }, 2000);
                 }
             });
     }

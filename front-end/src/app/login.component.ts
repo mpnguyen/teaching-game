@@ -20,7 +20,9 @@ export class LoginComponent {
     message: string = null;
 
 
-    constructor(private toastr: ToastsManager, private containerRef: ViewContainerRef,private router: Router, private userService: UserService, private storage:LocalStorageService) {}
+    constructor(private toastr: ToastsManager, vRef: ViewContainerRef, private containerRef: ViewContainerRef,private router: Router, private userService: UserService, private storage:LocalStorageService) {
+      this.toastr.setRootViewContainerRef(vRef);
+    }
 
     showSuccess() {
         this.toastr.success('Congratulation! Your login is successful!!!', 'Success!');
@@ -38,11 +40,18 @@ export class LoginComponent {
                     this.message = null;
                     this.storage.store('access_token', res.token);
                     this.storage.store('is_login', true);
+
                     this.showSuccess();
-                    this.router.navigate(['/home']);
+                    setTimeout(() => {
+                      this.router.navigate(['/home']);
+                    }, 2000);
+
                 } else {
                     this.message = res.message;
                     this.showError(res.message);
+                    setTimeout(() => {
+                      this.router.navigate(['/home']);
+                    }, 2000);
                 }
             })
             .catch(err => console.log(err));
