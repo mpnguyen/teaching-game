@@ -4,7 +4,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-    moduleId: module.id,
     selector: 'my-home',
     styles: [''],
     templateUrl: './home.component.html'

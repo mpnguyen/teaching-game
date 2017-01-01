@@ -8,7 +8,6 @@ import {Location} from "@angular/common";
 import { UserService } from "./services/user.service"
 
 @Component({
-    moduleId: module.id,
     selector: 'forget-pass',
     styleUrls: ['./forget.component.css'],
     templateUrl: './forget.component.html'
