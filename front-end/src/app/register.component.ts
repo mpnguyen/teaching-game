@@ -42,7 +42,7 @@ export class RegisterComponent {
                 if (res.success) {
                   this.showSuccess(res.message);
                   setTimeout(() => {
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/login']);
                   }, 2000);
 
                 } else {
