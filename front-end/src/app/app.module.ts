@@ -18,12 +18,13 @@ import { ResetComponent }  from './reset.component';
 import { DashboardComponent } from "./dashboard.component";
 import { ErrorComponent } from "./error.component";
 import { PlayComponent } from "./play.component";
+import { WaitingScreenComponent } from "./waiting-screen.component";
 
 @NgModule({
   imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule ],
   providers: [ UserService, QuestionService ],
   declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
-    ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent ],
+    ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent, WaitingScreenComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

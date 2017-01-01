@@ -11,6 +11,7 @@ import {ResetComponent} from "./reset.component";
 import {DashboardComponent} from "./dashboard.component";
 import {ErrorComponent} from "./error.component";
 import {PlayComponent} from "./play.component";
+import {WaitingScreenComponent} from "./waiting-screen.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,7 +22,9 @@ const routes: Routes = [
     { path: 'dashboard',     component: DashboardComponent },
     { path: 'reset/:token',     component: ResetComponent },
     { path: 'error', component: ErrorComponent},
-    { path: 'play', component: PlayComponent}
+    { path: 'play', component: PlayComponent},
+    { path: 'waiting', component: WaitingScreenComponent}
+
 ];
 
 @NgModule({
