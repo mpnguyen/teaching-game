@@ -62,9 +62,12 @@ export class DashboardComponent implements OnInit {
         this.questionService.getQuestion(id, this.access_token)
             .then(res => {
                 if (res.success) {
+                    if (this.idPackage !== id) {
+                        this.showSuccessQuestionServiceLoading();
+                    }
+
                     this.idPackage = id;
                     this.questions = res.questions;
-                    this.showSuccessQuestionServiceLoading();
                 } else {
                     this.showError(res.message);
                 }

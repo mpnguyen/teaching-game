@@ -1,11 +1,18 @@
-<form class="my-form" (submit)="joinGame()">
-  <div class="form-group " >
-    <input type="text" class="form-control input-field center-block" id="username"
-           placeholder="Username" [(ngModel)]="username" name="username" required>
+<div class="col-md-12 content">
+  <h3 class="logo">SPQ Corp</h3>
+  <div class="gameNameArea">
+    <p class="gameName">TEACHING GAME</p>
   </div>
-  <div class="form-group " >
-    <input type="text" class="form-control input-field center-block" id="pin"
+  <div class="inputUsername">
+    <input type="text" class="input" id="username"
+           placeholder="NAME" [(ngModel)]="username" name="username" required>
+
+  </div>
+  <div class="inputPin">
+        <input type="text" class="input id="pin"
            placeholder="PIN" [(ngModel)]="gamePIN" name="pin" required>
   </div>
-  <button type="submit" class="btn btn-info btn-submit center-block">Join Game</button>
-</form>
+  <div class="buttonArea">
+  <button class="button button1">ENTER</button>
+  </div>
+</div>

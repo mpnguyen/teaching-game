@@ -8,7 +8,7 @@ import {ToastsManager} from "ng2-toastr";
 
 @Component({
     selector: 'my-home',
-    styles: [''],
+    styleUrls: ['./home.component.css'],
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit{
