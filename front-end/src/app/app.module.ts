@@ -19,6 +19,7 @@ import { DashboardComponent } from "./dashboard.component";
 import { ErrorComponent } from "./error.component";
 import { PlayComponent } from "./play.component";
 import { WaitingScreenComponent } from "./waiting-screen.component";
+import {CommonModule} from "@angular/common";
 
 
 export const toastConfig = {
@@ -28,7 +29,7 @@ export const toastConfig = {
 const TOAST_OPTIONS: ToastOptions = <any>toastConfig;
 
 @NgModule({
-  imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule.forRoot(TOAST_OPTIONS) ],
+  imports:      [ BrowserModule, CommonModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule.forRoot(TOAST_OPTIONS) ],
   providers: [ UserService, QuestionService ],
   declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
     ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent, WaitingScreenComponent ],

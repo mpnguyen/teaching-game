@@ -26,7 +26,23 @@ export class PlayComponent implements OnInit, OnDestroy{
             setTimeout(() => {
                 this.router.navigate(['home']);
             }, 1500);
+            return;
         }
+
+        SocketClient.getInstance().emit('currentQuestion');
+
+        SocketClient.getInstance().on('receiveQuestion', data => {
+            //bind question to ui
+        });
+
+        SocketClient.getInstance().on('endQuestion', data => {
+
+        });
+
+        SocketClient.getInstance().on('questionChanged', data => {
+            //success
+            SocketClient.getInstance().emit('currentQuestion');
+        });
     }
 
     ngOnDestroy(): void {
