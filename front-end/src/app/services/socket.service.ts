@@ -7,6 +7,7 @@ import {Constants} from "../others/Config";
 export class SocketClient {
 
   private static _instance;
+  private static _data;
 
   constructor() {
   }
@@ -18,6 +19,15 @@ export class SocketClient {
       }
 
       return this._instance;
+  }
+
+  public static getData(): any
+  {
+    if(!SocketClient._data){
+        SocketClient._data = {};
+    }
+
+    return this._data;
   }
 
 }

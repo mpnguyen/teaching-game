@@ -17,17 +17,22 @@ export class WaitingScreenComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        if (!SocketClient.getData().gamePIN) {
+            this.showError('Please join room for playing!');
+            setTimeout(() => {
+                this.router.navigate(['home']);
+            }, 1500);
+        }
+
         SocketClient.getInstance().on('hostLeaveRoom', data => {
             this.showError(data.message);
             setTimeout(() => {
                 this.router.navigate(['home']);
-            }, 2000);
+            }, 1500);
         });
 
         SocketClient.getInstance().on('newPlayerJoined', data => {
             this.listUser = data;
-            console.log('test');
-            console.log(data);
         });
 
         SocketClient.getInstance().emit('playerJoinedRoom', {});

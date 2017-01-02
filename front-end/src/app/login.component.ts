@@ -21,16 +21,16 @@ export class LoginComponent {
 
 
     constructor(private toastr: ToastsManager, vRef: ViewContainerRef, private containerRef: ViewContainerRef,private router: Router, private userService: UserService, private storage:LocalStorageService) {
-      this.toastr.setRootViewContainerRef(vRef);
+        this.toastr.setRootViewContainerRef(vRef);
     }
 
     showSuccess() {
         this.toastr.success('Congratulation! Your login is successful!!!', 'Success!');
     }
+
     showError(error: string) {
         this.toastr.error(error, 'Error!');
     }
-
 
     login(): void {
 
@@ -43,15 +43,11 @@ export class LoginComponent {
 
                     this.showSuccess();
                     setTimeout(() => {
-                      this.router.navigate(['/home']);
-                    }, 2000);
-
+                        this.router.navigate(['/dashboard']);
+                    }, 1500);
                 } else {
                     this.message = res.message;
                     this.showError(res.message);
-                    setTimeout(() => {
-                      this.router.navigate(['/home']);
-                    }, 2000);
                 }
             })
             .catch(err => console.log(err));
@@ -65,5 +61,4 @@ export class LoginComponent {
     forgetPass(): void {
         this.router.navigate(['/forget']);
     }
-
 }
