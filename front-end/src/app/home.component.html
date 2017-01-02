@@ -3,16 +3,17 @@
   <div class="gameNameArea">
     <p class="gameName">TEACHING GAME</p>
   </div>
-  <div class="inputUsername">
-    <input type="text" class="input" id="username"
-           placeholder="NAME" [(ngModel)]="username" name="username" required>
-
-  </div>
-  <div class="inputPin">
-        <input type="text" class="input id="pin"
-           placeholder="PIN" [(ngModel)]="gamePIN" name="pin" required>
-  </div>
-  <div class="buttonArea">
-  <button class="button button1">ENTER</button>
-  </div>
+  <form (submit)="joinGame()">
+    <div class="inputUsername">
+      <input type="text" class="input" id="username"
+             placeholder="NAME" [(ngModel)]="username" name="username" required>
+    </div>
+    <div class="inputPin">
+      <input type="text" class="input" id="pin"
+             placeholder="PIN" [(ngModel)]="gamePIN" name="pin" required>
+    </div>
+    <div class="buttonArea">
+      <button type="submit" class="button">ENTER</button>
+    </div>
+  </form>
 </div>

@@ -48,6 +48,7 @@
   padding-left: 7%;
   padding-right: 7%;
   font-size: 30px;
+  text-align: center;
 }
 
 
@@ -62,7 +63,6 @@
   padding-right: 9%;
   text-align: center;
   height: 60px;
-
   font-size: 30px;
   width: 37%;
   cursor: pointer;
@@ -75,19 +75,3 @@
   font-size: 30px;
   text-align: center;
 }
-/*::-moz-placeholder { !* Firefox 19+ *!*/
-  /*color: #212121;*/
-  /*font-weight: bold;*/
-  /*font-size:30px;*/
-  /*text-align: center;*/
-/*}*/
-/*:-ms-input-placeholder { !* IE 10+ *!*/
-  /*color: #212121;*/
-  /*font-weight: bold;*/
-  /*font-size:45px;*/
-/*}*/
-/*:-moz-placeholder { !* Firefox 18- *!*/
-  /*color: #212121;*/
-  /*font-weight: bold;*/
-  /*font-size:45px;*/
-/*}*/
