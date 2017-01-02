@@ -19,18 +19,52 @@ exports.initGame = function (sio, socket) {
     gameSocket.data = {
         username: {},
         currentRoom: {},
-        isHost: {}
+        isHost: {},
+        room: {}
     };
 
     gameSocket.emit('connected', {message: "You have connected", id: gameSocket.id});
 
     gameSocket.on('createNewGame', createNewGame);
+    gameSocket.on('startGame', startGame);
+    gameSocket.on('currentQuestion', currentQuestion);
 
     gameSocket.on('playerJoinedRoom', playerJoinedRoom);
 
     gameSocket.on('joinGame', joinGame);
     gameSocket.on('disconnect', disconnect);
 };
+
+function startGame() {
+    var sock = this;
+    if(sock.data.isHost) {
+        var room = gameRooms.filter(function (room) {
+            return room.room == sock.data.currentRoom;
+        });
+
+        room[0].package.populate('questions', function (err, package) {
+            if(err) {
+                return;
+            }
+            if(!package) {
+                return;
+            }
+            room[0].package = package;
+            console.log('start game');
+            //console.log(room[0].package);
+
+            io.sockets.in(sock.data.currentRoom).emit('gameStarted', {message: 'Game has been started'});
+        })
+    }
+}
+
+function currentQuestion() {
+    var sock = this;
+    var room = gameRooms.filter(function (room) {
+        return room.room == sock.data.currentRoom;
+    });
+    console.log(room[0].package);
+}
 
 function playerJoinedRoom() {
     var sock = this;
@@ -43,6 +77,8 @@ function playerJoinedRoom() {
     }
 }
 
+
+//TODO: handle disconnect event of client
 function disconnect() {
     var sock = this;
     if(sock.data.isHost) {
@@ -84,13 +120,12 @@ function createNewGame(PIN) {
         roomData.room = thisGameId;
         roomData.package = package;
         roomData.players = [];
-        roomData.players.push('host');
 
 
         sock.data.currentRoom = thisGameId;
         sock.data.isHost = true;
         sock.join(thisGameId.toString());
-        io.to(sock.id).emit('newGameCreated', {gameId: thisGameId, mySocketId: sock.id});
+        io.to(sock.id).emit('newGameCreated', {gamePIN: thisGameId, mySocketId: sock.id});
 
         gameRooms.push(roomData);
 
@@ -111,7 +146,7 @@ function joinGame(input) {
 
         sock.join(input.gamePIN);
 
-        data.gamePin = input.gamePIN;
+        data.gamePIN = input.gamePIN;
         for (var i = 0; i < gameRooms.length; i++) {
             if(gameRooms[i].room == sock.data.currentRoom){
                 if(!gameRooms[i].players)
