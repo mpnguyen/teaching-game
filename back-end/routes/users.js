@@ -145,7 +145,9 @@ router.post('/forget', function (req, res, next) {
                             token: user.resetPasswordToken
                         });
                     }
-                    res.json({ success: true });
+                    res.json({
+                        success: true
+                    });
                 });
             });
         });

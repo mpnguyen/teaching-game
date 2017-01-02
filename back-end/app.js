@@ -96,7 +96,7 @@ var server = require('http').createServer(app).listen(process.env.PORT || 3000);
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
-  game.initGame(io, socket);
+    game.initGame(io, socket);
 });
 
 module.exports = app;
