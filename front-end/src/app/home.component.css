@@ -12,38 +12,35 @@
 
 
 .inputPin{
+  text-align: center;
   margin-top: 2%;
-  margin-left: 38%;
-
 }
 .inputUsername{
-  margin-top: 2%;
-  margin-left: 38%;
-}
-.buttonArea{
-  margin-top: 2%;
-  margin-left: 38%;
-}
-.gameNameArea{
-  margin-top: 7%;
-  margin-left: 30%;
-  font-family: "My Custom Font", Verdana, Tahoma;
-}
-.gameName{
-  font-size: 70px;
+  text-align: center;
 }
 .input{
   height: 60px;
   border: 2px solid #1976D2;
   border-radius: 4px;
-  width: 37%;
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
-  padding-left: 7%;
-  padding-right: 7%;
-  font-size: 30px;
+  width: 300px;
+
+
+  font-size: 40px;
   text-align: center;
 }
+.buttonArea{
+text-align: center;
+  margin-top: 2%;
+}
+.gameNameArea{
+  margin-top: 7%;
+  text-align: center;
+  font-family: "My Custom Font", Verdana, Tahoma;
+}
+.gameName{
+  font-size: 70px;
+}
+
 
 
 .button {
@@ -51,14 +48,11 @@
   border-radius: 4px;
   border: none;
   color: white;
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
-  padding-left: 9%;
-  padding-right: 9%;
+
   text-align: center;
   height: 60px;
-  font-size: 30px;
-  width: 37%;
+  font-size: 40px;
+  width: 300px;
   cursor: pointer;
 }
 
