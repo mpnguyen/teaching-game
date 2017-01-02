@@ -38,6 +38,13 @@
   background-color:#FFFFFF;
 
 }
-.btn{
-  
+.player{
+  margin-top:5%;
+}
+.btnStartGame{
+  float:right;
+  border-radius: 4px;
+  font-size:20px;
+  color: #757575;
+  font-weight: bold;
 }
