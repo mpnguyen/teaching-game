@@ -4,7 +4,7 @@ import { AppRoutingModule }     from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { Ng2Webstorage} from 'ng2-webstorage';
-import { ToastModule} from 'ng2-toastr/ng2-toastr';
+import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
 
 import { UserService } from "./services/user.service"
 import { QuestionService } from "./services/question.service";
@@ -20,8 +20,15 @@ import { ErrorComponent } from "./error.component";
 import { PlayComponent } from "./play.component";
 import { WaitingScreenComponent } from "./waiting-screen.component";
 
+
+export const toastConfig = {
+  animate: 'flyRight',
+  positionClass: 'toast-bottom-right'
+};
+const TOAST_OPTIONS: ToastOptions = <any>toastConfig;
+
 @NgModule({
-  imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule ],
+  imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule.forRoot(TOAST_OPTIONS) ],
   providers: [ UserService, QuestionService ],
   declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
     ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent, WaitingScreenComponent ],

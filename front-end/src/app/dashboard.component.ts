@@ -9,6 +9,7 @@ import {Question} from "./models/question.model";
 import {QuestionService} from "./services/question.service";
 import {Constants} from "./others/Config";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {SocketClient} from "./services/socket.service";
 
 declare let $: any;
 
@@ -44,6 +45,13 @@ export class DashboardComponent implements OnInit {
                 }
             }).catch(err => console.log(err));
 
+        SocketClient.getInstance().on("connected", data => {
+            //connected
+        });
+
+        SocketClient.getInstance().on("newGameCreated", data => {
+            this.router.navigate(['waiting']);
+        });
     }
 
     ngAfterViewInit():void {
@@ -185,6 +193,15 @@ export class DashboardComponent implements OnInit {
                     }
                 }).catch(err => console.log(err));
         }
+    }
+
+    playGame() {
+        if (!this.idPackage) {
+            this.showError("Please choose package!");
+            return;
+        }
+
+        SocketClient.getInstance().emit("createNewGame", this.idPackage);
     }
 
     openAddForm() {

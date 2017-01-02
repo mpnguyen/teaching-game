@@ -28,7 +28,7 @@
 <div class="col-md-8 content">
     <div class="content-question">
 
-        <button class="btn btn-success btn-play-game" *ngIf="idPackage">Play game</button>
+        <button class="btn btn-success btn-play-game" *ngIf="idPackage" (click)="playGame()">Play game</button>
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default" *ngIf="idPackage">
