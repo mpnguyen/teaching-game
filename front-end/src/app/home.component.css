@@ -1,12 +1,14 @@
 .content {
-  background-color: #FFFFFF  ;
+  /*background-color: #FFFFFF  ;*/
 
   height: 100vh;
+  background: url("http://sugarlips.co/wp-content/uploads/2015/11/blurred-city-lights-background-tumblr-blurred-city-lights-background-amazing-ideas-wall.jpg");
+  background-size: 100%;
 }
 .logo {
   margin: 8px;
   height: 37px;
-  color: #757575;
+  color: #B3E5FC;
 }
 
 
@@ -36,9 +38,11 @@ text-align: center;
   margin-top: 7%;
   text-align: center;
   font-family: "My Custom Font", Verdana, Tahoma;
+  color: #FFFFFF;
 }
 .gameName{
   font-size: 70px;
+
 }
 
 
