@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "My Custom Font";
+  src: url("./libs/font/ChapelScript_PERSONAL.ttf");
+}
