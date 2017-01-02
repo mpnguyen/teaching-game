@@ -50,6 +50,8 @@ export class DashboardComponent implements OnInit {
         });
 
         SocketClient.getInstance().on("newGameCreated", data => {
+            SocketClient.getData().gamePIN = data.gamePIN;
+            SocketClient.getData().isHost = true;
             this.router.navigate(['waiting']);
         });
     }

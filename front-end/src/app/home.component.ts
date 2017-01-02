@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit{
     ngOnInit(): void {
         SocketClient.getInstance().on('joinRoomSuccess', data => {
             this.showSuccess(data.message);
+            SocketClient.getData().gamePIN = data.gamePIN;
             setTimeout(() => this.router.navigate(['waiting']), 2000);
         });
 

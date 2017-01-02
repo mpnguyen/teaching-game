@@ -4,6 +4,8 @@
 import {Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import * as io from 'socket.io-client';
+import {SocketClient} from "./services/socket.service";
+import {Router} from "@angular/router";
 
 declare let $: any;
 
@@ -14,11 +16,33 @@ declare let $: any;
 })
 export class PlayComponent implements OnInit, OnDestroy{
 
-    constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
+    constructor(private router: Router, private toastr: ToastsManager, vRef: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vRef);
     }
 
     ngOnInit(): void {
+        if (!SocketClient.getData().gamePIN) {
+            this.showError('Please join room for playing!');
+            setTimeout(() => {
+                this.router.navigate(['home']);
+            }, 1500);
+            return;
+        }
+
+        SocketClient.getInstance().emit('currentQuestion');
+
+        SocketClient.getInstance().on('receiveQuestion', data => {
+            //bind question to ui
+        });
+
+        SocketClient.getInstance().on('endQuestion', data => {
+
+        });
+
+        SocketClient.getInstance().on('questionChanged', data => {
+            //success
+            SocketClient.getInstance().emit('currentQuestion');
+        });
     }
 
     ngOnDestroy(): void {
@@ -28,8 +52,8 @@ export class PlayComponent implements OnInit, OnDestroy{
         this.toastr.success('You are awesome!', 'Success!');
     }
 
-    showError() {
-        this.toastr.error('You are awesome!', 'Error!');
+    showError(msg) {
+        this.toastr.error(msg, 'Error!');
     }
 
     ngAfterViewInit() {
