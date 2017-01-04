@@ -1,4 +1,5 @@
 var RoomData = require('./models/RoomData');
+var Player = require('./models/Player');
 var io;
 var gameSocket;
 var gameRooms;
@@ -31,10 +32,31 @@ exports.initGame = function (sio, socket) {
 
     gameSocket.on('joinGame', joinGame);
     gameSocket.on('currentQuestion', currentQuestion);
+    gameSocket.on('answerQuestion', answerQuestion);
 
     gameSocket.on('disconnect', disconnect);
     gameSocket.on('playerJoinedRoom', playerJoinedRoom);
 };
+function answerQuestion(data) {
+    var sock = this;
+    if (!sock.data.isHost)
+    {
+        var room = gameRooms.filter(function (room) {
+            return room.room == sock.data.currentRoom;
+        });
+
+        var players = room[0].players.filter(function (player) {
+            return player.username == sock.data.username;
+        });
+        if(data == parseInt(room[0].package.questions[room[0].currentIndex].correct)){
+            players[0].score += ((new Date(room[0].time)) - (new Date(Date.now())))/1000;
+        }
+        room[0].counter = room[0].counter + 1;
+        io.sockets.in(sock.data.currentRoom).emit('playerAnswered', room[0].counter);
+        console.log(players[0].score);
+    }
+}
+
 
 function nextQuestion() {
     var sock = this;
@@ -51,7 +73,7 @@ function nextQuestion() {
         setTimeout(function () {
             io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct});
         }, 20000);
-
+        room[0].counter = 0;
         io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
     }
 }
@@ -152,7 +174,7 @@ function createNewGame(PIN) {
         roomData.package = package;
         roomData.players = [];
         roomData.isStarted = false;
-
+        roomData.counter = 0;
 
         sock.data.currentRoom = thisGameId;
         sock.data.isHost = true;
@@ -195,7 +217,11 @@ function joinGame(input) {
                     io.to(sock.id).emit(input.gamePIN).emit('joinRoomFail', data);
                     return;
                 }
-                gameRooms[i].players.push(sock.data.username.toString());
+                var player = new Player();
+                player.username = sock.data.username.toString();
+                player.score = 0;
+                gameRooms[i].players.push(player);
+                console.log(gameRooms[i].players[0].username);
             }
         }
         data.message = 'Join room success';
