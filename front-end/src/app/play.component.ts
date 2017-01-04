@@ -22,6 +22,7 @@ export class PlayComponent implements OnInit, OnDestroy{
     isHost = false;
     isAllowNextQuestion = false;
     baseUrl: string;
+    userCount: number = 0;
 
     constructor(private router: Router, private toastr: ToastsManager, vRef: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vRef);
@@ -45,15 +46,17 @@ export class PlayComponent implements OnInit, OnDestroy{
             for (let i = 0; i < 4; i++) {
                 $('#answer' + i).prop("disabled", false);
                 $('#answer' + i).removeClass('correct');
+                $('#answer' + i).removeClass('chooseAnswer');
             }
-            console.log(data);
+            this.userCount = 0;
+            this.showInfo('New question!');
             $('#clock').countdown((new Date(data.deadline)).toLocaleString())
               .on('update.countdown', function(event:any) {
                 let format = '%S';
                 $(this).html(event.strftime(format));
               })
               .on('finish.countdown', function(event: any) {
-                $(this).html('Time up').parent().addClass('disabled');
+                $(this).html('00').parent().addClass('disabled');
               });
         });
 
@@ -65,6 +68,10 @@ export class PlayComponent implements OnInit, OnDestroy{
                     $('#answer' + i).addClass('correct');
                 }
             }
+        });
+
+        SocketClient.getInstance().on('playerAnswered', data => {
+            this.userCount = data;
         });
 
         SocketClient.getInstance().on('questionChanged', data => {
@@ -83,8 +90,28 @@ export class PlayComponent implements OnInit, OnDestroy{
         setTimeout(() => SocketClient.getInstance().emit('nextQuestion', {}), 10);
     }
 
+    chooseAnswer(answer: number): void {
+        if (this.isHost) {
+            return;
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (i === answer) {
+                $('#answer' + i).addClass('chooseAnswer');
+            } else {
+                $('#answer' + i).prop("disabled", true);
+            }
+        }
+
+        SocketClient.getInstance().emit('answerQuestion', answer);
+    }
+
     showSuccess(msg: string) {
         this.toastr.success(msg, 'Success!');
+    }
+
+    showInfo(msg: string) {
+      this.toastr.info(msg);
     }
 
     showError(msg: string) {

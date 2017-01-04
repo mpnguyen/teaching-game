@@ -44,10 +44,7 @@ export class WaitingScreenComponent implements OnInit, OnDestroy{
         });
 
         SocketClient.getInstance().on('gameStarted', data => {
-            this.showSuccess(data.message);
-            setTimeout(() => {
-                this.router.navigate(['play']);
-            }, 1500);
+            this.router.navigate(['play']);
             return;
         });
 

@@ -22,12 +22,12 @@
   color: #212121;
 }
 
-.countdown {
+.divInfo {
   margin-top: 20%;
   width: 100%;
 }
 
-.time-countdown {
+.info-counter {
   font-size: 10rem;
   text-align: center;
   color: white;

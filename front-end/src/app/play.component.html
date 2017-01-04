@@ -7,15 +7,24 @@
     <div class="btnNextQuestion">
         <button class="btn btn-default btnNext" *ngIf="isAllowNextQuestion" (click)="nextQuestion()">NEXT</button>
     </div>
-    <div class="countdown ">
-        <span class="time-countdown center-block" id="clock"></span>
+    <div class="divInfo ">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <span class="info-counter center-block">{{userCount}}</span>
+              <i class="glyphicon glyphicon-user center-block icon-counter"></i>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 countdown-clock">
+              <span class="info-counter center-block" id="clock"></span>
+              <i class="glyphicon glyphicon-time center-block icon-counter"></i>
+            </div>
+        </div>
     </div>
 
     <div class="group-button-answer">
-        <button class="btn btn-block btn-success button-answer" id="answer0">{{question.answers[0]}}</button>
-        <button class="btn btn-block btn-info button-answer" id="answer1">{{question.answers[1]}}</button>
-        <button class="btn btn-block btn-warning button-answer" id="answer2">{{question.answers[2]}}</button>
-        <button class="btn btn-block btn-danger button-answer" id="answer3">{{question.answers[3]}}</button>
+        <button class="btn btn-block btn-success button-answer" id="answer0" (click)="chooseAnswer(0)">{{question.answers[0]}}</button>
+        <button class="btn btn-block btn-info button-answer" id="answer1" (click)="chooseAnswer(1)">{{question.answers[1]}}</button>
+        <button class="btn btn-block btn-warning button-answer" id="answer2" (click)="chooseAnswer(2)">{{question.answers[2]}}</button>
+        <button class="btn btn-block btn-danger button-answer" id="answer3" (click)="chooseAnswer(3)">{{question.answers[3]}}</button>
     </div>
 
 </div>

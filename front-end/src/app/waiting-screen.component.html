@@ -8,7 +8,7 @@
     <button type="button" class="btn btn-default btnStartGame" *ngIf="isHost" (click)="startGame()">Start Game</button>
     <div class="clearfix"></div>
     <ul class="list-group players">
-      <li class="list-group-item list-group-item-info list-players" *ngFor="let user of listUser">{{user}}</li>
+      <li class="list-group-item list-group-item-info list-players" *ngFor="let user of listUser">{{user.username}}</li>
     </ul>
   </div>
 
