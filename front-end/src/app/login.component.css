@@ -64,21 +64,21 @@
 .loginform{
   background-color: #9068be;
 }
-.btn1{
+.btnLogin{
   background-color: #9068be;
   color: #F6FAFB;
   font-weight: bold;
   font-family: "Arial";
 
 }
-.btn2{
+.btnForget{
   background-color: #6ed3cf;
   color: #F6FAFB;
   font-weight: bold;
   font-family: "Arial";
 
 }
-.btn3{
+.btnRegister{
   background-color: #e62739;
   color: #F6FAFB;
   font-weight: bold;

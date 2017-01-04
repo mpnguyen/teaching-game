@@ -11,9 +11,9 @@
                    placeholder="Password" [(ngModel)]="user.password" name="password" required>
         </div>
         <div class="alert alert-danger message center-block" *ngIf="message" role="alert">{{message}}</div>
-        <button type="submit" class="btn btn1 btn-submit center-block">Login</button>
-        <button type="button" class="btn btn2 btn-second center-block" (click)="forgetPass()">Forget Password</button>
-        <button type="button" class="btn btn3 btn-second center-block" (click)="register()">Register</button>
+        <button type="submit" class="btn btnLogin btn-submit center-block">Login</button>
+        <button type="button" class="btn btnForget btn-second center-block" (click)="forgetPass()">Forget Password</button>
+        <button type="button" class="btn btnRegister btn-second center-block" (click)="register()">Register</button>
     </form>
 </div>
 <div class="col-md-8 content hidden-xs hidden-sm">
