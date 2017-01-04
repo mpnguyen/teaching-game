@@ -1,5 +1,5 @@
 .content {
-    background-color: #0288D1;
+    background-color: #842c81;
     height: 100vh;
 }
 
@@ -14,37 +14,33 @@
 }
 
 .question {
-  text-align: center;
-
-  font-size:30px;
+    font-size:30px;
+    width: 80%;
+    text-align: center;
 }
 
 .button-answer {
     margin-top: 10px;
     font-size: 4rem;
     line-height: 6rem;
-
-
 }
 
 .group-button-answer {
     margin-top: 10%;
-
-  text-align: center;
-
-
+    text-align: center;
 }
+
 .btnNext {
-  float:right;
-  border-radius: 4px;
-  font-size:20px;
-  color: #757575;
-  font-weight: bold;
-  width: 150px;
+    float:right;
+    border-radius: 4px;
+    font-size:20px;
+    color: #757575;
+    font-weight: bold;
+    width: 150px;
 }
-.btnNextQuestion{
-  margin-top: 2%;
 
+.btnNextQuestion{
+    margin-top: 2%;
 }
 
 .countdown {
@@ -56,4 +52,9 @@
     font-size: 10rem;
     text-align: center;
     color: white;
+}
+
+.correct {
+    opacity: 1;
+    border: 3px solid #fff;
 }

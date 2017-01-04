@@ -1,7 +1,7 @@
 /**
  * Created by mp_ng on 11/25/2016.
  */
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef, OnDestroy} from '@angular/core';
 import {Router} from "@angular/router";
 import {LocalStorageService} from "ng2-webstorage";
 import {Package} from "./models/package.model";
@@ -18,7 +18,7 @@ declare let $: any;
     styleUrls: ['./dashboard.component.css'],
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
     access_token: string;
     packages: Package[] = new Array();
@@ -34,7 +34,6 @@ export class DashboardComponent implements OnInit {
             this.router.navigate(['login']);
             return;
         }
-
         this.questionService.getPackage(this.access_token)
             .then(res => {
                 if (res.success) {
@@ -42,18 +41,21 @@ export class DashboardComponent implements OnInit {
                     this.showSuccessQuestionService();
                 } else {
                     this.showError(res.message);
+                    setTimeout(() => {
+                        this.router.navigate(['login']);
+                    }, 1500);
+                    return;
                 }
             }).catch(err => console.log(err));
-
-        SocketClient.getInstance().on("connected", data => {
-            //connected
-        });
-
         SocketClient.getInstance().on("newGameCreated", data => {
             SocketClient.getData().gamePIN = data.gamePIN;
             SocketClient.getData().isHost = true;
             this.router.navigate(['waiting']);
         });
+    }
+
+    ngOnDestroy(): void {
+        SocketClient.getInstance().removeAllListeners();
     }
 
     ngAfterViewInit():void {

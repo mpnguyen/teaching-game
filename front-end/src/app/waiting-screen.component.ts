@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {SocketClient} from "./services/socket.service";
@@ -7,18 +7,21 @@ import {SocketClient} from "./services/socket.service";
     styleUrls: ['./waiting-screen.component.css'],
     templateUrl: './waiting-screen.component.html'
 })
-export class WaitingScreenComponent implements OnInit{
-
+export class WaitingScreenComponent implements OnInit, OnDestroy{
 
     listUser: string[] = [];
     isHost: boolean = false;
+    gamePIN: string;
 
     constructor(private router: Router, public toastr: ToastsManager, vRef: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vRef);
     }
 
     ngOnInit(): void {
+        SocketClient.getInstance().removeAllListeners();
         this.isHost = (SocketClient.getData().isHost === true);
+
+        this.gamePIN = SocketClient.getData().gamePIN;
 
         if (!SocketClient.getData().gamePIN) {
             this.showError('Please join room for playing!');
@@ -42,18 +45,21 @@ export class WaitingScreenComponent implements OnInit{
 
         SocketClient.getInstance().on('gameStarted', data => {
             this.showSuccess(data.message);
-            console.log(data.message);
             setTimeout(() => {
                 this.router.navigate(['play']);
             }, 1500);
             return;
         });
 
-        SocketClient.getInstance().emit('playerJoinedRoom', {});
+        setTimeout(() => SocketClient.getInstance().emit('playerJoinedRoom', {}), 10);
+    }
+
+    ngOnDestroy(): void {
+        SocketClient.getInstance().removeAllListeners();
     }
 
     startGame() {
-        SocketClient.getInstance().emit('startGame');
+        setTimeout(() => SocketClient.getInstance().emit('startGame', {}), 10);
     }
 
     showError(error: string) {

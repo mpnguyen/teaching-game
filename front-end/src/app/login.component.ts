@@ -13,15 +13,18 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
     styleUrls: ['./login.component.css'],
     templateUrl: './login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
+
 
     user:User = new User();
 
     message: string = null;
 
-
-    constructor(private toastr: ToastsManager, vRef: ViewContainerRef, private containerRef: ViewContainerRef,private router: Router, private userService: UserService, private storage:LocalStorageService) {
+    constructor(private toastr: ToastsManager,private vRef: ViewContainerRef, private router: Router, private userService: UserService, private storage:LocalStorageService) {
         this.toastr.setRootViewContainerRef(vRef);
+    }
+
+    ngOnDestroy(): void {
     }
 
     showSuccess() {
@@ -40,11 +43,7 @@ export class LoginComponent {
                     this.message = null;
                     this.storage.store('access_token', res.token);
                     this.storage.store('is_login', true);
-
-                    this.showSuccess();
-                    setTimeout(() => {
-                        this.router.navigate(['/dashboard']);
-                    }, 1500);
+                    this.router.navigate(['/dashboard']);
                 } else {
                     this.message = res.message;
                     this.showError(res.message);
