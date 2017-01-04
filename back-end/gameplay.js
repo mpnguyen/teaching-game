@@ -27,21 +27,42 @@ exports.initGame = function (sio, socket) {
 
     gameSocket.on('createNewGame', createNewGame);
     gameSocket.on('startGame', startGame);
-    gameSocket.on('currentQuestion', currentQuestion);
-
-    gameSocket.on('playerJoinedRoom', playerJoinedRoom);
+    gameSocket.on('nextQuestion', nextQuestion);
 
     gameSocket.on('joinGame', joinGame);
+    gameSocket.on('currentQuestion', currentQuestion);
+
     gameSocket.on('disconnect', disconnect);
+    gameSocket.on('playerJoinedRoom', playerJoinedRoom);
 };
+
+function nextQuestion() {
+    var sock = this;
+    if(sock.data.isHost){
+        var room = gameRooms.filter(function (room) {
+            return room.room == sock.data.currentRoom;
+        });
+        room[0].currentIndex = room[0].currentIndex + 1;
+        var deadline = new Date(Date.now());
+        deadline.setSeconds(deadline.getSeconds()+20);
+        room[0].time = deadline;
+
+        var question = room[0].package.questions[room[0].currentIndex];
+        setTimeout(function () {
+            io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct});
+        }, 20000);
+
+        io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
+    }
+}
 
 function startGame() {
     var sock = this;
+
     if(sock.data.isHost) {
         var room = gameRooms.filter(function (room) {
             return room.room == sock.data.currentRoom;
         });
-
         room[0].package.populate('questions', function (err, package) {
             if(err) {
                 return;
@@ -50,9 +71,15 @@ function startGame() {
                 return;
             }
             room[0].package = package;
-            console.log('start game');
-            //console.log(room[0].package);
-
+            room[0].currentIndex = 0;
+            room[0].isStarted = true;
+            var deadline = new Date(Date.now());
+            deadline.setSeconds(deadline.getSeconds()+20);
+            room[0].time = deadline;
+            var question = room[0].package.questions[room[0].currentIndex];
+            setTimeout(function () {
+                io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct});
+            }, 20000);
             io.sockets.in(sock.data.currentRoom).emit('gameStarted', {message: 'Game has been started'});
         })
     }
@@ -63,12 +90,18 @@ function currentQuestion() {
     var room = gameRooms.filter(function (room) {
         return room.room == sock.data.currentRoom;
     });
-    console.log(room[0].package);
+
+    var question = {
+        question: room[0].package.questions[room[0].currentIndex].question,
+        image: room[0].package.questions[room[0].currentIndex].image,
+        deadline: room[0].time,
+        answers: room[0].package.questions[room[0].currentIndex].answers
+    };
+    io.to(sock.id).emit('receiveQuestion', question);
 }
 
 function playerJoinedRoom() {
     var sock = this;
-    console.log(sock.data);
     if(parseInt(sock.data.currentRoom)) {
         var room = gameRooms.filter(function (room) {
             return room.room == sock.data.currentRoom;
@@ -97,9 +130,8 @@ function createNewGame(PIN) {
         if(err) {
            var data = {
                success: false,
-               message: err
-           }
-           console.log(err);
+               message: 'Can not find question package'
+           };
            io.to(sock.id).emit('getPackageFailed', data);
            return;
         }
@@ -109,7 +141,6 @@ function createNewGame(PIN) {
                success: false,
                message: "Cant not find package"
            };
-           console.log("error");
            io.to(sock.id).emit('getPackageFailed', data);
            return;
         }
@@ -120,6 +151,7 @@ function createNewGame(PIN) {
         roomData.room = thisGameId;
         roomData.package = package;
         roomData.players = [];
+        roomData.isStarted = false;
 
 
         sock.data.currentRoom = thisGameId;
@@ -128,8 +160,6 @@ function createNewGame(PIN) {
         io.to(sock.id).emit('newGameCreated', {gamePIN: thisGameId, mySocketId: sock.id});
 
         gameRooms.push(roomData);
-
-        console.log(thisGameId);
     });
 }
 
@@ -151,6 +181,20 @@ function joinGame(input) {
             if(gameRooms[i].room == sock.data.currentRoom){
                 if(!gameRooms[i].players)
                     gameRooms[i].players = [];
+                var players = gameRooms[i].players.filter(function (player) {
+                    return player == sock.data.username;
+                });
+                if(gameRooms[i].isStarted) {
+                    data.message = 'Join room fail. Game has been started';
+                    io.to(sock.id).emit(input.gamePIN).emit('joinRoomFail', data);
+                    return;
+                }
+                if(players.length > 0)
+                {
+                    data.message = 'Invalid username';
+                    io.to(sock.id).emit(input.gamePIN).emit('joinRoomFail', data);
+                    return;
+                }
                 gameRooms[i].players.push(sock.data.username.toString());
             }
         }
