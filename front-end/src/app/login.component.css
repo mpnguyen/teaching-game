@@ -1,11 +1,22 @@
 .content {
-    background-color: #21B2FE;
+    background-color: #6ed3cf;
     height: 100vh;
+
+}
+.image{
+  background: url("http://www.pngall.com/wp-content/uploads/2016/03/Quotes-PNG.png") 0px 0px;
+  border-style:none;
+  width: 600px;
+  height: 340px;
+  margin-top: 21%;
+  background-repeat: no-repeat;
 }
 
 .logo {
     margin: 1%;
     height: 2%;
+    color: #e62739;
+    font-family: "My Custom Font 2";
 }
 
 .input-field {
@@ -15,6 +26,8 @@
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     width: 80%;
+
+
 }
 
 .my-form {
@@ -39,8 +52,36 @@
     margin-top: 20%;
     margin-right: 10%;
     margin-left: 10%;
+    color:#e62739;
+    font-family: "My Custom Font 2";
 }
 
 .message {
     width: 80%;
 }
+.loginform{
+  background-color: #9068be;
+}
+.btn1{
+  background-color: #9068be;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Book Antiqua";
+
+}
+.btn2{
+  background-color: #6ed3cf;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Book Antiqua";
+
+}
+.btn3{
+  background-color: #e62739;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Book Antiqua";
+
+}
+
+
