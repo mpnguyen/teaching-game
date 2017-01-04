@@ -1,12 +1,25 @@
 .content {
-    background-color: #21B2FE;
+    background-color: #BBDEFB;
     height: 100vh;
 }
 
 .logo {
     margin: 8px;
     height: 37px;
+    color: #e62739;
+    font-family: "My Custom Font 2";
 }
+.image1{
+  background: url("http://mammothstores.com.au/product_images/store_images/DTR/DTR-header.png") 0px 0px;
+  border-style:none;
+  width:520px;
+  height:520px;
+  margin-top: 5%;
+  background-repeat: no-repeat;
+  margin-top: 20%;
+  background-size: 520px;
+}
+
 
 .input-field {
     font-size: 2rem !important;
@@ -39,4 +52,13 @@
     margin-top: 20%;
     margin-right: 10%;
     margin-left: 10%;
+    color: #e62739;
+    font-family: "My Custom Font 2";
+}
+.btnForget{
+  background-color:  #9068be;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
 }
