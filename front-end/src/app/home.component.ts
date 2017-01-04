@@ -1,7 +1,7 @@
 /**
  * Created by mp_ng on 11/20/2016.
  */
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef, OnDestroy} from '@angular/core';
 import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
@@ -11,7 +11,7 @@ import {ToastsManager} from "ng2-toastr";
     styleUrls: ['./home.component.css'],
     templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
 
     gamePIN: string;
     username: string;
@@ -22,14 +22,17 @@ export class HomeComponent implements OnInit{
 
     ngOnInit(): void {
         SocketClient.getInstance().on('joinRoomSuccess', data => {
-            this.showSuccess(data.message);
             SocketClient.getData().gamePIN = data.gamePIN;
-            setTimeout(() => this.router.navigate(['waiting']), 2000);
+            this.router.navigate(['waiting']);
         });
 
         SocketClient.getInstance().on('joinRoomFail', data => {
             this.showError(data.message);
         });
+    }
+
+    ngOnDestroy(): void {
+        SocketClient.getInstance().removeAllListeners();
     }
 
     joinGame() {

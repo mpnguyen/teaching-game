@@ -1,15 +1,13 @@
 <div class="container col-md-8">
   <h3 class="logo">SPQ Corp</h3>
-  <h1 class="hello center-block">Welcome to the new world!</h1>
+  <h1 class="hello center-block">Play with me: {{gamePIN}}</h1>
 
 </div>
 <div class="col-md-4 content">
-
-
   <div class="player">
-
-    <button type="button" class="btn btn-default btnStartGame" *ngIf="isHost" (click)="startGame()" >Start Game</button>
-    <ul class="list-group">
+    <button type="button" class="btn btn-default btnStartGame" *ngIf="isHost" (click)="startGame()">Start Game</button>
+    <div class="clearfix"></div>
+    <ul class="list-group players">
       <li class="list-group-item list-group-item-info list-players" *ngFor="let user of listUser">{{user}}</li>
     </ul>
   </div>
