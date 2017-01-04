@@ -24,7 +24,7 @@ import {CommonModule} from "@angular/common";
 
 export const toastConfig = {
   animate: 'flyRight',
-  positionClass: 'toast-bottom-right'
+  positionClass: 'toast-bottom-right',
 };
 const TOAST_OPTIONS: ToastOptions = <any>toastConfig;
 

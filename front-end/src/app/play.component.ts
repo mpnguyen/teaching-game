@@ -6,6 +6,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import * as io from 'socket.io-client';
 import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
+import {Question} from "./models/question.model";
+import {Constants} from "./others/Config";
 
 declare let $: any;
 
@@ -16,11 +18,20 @@ declare let $: any;
 })
 export class PlayComponent implements OnInit, OnDestroy{
 
+    question: Question = new Question();
+    isHost = false;
+    isAllowNextQuestion = false;
+    baseUrl: string;
+
     constructor(private router: Router, private toastr: ToastsManager, vRef: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vRef);
     }
 
     ngOnInit(): void {
+        this.baseUrl = Constants.BASE_URL;
+
+        this.isHost = SocketClient.getData().isHost;
+
         if (!SocketClient.getData().gamePIN) {
             this.showError('Please join room for playing!');
             setTimeout(() => {
@@ -29,48 +40,58 @@ export class PlayComponent implements OnInit, OnDestroy{
             return;
         }
 
-        SocketClient.getInstance().emit('currentQuestion');
-
         SocketClient.getInstance().on('receiveQuestion', data => {
-            //bind question to ui
+            this.question = data;
+            for (let i = 0; i < 4; i++) {
+                $('#answer' + i).prop("disabled", false);
+                $('#answer' + i).removeClass('correct');
+            }
+            console.log(data);
+            $('#clock').countdown((new Date(data.deadline)).toLocaleString())
+              .on('update.countdown', function(event:any) {
+                let format = '%S';
+                $(this).html(event.strftime(format));
+              })
+              .on('finish.countdown', function(event: any) {
+                $(this).html('Time up').parent().addClass('disabled');
+              });
         });
 
         SocketClient.getInstance().on('endQuestion', data => {
-
+            this.isAllowNextQuestion = true && this.isHost;
+            for (let i = 0; i < 4; i++) {
+                $('#answer' + i).prop("disabled", true);
+                if (i === data.correct) {
+                    $('#answer' + i).addClass('correct');
+                }
+            }
         });
 
         SocketClient.getInstance().on('questionChanged', data => {
-            //success
+            this.isAllowNextQuestion = false && this.isHost;
             SocketClient.getInstance().emit('currentQuestion');
         });
+
+        setTimeout(() => SocketClient.getInstance().emit('currentQuestion', {}), 10);
     }
 
     ngOnDestroy(): void {
+        SocketClient.getInstance().removeAllListeners();
     }
 
-    showSuccess() {
-        this.toastr.success('You are awesome!', 'Success!');
+    nextQuestion(): void {
+        setTimeout(() => SocketClient.getInstance().emit('nextQuestion', {}), 10);
     }
 
-    showError(msg) {
+    showSuccess(msg: string) {
+        this.toastr.success(msg, 'Success!');
+    }
+
+    showError(msg: string) {
         this.toastr.error(msg, 'Error!');
     }
 
     ngAfterViewInit() {
-        this.showSuccess();
-        let deadline = new Date(Date.now());
-        deadline.setSeconds(deadline.getSeconds() + 10);
-
-        $('#clock').countdown(deadline.toLocaleString())
-            .on('update.countdown', function(event:any) {
-                let format = '%S';
-
-                $(this).html(event.strftime(format));
-            })
-            .on('finish.countdown', function(event: any) {
-                $(this).html('Time up')
-                    .parent().addClass('disabled');
-
-            });
+        //this.showSuccess();
     }
 }

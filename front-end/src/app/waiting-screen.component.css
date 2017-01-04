@@ -48,3 +48,13 @@
   color: #757575;
   font-weight: bold;
 }
+
+.players {
+  margin-top: 10%;
+}
+
+.clearfix {
+  content: "";
+  clear: both;
+  display: table;
+}

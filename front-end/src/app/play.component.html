@@ -1,21 +1,21 @@
-<div class=" col-md-8">
+<div class=" col-md-8 hidden-xs hidden-sm">
     <h3 class="logo">SPQ Corp</h3>
-    <p class="question ">Who is this is this is this is this is this is this is this this is this is this is this is this is this is this?</p>
-    <img src="http://i.imgur.com/RRUe0Mo.png" class="center-block image-question">
+    <p class="question center-block">{{question.question}}</p>
+    <img *ngIf="question.image" src="{{baseUrl}}/{{question.image}}" class="center-block image-question">
 </div>
 <div class="col-md-4 content">
     <div class="btnNextQuestion">
-        <button class="btn btn-default btnNext">NEXT</button>
+        <button class="btn btn-default btnNext" *ngIf="isAllowNextQuestion" (click)="nextQuestion()">NEXT</button>
     </div>
     <div class="countdown ">
         <span class="time-countdown center-block" id="clock"></span>
     </div>
 
     <div class="group-button-answer">
-        <button class="btn btn-block btn-success button-answer" (click)="showError()">A</button>
-        <button class="btn btn-block btn-info button-answer">B</button>
-        <button class="btn btn-block btn-warning button-answer">C</button>
-        <button class="btn btn-block btn-danger button-answer">D</button>
+        <button class="btn btn-block btn-success button-answer" id="answer0">{{question.answers[0]}}</button>
+        <button class="btn btn-block btn-info button-answer" id="answer1">{{question.answers[1]}}</button>
+        <button class="btn btn-block btn-warning button-answer" id="answer2">{{question.answers[2]}}</button>
+        <button class="btn btn-block btn-danger button-answer" id="answer3">{{question.answers[3]}}</button>
     </div>
 
 </div>
