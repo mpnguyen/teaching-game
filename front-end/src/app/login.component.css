@@ -1,5 +1,5 @@
 .content {
-    background-color: #6ed3cf;
+    background-color: #BBDEFB;
     height: 100vh;
 
 }
@@ -17,6 +17,7 @@
     height: 2%;
     color: #e62739;
     font-family: "My Custom Font 2";
+
 }
 
 .input-field {
@@ -47,13 +48,14 @@
 }
 
 .title-form {
-    font-size: 5.5rem;
+    font-size: 8rem;
     opacity: 0.8;
     margin-top: 20%;
     margin-right: 10%;
     margin-left: 10%;
     color:#e62739;
     font-family: "My Custom Font 2";
+
 }
 
 .message {
@@ -66,21 +68,21 @@
   background-color: #9068be;
   color: #F6FAFB;
   font-weight: bold;
-  font-family: "Book Antiqua";
+  font-family: "Arial";
 
 }
 .btn2{
   background-color: #6ed3cf;
   color: #F6FAFB;
   font-weight: bold;
-  font-family: "Book Antiqua";
+  font-family: "Arial";
 
 }
 .btn3{
   background-color: #e62739;
   color: #F6FAFB;
   font-weight: bold;
-  font-family: "Book Antiqua";
+  font-family: "Arial";
 
 }
 
