@@ -6,6 +6,7 @@ import { User } from "./models/user.model";
 import { Router} from "@angular/router";
 import {UserService} from "./services/user.service";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {Utils} from "./others/Utils";
 
 
 @Component({
@@ -23,14 +24,14 @@ export class RegisterComponent {
     messageEmail: string;
     messageConfirmPass: string;
 
-    constructor(private router: Router, private userService: UserService,public toastr: ToastsManager, vRef: ViewContainerRef) {
-      this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router, private userService: UserService) {}
+
     showSuccess(success: string){
-      this.toastr.success(success,'Success!');
+        Utils.ShowSuccess(success);
     }
+
     showError(error: string){
-      this.toastr.success(error,'Error!');
+        Utils.ShowError(error);
     }
     login(): void {
         this.router.navigate(['/login']);

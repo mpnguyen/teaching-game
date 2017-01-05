@@ -7,6 +7,7 @@ import {Router, Params, ActivatedRoute} from "@angular/router";
 import {UserService} from "./services/user.service";
 import 'rxjs/add/operator/switchMap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {Utils} from "./others/Utils";
 
 @Component({
     selector: 'reset-pass',
@@ -23,16 +24,14 @@ export class ResetComponent implements OnInit{
 
     messageConfirmPass: string;
 
-    constructor(private toastr: ToastsManager, vRef: ViewContainerRef,private router: Router, private route: ActivatedRoute, private userService: UserService) {
-      this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {}
 
-  showSuccess(success: string){
-    this.toastr.success(success,'Success!');
-  }
-  showError(error: string){
-    this.toastr.success(error,'Error!');
-  }
+    showSuccess(success: string){
+        Utils.ShowSuccess(success);
+    }
+    showError(error: string){
+        Utils.ShowError(error);
+    }
 
     ngOnInit(): void {
         this.route.params
@@ -64,17 +63,17 @@ export class ResetComponent implements OnInit{
 
     resetPass(): void {
         if (this.user.password != this.confirmPass) {
-            alert("Not correct!");
+            this.showError("Not correct!");
             return;
         }
 
         this.userService.resetPass(this.user.password, this.token)
             .then(res => {
                 if (res.success) {
-                    alert("Success!");
+                    this.showSuccess("Success!");
                     this.router.navigate(['/home']);
                 } else {
-                    alert("Error!");
+                    this.showError("Error!");
                 }
             });
     }

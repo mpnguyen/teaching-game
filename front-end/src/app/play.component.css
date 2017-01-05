@@ -1,6 +1,7 @@
 .content {
     background-color: #842c81;
     height: 100vh;
+    display: inline-table;
 }
 
 .logo {
@@ -28,6 +29,7 @@
 .group-button-answer {
     margin-top: 10%;
     text-align: center;
+    margin-bottom: 10%;
 }
 
 .btnNext {

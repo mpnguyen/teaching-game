@@ -10,6 +10,7 @@ import {QuestionService} from "./services/question.service";
 import {Constants} from "./others/Config";
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {SocketClient} from "./services/socket.service";
+import {Utils} from "./others/Utils";
 
 declare let $: any;
 
@@ -220,53 +221,51 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     showSuccess() {
-        this.toastr.success('You are awesome! You have got all the questions!', 'Success!');
+        Utils.ShowSuccess('You are awesome! You have got all the questions!');
     }
 
     showSuccessAddingPackages() {
-        this.toastr.success('Ding dong! Your package has been updated right below!', 'Success!');
+        Utils.ShowSuccess('Ding dong! Your package has been updated right below!');
     }
 
     showSuccessAddingQuestion() {
-        this.toastr.success('Your questions have been added perfectly!', 'Success!');
+        Utils.ShowSuccess('Your questions have been added perfectly!');
     }
     showSuccessEditingQuestion() {
-        this.toastr.success('Your questions have been edited successfully!', 'Success!');
+        Utils.ShowSuccess('Your questions have been edited successfully!');
     }
 
     showSuccessQuestionService() {
-        this.toastr.success('Question services are excellent!', 'Success!');
+        Utils.ShowSuccess('Question services are excellent!');
     }
 
     showSuccessQuestionServiceLoading() {
-        this.toastr.success('Loading question is perfect!', 'Success!');
+        Utils.ShowSuccess('Loading question is perfect!');
     }
 
     showSuccessDeletingPackages() {
-        this.toastr.success('Packages have been deleted successfully ', 'Success!');
+        Utils.ShowSuccess('Packages have been deleted successfully ');
     }
 
     showSuccessUploadingImage() {
-        this.toastr.success('Your images are wonderful!', 'Success!');
+        Utils.ShowSuccess('Your images are wonderful!');
     }
 
     showErrorQuestionEmpty() {
-        this.toastr.error('Questions could not be empty!', 'Error!');
+        Utils.ShowError('Questions could not be empty!');
     }
 
     showErrorQuestionAnswerEmpty() {
-        this.toastr.error('The answers of each question can not be empty!', 'Error!');
+        Utils.ShowError('The answers of each question can not be empty!');
     }
 
     showErrorPackageName() {
-        this.toastr.error('The package name could not be empty!', 'Error!');
+        Utils.ShowError('The package name could not be empty!');
     }
 
     showError(error: string) {
-        this.toastr.error(error, 'Error!');
+        Utils.ShowError(error);
     }
 
-    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService,private toastr: ToastsManager, vRef: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService) {}
 }

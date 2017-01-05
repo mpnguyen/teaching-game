@@ -5,6 +5,7 @@
 </div>
 <div class="col-md-4 content">
     <div class="btnNextQuestion">
+        <button type="button" class="btn btn-info btn-lg" *ngIf="isAllowNextQuestion" data-toggle="modal" data-target="#myModal">Open Modal</button>
         <button class="btn btn-default btnNext" *ngIf="isAllowNextQuestion" (click)="nextQuestion()">NEXT</button>
     </div>
     <div class="divInfo ">
@@ -27,4 +28,23 @@
         <button class="btn btn-block btn-danger button-answer" id="answer3" (click)="chooseAnswer(3)">{{question.answers[3]}}</button>
     </div>
 
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Top Players</h4>
+      </div>
+      <div class="modal-body">
+        <canvas id="myChart" width="400" height="400" style="max-height: 400px"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

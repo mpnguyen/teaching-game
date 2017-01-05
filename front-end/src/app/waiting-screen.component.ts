@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {SocketClient} from "./services/socket.service";
+import {Utils} from "./others/Utils";
 @Component({
     selector: 'forget-pass',
     styleUrls: ['./waiting-screen.component.css'],
@@ -13,12 +14,12 @@ export class WaitingScreenComponent implements OnInit, OnDestroy{
     isHost: boolean = false;
     gamePIN: string;
 
-    constructor(private router: Router, public toastr: ToastsManager, vRef: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router) {}
 
     ngOnInit(): void {
+
         SocketClient.getInstance().removeAllListeners();
+
         this.isHost = (SocketClient.getData().isHost === true);
 
         this.gamePIN = SocketClient.getData().gamePIN;
@@ -33,10 +34,15 @@ export class WaitingScreenComponent implements OnInit, OnDestroy{
 
         SocketClient.getInstance().on('hostLeaveRoom', data => {
             this.showError(data.message);
+            SocketClient.getInstance().removeAllListeners();
             setTimeout(() => {
                 this.router.navigate(['home']);
             }, 1500);
             return;
+        });
+
+        SocketClient.getInstance().on('playerLeaveRoom', data => {
+            this.listUser = data;
         });
 
         SocketClient.getInstance().on('newPlayerJoined', data => {
@@ -52,18 +58,21 @@ export class WaitingScreenComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(): void {
-        SocketClient.getInstance().removeAllListeners();
     }
 
     startGame() {
+        if (this.listUser.length <= 0) {
+          this.showError("Waiting for players!");
+            return;
+        }
         setTimeout(() => SocketClient.getInstance().emit('startGame', {}), 10);
     }
 
     showError(error: string) {
-        this.toastr.error(error, 'Error!');
+        Utils.ShowError(error);
     }
 
     showSuccess(success: string){
-        this.toastr.success(success,'Success!');
+        Utils.ShowSuccess(success);
     }
 }

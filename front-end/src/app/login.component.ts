@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import { UserService } from "./services/user.service"
 import {LocalStorageService} from 'ng2-webstorage';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {Utils} from "./others/Utils";
 
 @Component({
     selector: 'user-login',
@@ -20,19 +21,17 @@ export class LoginComponent implements OnDestroy{
 
     message: string = null;
 
-    constructor(private toastr: ToastsManager,private vRef: ViewContainerRef, private router: Router, private userService: UserService, private storage:LocalStorageService) {
-        this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router, private userService: UserService, private storage:LocalStorageService) {}
 
     ngOnDestroy(): void {
     }
 
     showSuccess() {
-        this.toastr.success('Congratulation! Your login is successful!!!', 'Success!');
+        Utils.ShowSuccess('Congratulation! Your login is successful!!!');
     }
 
     showError(error: string) {
-        this.toastr.error(error, 'Error!');
+        Utils.ShowError(error);
     }
 
     login(): void {
