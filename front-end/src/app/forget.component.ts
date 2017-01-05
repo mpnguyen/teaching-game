@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import { UserService } from "./services/user.service"
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {Utils} from "./others/Utils";
 
 @Component({
     selector: 'forget-pass',
@@ -19,15 +20,13 @@ export class ForgetComponent {
 
     message: string = null;
 
-    constructor(private router: Router, private location: Location, private userService: UserService,public toastr: ToastsManager, vRef: ViewContainerRef) {
-      this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router, private location: Location, private userService: UserService) {}
 
     showSuccess(success: string){
-        this.toastr.success(success,'Success!');
+        Utils.ShowSuccess(success);
     }
     showError(error: string){
-      this.toastr.success(error,'Error!');
+        Utils.ShowError(error);
     }
     forgetPass(): void {
         this.userService.forgetPass(this.user)

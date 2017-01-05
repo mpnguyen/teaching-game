@@ -5,6 +5,7 @@ import {Component, OnInit, ViewContainerRef, OnDestroy} from '@angular/core';
 import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
+import {Utils} from "./others/Utils";
 
 @Component({
     selector: 'my-home',
@@ -16,9 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     gamePIN: string;
     username: string;
 
-    constructor(private router: Router, private toastr: ToastsManager, vRef: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vRef);
-    }
+    constructor(private router: Router) {}
 
     ngOnInit(): void {
         SocketClient.getInstance().on('joinRoomSuccess', data => {
@@ -45,10 +44,10 @@ export class HomeComponent implements OnInit, OnDestroy{
     }
 
     showSuccess(msg: string) {
-        this.toastr.success(msg, 'Success!');
+        Utils.ShowSuccess(msg);
     }
 
     showError(error: string) {
-        this.toastr.error(error, 'Error!');
+        Utils.ShowError(error);
     }
 }
