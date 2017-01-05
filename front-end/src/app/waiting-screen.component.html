@@ -1,15 +1,27 @@
-<div class="container col-md-8">
+<div class="container col-md-8 hidden-xs hidden-sm intro">
+
   <h3 class="logo">SPQ Corp</h3>
   <h1 class="hello center-block">Play with me: {{gamePIN}}</h1>
 
 </div>
-<div class="col-md-4 content">
+<div class="container col-md-4 content">
   <div class="player">
-    <button type="button" class="btn btn-default btnStartGame" *ngIf="isHost" (click)="startGame()">Start Game</button>
+    <div class="buttonArea">
+      <button type="button" class="btn btn-default btnStartGame" *ngIf="isHost" (click)="startGame()">Start</button>
+    </div>
+
     <div class="clearfix"></div>
-    <ul class="list-group players">
-      <li class="list-group-item list-group-item-info list-players" *ngFor="let user of listUser">{{user.username}}</li>
-    </ul>
+    <div class="content-package">
+      <ul class="list-group players">
+
+        <div class="list-group-item list-players" *ngFor="let user of listUser">
+          <div class="list-player center-block">
+            {{user.username}}
+            <!--<span class="glyphicon glyphicon-ok iconOk"></span>-->
+          </div>
+        </div>
+      </ul>
+    </div>
   </div>
 
 </div>

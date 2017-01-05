@@ -1,13 +1,22 @@
 .content {
-  background-color:#0288D1  ;
+  background-color:#0288D1;
 
   height: 100vh;
-}
 
+
+}
+.intro{
+  height: 100vh;
+  background-image: url("../assets/img/waiting4.jpg");
+  background-repeat: no-repeat;
+  background-size: 1000px 900px;
+
+}
 .logo {
   margin: 8px;
   height: 37px;
-  color: #757575;
+  color:#0928c5;
+  font-family: "My Custom Font 2";
 }
 
 .image-question {
@@ -18,8 +27,9 @@
 .hello {
   width: 90%;
   font-size: 60px;
-  margin-top: 28%;
-  color: #212121;
+  margin-top: 21%;
+  color:#0928c5;
+  font-family: "My Custom Font 4";
 }
 
 .divInfo {
@@ -33,13 +43,31 @@
   color: white;
 }
 .list-players{
-  font-size:20px;
-  color: #212121;
-  background-color:#FFFFFF;
+  background-color:#0288D1;
+  border-top:0;
+  border-left:0;
+  border-right:0;
+  border-left: 0;
+  padding: 5px 15px;
+  font-family: "My Custom Font 4";
+}
+.list-group-item{
+  border:0px;
+}
+.list-player{
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 20px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  padding-left:5%;
+  text-align: center;
+  border-radius: 10px;
+  width: 90%;
 
 }
-.player{
-  margin-top:5%;
+.iconOk{
+  float: right;
 }
 .btnStartGame{
   float:right;
@@ -49,12 +77,32 @@
   font-weight: bold;
 }
 
-.players {
-  margin-top: 10%;
+.buttonArea{
+  padding: 2%;
 }
+
 
 .clearfix {
   content: "";
   clear: both;
   display: table;
 }
+.content-package {
+  overflow:auto;
+  height:72vh;
+  margin-top: 30px
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #FFFFFF;
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #CCFFCC;
+}
+
