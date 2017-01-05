@@ -1,10 +1,8 @@
 .content {
-  background-color:#0288D1;
-
+  background-color:#74a1c1;
   height: 100vh;
-
-
 }
+
 .intro{
   height: 100vh;
   background-image: url("../assets/img/waiting4.jpg");
@@ -12,6 +10,7 @@
   background-size: 1000px 900px;
 
 }
+
 .logo {
   margin: 8px;
   height: 37px;
@@ -42,8 +41,9 @@
   text-align: center;
   color: white;
 }
+
 .list-players{
-  background-color:#0288D1;
+  background-color:#74a1c1;
   border-top:0;
   border-left:0;
   border-right:0;
@@ -51,9 +51,11 @@
   padding: 5px 15px;
   font-family: "My Custom Font 4";
 }
+
 .list-group-item{
   border:0px;
 }
+
 .list-player{
   background-color: #ffffff;
   color: #000000;
@@ -64,11 +66,12 @@
   text-align: center;
   border-radius: 10px;
   width: 90%;
-
 }
+
 .iconOk{
   float: right;
 }
+
 .btnStartGame{
   float:right;
   border-radius: 4px;
@@ -81,17 +84,18 @@
   padding: 2%;
 }
 
-
 .clearfix {
   content: "";
   clear: both;
   display: table;
 }
+
 .content-package {
   overflow:auto;
   height:72vh;
   margin-top: 30px
 }
+
 ::-webkit-scrollbar {
   width: 6px;
 }
