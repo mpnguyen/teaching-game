@@ -9,8 +9,8 @@
 .logo {
   margin: 0px;
   height: 5%;
-  color: #B71C1C;
-  font-family: "Arial Narrow";
+  color: #ff0707;
+  font-family: "My Custom Font 4";
   display: inline;
   font-size:35px;
   font-weight: bold;
@@ -20,9 +20,9 @@
 }
 .login{
   font-size:30px;
-  color: #B71C1C;
+  color: #ff0707;
   font-weight: bold;
-  font-family: "Arial Narrow";
+  font-family: "My Custom Font 4";
   float:right;
   cursor: pointer;
   text-decoration:none;
