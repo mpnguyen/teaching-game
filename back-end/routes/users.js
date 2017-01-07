@@ -33,6 +33,40 @@ passport.deserializeUser(function(user, done) {
 
 router.use(passport.initialize());
 
+router.post('/loginfacebook', function (req, res, next) {
+    User.findOne({username: req.body.uid}, function (err, user) {
+        if (err) {
+            return res.json(err);
+        }
+        if(!user) {
+            var temp = new User({username: req.body.uid, password: req.body.uid, email: req.body.uid});
+            temp.save(function (err, user) {
+                if(err) {
+                    return res.json(err)
+                }
+                var token = jwt.sign(user, "user", {
+                    expiresIn: 60 * 60 * 24
+                });
+                return res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            })
+        }
+        else{
+            var token = jwt.sign(user, "user", {
+                expiresIn: 60 * 60 * 24
+            });
+            return res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
+        }
+    });
+});
+
 router.get('/facebook',
     passport.authenticate('facebook' , { scope : 'email' }));
 
@@ -180,8 +214,8 @@ router.post('/forget', function (req, res, next) {
                 var smtpTransport = mailer.createTransport({
                     service: 'SendGrid',
                     auth: {
-                        user: 'spqcorp',
-                        pass: 'spq123456'
+                        user: 'apikey',
+                        pass: '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'
                     }
                 });
 
