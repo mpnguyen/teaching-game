@@ -45,16 +45,18 @@ function playerLeaveRoom(sock) {
             return room.room == sock.data.currentRoom;
         });
         if(room.length>0) {
+            console.log(room[0].players);
             var player = room[0].players.filter(function (player) {
-                return player.username = sock.data.username;
+                return player.username == sock.data.username;
             });
             if(player.length>0) {
-                room[0].players.splice(room[0].players.indexOf(player[0])-1, 1);
+                console.log(room[0].players);
+                room[0].players.splice(room[0].players.indexOf(player[0]), 1);
+                console.log(room[0].players);
                 io.sockets.in(sock.data.currentRoom.toString()).emit('playerLeaveRoom', room[0].players);
             }
         }
     }
-
 }
 
 function answerQuestion(data) {
@@ -250,7 +252,7 @@ function joinGame(input) {
                 if(!gameRooms[i].players)
                     gameRooms[i].players = [];
                 var players = gameRooms[i].players.filter(function (player) {
-                    return player == sock.data.username;
+                    return player.username == sock.data.username;
                 });
                 if(gameRooms[i].isStarted) {
                     data.message = 'Join room fail. Game has been started';
@@ -267,7 +269,7 @@ function joinGame(input) {
                 player.username = sock.data.username.toString();
                 player.score = 0;
                 gameRooms[i].players.push(player);
-                console.log(gameRooms[i].players[0].username);
+                console.log(gameRooms[i]);
             }
         }
         data.message = 'Join room success';
