@@ -32,6 +32,18 @@
   font-size:35px;
 }
 
+a:hover {
+  color: #ff8383;
+}
+
+button:hover{
+  background-color: #5f9ad4;
+}
+
+input:hover{
+  border: 3px solid #8ab5e0;
+}
+
 .inputPin{
   text-align: center;
   margin-top: 2%;

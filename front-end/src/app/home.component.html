@@ -9,11 +9,11 @@
   </div>
   <form (submit)="joinGame()">
     <div class="inputUsername">
-      <input type="text" class="input" id="username"
+      <input type="text" class="input" id="username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'NAME'"
              placeholder="NAME" [(ngModel)]="username" name="username" required>
     </div>
     <div class="inputPin">
-      <input type="text" class="input" id="pin"
+      <input type="text" class="input" id="pin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'PIN'"
              placeholder="PIN" [(ngModel)]="gamePIN" name="pin" required>
     </div>
     <div class="buttonArea">
