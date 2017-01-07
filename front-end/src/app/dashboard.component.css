@@ -6,6 +6,7 @@
 .logo {
     margin: 8px;
     height: 37px;
+    font-family: "My Custom Font 2";
 }
 
 .input-field {
@@ -168,6 +169,7 @@
     margin-top: 10%;
     margin-right: 10%;
     margin-left: 10%;
+    font-family: "My Custom Font 4";
 }
 
 .button-delete{
@@ -222,7 +224,9 @@
     margin-bottom: 10px;
     font-size: 2rem;
 }
-
+.btn{
+  padding: 5.6px 12px;
+}
 .panel-group {
     clear: both;
 }

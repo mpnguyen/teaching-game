@@ -13,7 +13,7 @@
   color: #ff0707;
   font-family: "My Custom Font 4";
   display: inline;
-  font-size:35px;
+  font-size:25px;
   font-weight: bold;
 }
 
@@ -21,15 +21,27 @@
   padding: 0.5%;
 }
 
-.login{
-  font-size:30px;
+.button-bar{
+  font-size:25px;
   color: #ff0707;
   font-weight: bold;
   font-family: "My Custom Font 4";
   float:right;
   cursor: pointer;
   text-decoration:none;
-  font-size:35px;
+
+}
+
+a:hover {
+  color: #ff8383;
+}
+
+button:hover{
+  background-color: #5f9ad4;
+}
+
+input:hover{
+  border: 3px solid #8ab5e0;
 }
 
 .inputPin{
@@ -78,11 +90,13 @@ text-align: center;
   font-size: 40px;
   width: 300px;
   cursor: pointer;
+  font-family: "My Custom Font 4";
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #757575;
 
   font-size: 30px;
+  font-family: "My Custom Font 4";
   text-align: center;
 }

@@ -12,7 +12,7 @@
         </div>
         <div class="alert alert-danger message center-block" *ngIf="message" role="alert">{{message}}</div>
         <button type="submit" class="btn btnLogin btn-submit center-block">Login</button>
-        <button class="btn btnLoginFb btn-submitFb center-block">Login with Facebook</button>
+        <button type="button" class="btn btnLoginFb btn-submitFb center-block" (click)="loginFB()">Login with Facebook</button>
         <button type="button" class="btn btnForget btn-second center-block" (click)="forgetPass()">Forget Password</button>
         <button type="button" class="btn btnRegister btn-second center-block" (click)="register()">Register</button>
     </form>

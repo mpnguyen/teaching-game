@@ -6,6 +6,7 @@ import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {Utils} from "./others/Utils";
+import {LocalStorageService} from "ng2-webstorage";
 
 @Component({
     selector: 'my-home',
@@ -16,10 +17,12 @@ export class HomeComponent implements OnInit, OnDestroy{
 
     gamePIN: string;
     username: string;
+    isLogin: boolean = false;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private storage:LocalStorageService) {}
 
     ngOnInit(): void {
+        this.isLogin = this.storage.retrieve('is_login');
         SocketClient.getInstance().on('joinRoomSuccess', data => {
             SocketClient.getData().gamePIN = data.gamePIN;
             this.router.navigate(['waiting']);

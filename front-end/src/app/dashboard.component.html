@@ -5,7 +5,7 @@
             <h1 class="title-form">Dashboard</h1>
             <!--<label class="center-block title-package">Create package</label>-->
             <div class="input-group input-field">
-                <input type="text" [(ngModel)]="newPackage" class="center-block form-control input-name-package" placeholder="Add new package....">
+                <input type="text" [(ngModel)]="newPackage" class="center-block form-control input-name-package" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Add new package....'" placeholder="Add new package....">
                 <span class="input-group-btn">
                     <button class="btn btn-default input-add-package" type="button" (click)="addNewPackage()">
                         <span class="button-add glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
@@ -82,7 +82,7 @@
                                 </span>
                             </div>
 
-                            <button type="submit" class="btn pull-right btn-submit btn-success" (click)="addNewQuestion(newQuestion)">Save</button>
+                            <button type="submit" class="btn pull-right btn-submit btn-success " (click)="addNewQuestion(newQuestion)">Save</button>
                         </form>
                     </div>
                 </div>

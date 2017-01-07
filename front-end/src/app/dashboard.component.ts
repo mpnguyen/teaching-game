@@ -31,7 +31,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.access_token = this.storage.retrieve("access_token");
-        if (this.access_token == null || this.access_token == "") {
+        if (this.access_token == null || this.access_token == "" || !this.storage.retrieve("is_login")) {
+            this.storage.store("is_login", false);
             this.router.navigate(['login']);
             return;
         }
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 } else {
                     this.showError(res.message);
                     setTimeout(() => {
+                        this.storage.store("is_login", false);
                         this.router.navigate(['login']);
                     }, 1500);
                     return;
