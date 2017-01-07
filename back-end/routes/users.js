@@ -6,13 +6,72 @@ var crypto = require('crypto');
 var mailer = require('nodemailer');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var User = mongoose.model('User');
 var Package = mongoose.model('Package');
 var Question = mongoose.model('Question');
 
+passport.use(new FacebookStrategy({
+        clientID: '1571907532826078',
+        clientSecret: '907b40f72deed38d573a96593d84a001',
+        callbackURL: "/users/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        done(null, profile);
+    }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+router.use(passport.initialize());
+
+router.get('/facebook',
+    passport.authenticate('facebook' , { scope : 'email' }));
+
+router.get('/facebook/callback', passport.authenticate('facebook'), function (req, res, next) {
+    User.findOne({username: req.user.id}, function (err, user) {
+        if (err) {
+            return res.json(err);
+        }
+        if(!user) {
+            var temp = new User({username: req.user.id, password: req.user.id, email: req.user.id});
+            temp.save(function (err, user) {
+                if(err) {
+                    return res.json(err)
+                }
+                var token = jwt.sign(user, "user", {
+                    expiresIn: 60 * 60 * 24
+                });
+                return res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            })
+        }
+        else{
+            var token = jwt.sign(user, "user", {
+                expiresIn: 60 * 60 * 24
+            });
+            return res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
+        }
+    });
+});
 
 /* GET users listing. */
+
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
 });

@@ -36,7 +36,28 @@ exports.initGame = function (sio, socket) {
 
     gameSocket.on('disconnect', disconnect);
     gameSocket.on('playerJoinedRoom', playerJoinedRoom);
+    gameSocket.on('playerLeaveRoom', playerLeaveRoom);
 };
+
+function playerLeaveRoom() {
+    var sock = this;
+    if(parseInt(sock.data.currentRoom)) {
+        var room = gameRooms.filter(function (room) {
+            return room.room == sock.data.currentRoom;
+        });
+        if(room.length>0) {
+            var player = room[0].players.filter(function (player) {
+                return player.username = sock.data.username;
+            });
+            if(player.length>0) {
+                room[0].players.splice(room[0].players.indexOf(player[0])-1, 1);
+                io.sockets.in(sock.data.currentRoom.toString()).emit('playerLeaveRoom', room[0].players);
+            }
+        }
+    }
+
+}
+
 function answerQuestion(data) {
     var sock = this;
     if (!sock.data.isHost)
@@ -48,15 +69,16 @@ function answerQuestion(data) {
         var players = room[0].players.filter(function (player) {
             return player.username == sock.data.username;
         });
-        if(data == parseInt(room[0].package.questions[room[0].currentIndex].correct)){
-            players[0].score += ((new Date(room[0].time)) - (new Date(Date.now())))/1000;
+        if(players.length>0) {
+            if(data == parseInt(room[0].package.questions[room[0].currentIndex].correct)){
+                players[0].score += ((new Date(room[0].time)) - (new Date(Date.now())))/1000;
+            }
+            room[0].counter = room[0].counter + 1;
+            io.sockets.in(sock.data.currentRoom).emit('playerAnswered', room[0].counter);
+            console.log(players[0].score);
         }
-        room[0].counter = room[0].counter + 1;
-        io.sockets.in(sock.data.currentRoom).emit('playerAnswered', room[0].counter);
-        console.log(players[0].score);
     }
 }
-
 
 function nextQuestion() {
     var sock = this;
@@ -64,18 +86,35 @@ function nextQuestion() {
         var room = gameRooms.filter(function (room) {
             return room.room == sock.data.currentRoom;
         });
-        room[0].currentIndex = room[0].currentIndex + 1;
-        var deadline = new Date(Date.now());
-        deadline.setSeconds(deadline.getSeconds()+20);
-        room[0].time = deadline;
+        if(room[0].currentIndex <= room[0].package.questions.length) {
+            room[0].currentIndex = room[0].currentIndex + 1;
+            var deadline = new Date(Date.now());
+            deadline.setSeconds(deadline.getSeconds()+20);
+            room[0].time = deadline;
 
-        var question = room[0].package.questions[room[0].currentIndex];
-        setTimeout(function () {
-            io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct});
-        }, 20000);
-        room[0].counter = 0;
-        io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
+            var question = room[0].package.questions[room[0].currentIndex];
+            setTimeout(function () {
+                var scores = [];
+                scores = getScore(room[0]);
+                console.log('test');
+                io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct, score: scores});
+            }, 20000);
+            room[0].counter = 0;
+            io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
+        }
     }
+}
+
+function getScore(room) {
+    var players = room.players.sort(function (a, b) {
+        return b.score - a.score;
+    });
+    console.log(players);
+
+    players.splice(5, players.length - 5);
+    console.log(players);
+
+    return players;
 }
 
 function startGame() {
@@ -100,7 +139,9 @@ function startGame() {
             room[0].time = deadline;
             var question = room[0].package.questions[room[0].currentIndex];
             setTimeout(function () {
-                io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct});
+                var scores = [];
+                scores = getScore(room[0]);
+                io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct, score: scores});
             }, 20000);
             io.sockets.in(sock.data.currentRoom).emit('gameStarted', {message: 'Game has been started'});
         })
@@ -132,7 +173,6 @@ function playerJoinedRoom() {
     }
 }
 
-
 //TODO: handle disconnect event of client
 function disconnect() {
     var sock = this;
@@ -140,6 +180,7 @@ function disconnect() {
         io.sockets.in(sock.data.currentRoom).emit('hostLeaveRoom', {message: 'Host has left the room'});
     }
     else{
+        playerLeaveRoom();
         io.sockets.in(sock.data.currentRoom).emit('playerLeftRoom', {message: sock.data.username + ' has left the room'})
     }
 }
@@ -184,7 +225,6 @@ function createNewGame(PIN) {
         gameRooms.push(roomData);
     });
 }
-
 
 function joinGame(input) {
     var room = io.sockets.adapter.rooms[input.gamePIN];
