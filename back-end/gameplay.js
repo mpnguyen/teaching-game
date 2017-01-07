@@ -39,8 +39,7 @@ exports.initGame = function (sio, socket) {
     gameSocket.on('playerLeaveRoom', playerLeaveRoom);
 };
 
-function playerLeaveRoom() {
-    var sock = this;
+function playerLeaveRoom(sock) {
     if(parseInt(sock.data.currentRoom)) {
         var room = gameRooms.filter(function (room) {
             return room.room == sock.data.currentRoom;
@@ -86,8 +85,9 @@ function nextQuestion() {
         var room = gameRooms.filter(function (room) {
             return room.room == sock.data.currentRoom;
         });
-        if(room[0].currentIndex <= room[0].package.questions.length) {
-            room[0].currentIndex = room[0].currentIndex + 1;
+        console.log(room[0].currentIndex);
+        console.log((room[0].package.questions.length - 1));
+        if(room[0].currentIndex < room[0].package.questions.length - 1) {
             var deadline = new Date(Date.now());
             deadline.setSeconds(deadline.getSeconds()+20);
             room[0].time = deadline;
@@ -100,7 +100,13 @@ function nextQuestion() {
                 io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct, score: scores});
             }, 20000);
             room[0].counter = 0;
+            room[0].currentIndex = room[0].currentIndex + 1;
             io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
+        }
+        else
+        {
+            gameRooms.splice(gameRooms.indexOf(room[0]) -1 , 1);
+            io.sockets.in(sock.data.currentRoom).emit('endGame', {message: 'Game has ended'});
         }
     }
 }
@@ -180,7 +186,7 @@ function disconnect() {
         io.sockets.in(sock.data.currentRoom).emit('hostLeaveRoom', {message: 'Host has left the room'});
     }
     else{
-        playerLeaveRoom();
+        playerLeaveRoom(sock);
         io.sockets.in(sock.data.currentRoom).emit('playerLeftRoom', {message: sock.data.username + ' has left the room'})
     }
 }
