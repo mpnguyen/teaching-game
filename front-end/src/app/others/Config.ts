@@ -3,4 +3,5 @@
  */
 export class Constants {
     public static readonly BASE_URL: string = 'https://teaching-game.herokuapp.com/';
+    //public static readonly BASE_URL: string = 'http://192.168.11.43:3000/';
 }
