@@ -1,19 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: "My Custom Font";
-  src: url("./libs/font/ChapelScript_PERSONAL.ttf");
+  src: url("assets/font/ChapelScript_PERSONAL.ttf");
 }
 @font-face {
   font-family: "My Custom Font 2";
-  src: url("./libs/font/KittenSwashTrial.ttf");
+  src: url("assets/font/KittenSwashTrial.ttf");
 }
 @font-face {
   font-family: "My Custom Font 3";
-  src: url("./libs/font/Lato-Regular.ttf");
+  src: url("assets/font/Lato-Regular.ttf");
 }
 @font-face {
   font-family: "My Custom Font 4";
-  src: url("./libs/font/Frank.ttf");
+  src: url("assets/font/Frank.ttf");
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
