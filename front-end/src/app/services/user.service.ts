@@ -29,6 +29,16 @@ export class UserService {
             .catch(this.handleError);
     }
 
+    loginFB(): Promise<any> {
+        let url = this.baseUrl + 'users/facebook';
+        let headers = new Headers({'Content-Type': 'application/json'});
+        headers.append('Access-Control-Allow-Origin', '*');
+        return this.http.get(url, { headers: headers })
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
     register(user: User): Promise<any> {
         let url = this.baseUrl + 'users';
         return this.http.post(url, JSON.stringify(user), { headers: this.headers })

@@ -1,7 +1,8 @@
 <div class="col-md-12 content">
   <div class="intro">
     <h3 class="logo">SPQ Corp</h3>
-    <a class="login">Login</a>
+    <a class="button-bar" *ngIf="isLogin === false" routerLink="/login">Login</a>
+    <a class="button-bar" *ngIf="isLogin" routerLink="/dashboard">Dashboard</a>
   </div>
   <div class="gameNameArea">
     <p class="gameName">Teaching Game</p>

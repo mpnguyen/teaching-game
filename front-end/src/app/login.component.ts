@@ -52,6 +52,23 @@ export class LoginComponent implements OnDestroy{
 
     }
 
+    loginFB(): void {
+
+        this.userService.loginFB()
+            .then(res => {
+                if (res.success) {
+                    this.message = null;
+                    this.storage.store('access_token', res.token);
+                    this.storage.store('is_login', true);
+                    this.router.navigate(['/dashboard']);
+                } else {
+                    this.message = res.message;
+                    this.showError(res.message);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
     register(): void {
         this.router.navigate(['/register']);
     }
