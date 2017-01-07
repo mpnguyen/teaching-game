@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy{
         this.isNotLogin = !this.isLogin;
         SocketClient.getInstance().on('joinRoomSuccess', data => {
             SocketClient.getData().gamePIN = data.gamePIN;
+            SocketClient.getData().isHost = false;
             this.router.navigate(['waiting']);
         });
 
