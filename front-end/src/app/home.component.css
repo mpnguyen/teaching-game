@@ -13,7 +13,7 @@
   color: #ff0707;
   font-family: "My Custom Font 4";
   display: inline;
-  font-size:35px;
+  font-size:25px;
   font-weight: bold;
 }
 
@@ -22,14 +22,14 @@
 }
 
 .button-bar{
-  font-size:30px;
+  font-size:25px;
   color: #ff0707;
   font-weight: bold;
   font-family: "My Custom Font 4";
   float:right;
   cursor: pointer;
   text-decoration:none;
-  font-size:35px;
+
 }
 
 a:hover {
