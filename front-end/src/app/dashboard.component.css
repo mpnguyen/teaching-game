@@ -36,6 +36,10 @@
     border-color: #ccc;
 }
 
+.package-label {
+    float: left;
+}
+
 .input-name-package:focus {
     -webkit-box-shadow: none;
     outline: -webkit-focus-ring-color auto 0px;

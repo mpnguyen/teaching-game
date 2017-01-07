@@ -29,11 +29,10 @@ export class UserService {
             .catch(this.handleError);
     }
 
-    loginFB(): Promise<any> {
-        let url = this.baseUrl + 'users/facebook';
+    loginFB(userId: string): Promise<any> {
+        let url = this.baseUrl + 'users/loginfacebook';
         let headers = new Headers({'Content-Type': 'application/json'});
-        headers.append('Access-Control-Allow-Origin', '*');
-        return this.http.get(url, { headers: headers })
+        return this.http.post(url, { 'uid': userId }, { headers: headers })
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

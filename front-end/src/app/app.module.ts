@@ -20,6 +20,7 @@ import { ErrorComponent } from "./error.component";
 import { PlayComponent } from "./play.component";
 import { WaitingScreenComponent } from "./waiting-screen.component";
 import {CommonModule} from "@angular/common";
+import {CreateGameComponent} from "./create-game.component";
 
 
 export const toastConfig = {
@@ -31,7 +32,7 @@ const TOAST_OPTIONS: ToastOptions = <any>toastConfig;
 @NgModule({
   imports:      [ BrowserModule, CommonModule, AppRoutingModule, FormsModule, HttpModule, Ng2Webstorage, ToastModule.forRoot(TOAST_OPTIONS) ],
   providers: [ UserService, QuestionService ],
-  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent,
+  declarations: [ AppComponent, HomeComponent, LoginComponent, RegisterComponent, CreateGameComponent,
     ForgetComponent, ResetComponent, DashboardComponent, ErrorComponent, PlayComponent, WaitingScreenComponent ],
   bootstrap:    [ AppComponent ]
 })

@@ -40,15 +40,9 @@ export class ResetComponent implements OnInit{
                 let response: any = res;
                 if (response.success) {
                     this.token = response.token;
-                    this.showSuccess(response.token);
-                    setTimeout(() => {
-                      this.router.navigate(['/home']);
-                    }, 2000);
                 } else {
-                  this.showError("Failed!");
-                  setTimeout(() => {
+                    this.showError("Failed!");
                     this.router.navigate(['/home']);
-                  }, 2000);
                 }
             });
     }

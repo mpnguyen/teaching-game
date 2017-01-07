@@ -75,3 +75,7 @@
 .isa_error {
   background-color: #bd362f;
 }
+
+.content {
+  display: inline-table;
+}
