@@ -6,6 +6,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .logo {
   margin: 0px;
   height: 5%;
@@ -15,9 +16,11 @@
   font-size:35px;
   font-weight: bold;
 }
+
 .intro{
   padding: 0.5%;
 }
+
 .login{
   font-size:30px;
   color: #ff0707;
@@ -27,57 +30,55 @@
   cursor: pointer;
   text-decoration:none;
   font-size:35px;
-
 }
 
 .inputPin{
   text-align: center;
   margin-top: 2%;
 }
+
 .inputUsername{
   text-align: center;
 }
+
 .input{
   height: 60px;
   border: 3px solid #2196F3;
   border-radius: 4px;
   width: 300px;
-
-
   font-size: 40px;
   text-align: center;
 }
+
 .buttonArea{
 text-align: center;
   margin-top: 2%;
 }
+
 .gameNameArea{
   margin-top: 7%;
   text-align: center;
   font-family: "My Custom Font", Verdana, Tahoma;
   color: #FFFFFF;
 }
+
 .gameName{
   font-size: 75px;
   color:#f33a3a;
   font-family: "My Custom Font 2";
 }
 
-
-
 .button {
   background-color: #1976D2; /* Green */
   border-radius: 4px;
   border: none;
   color: white;
-
   text-align: center;
   height: 60px;
   font-size: 40px;
   width: 300px;
   cursor: pointer;
 }
-
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #757575;

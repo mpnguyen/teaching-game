@@ -40,6 +40,11 @@
     font-size: 2rem;
     width: 80%;
 }
+.btn-submitFb {
+  margin-top: 10px;
+  font-size: 2rem;
+  width: 80%;
+}
 
 .btn-second {
     margin-top: 10px;
@@ -50,7 +55,7 @@
 .title-form {
     font-size: 8rem;
     opacity: 0.8;
-    margin-top: 20%;
+    margin-top: 15%;
     margin-right: 10%;
     margin-left: 10%;
     color:#e62739;
@@ -66,6 +71,13 @@
 }
 .btnLogin{
   background-color: #9068be;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+.btnLoginFb{
+  background-color: #3b5998;
   color: #F6FAFB;
   font-weight: bold;
   font-family: "Arial";

@@ -31,14 +31,19 @@
     text-align: center;
     margin-bottom: 10%;
 }
+.openModal{
+  font-size: 28px;
+  color:#FFFFFF;
+  cursor: pointer;
+  float:right;
+  margin-right: 15px;
+}
 
-.btnNext {
-    float:right;
-    border-radius: 4px;
-    font-size:20px;
-    color: #757575;
-    font-weight: bold;
-    width: 150px;
+.openNext {
+  font-size: 28px;
+  color: #FFFFFF;
+  cursor: pointer;
+  float: right;
 }
 
 .btnNextQuestion{
@@ -46,7 +51,7 @@
 }
 
 .divInfo {
-    padding-top: 20%;
+    padding-top: 16%;
     width: 100%;
 }
 

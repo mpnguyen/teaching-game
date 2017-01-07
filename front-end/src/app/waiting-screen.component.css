@@ -1,20 +1,20 @@
 .content {
-  background-color:#74a1c1;
+  background-color:#d6ff24;
   height: 100vh;
 }
 
 .intro{
   height: 100vh;
-  background-image: url("../assets/img/waiting4.jpg");
+  background-image: url("../assets/img/seoul.jpg");
   background-repeat: no-repeat;
-  background-size: 1000px 900px;
+  background-size: 1000px 800px;
 
 }
 
 .logo {
   margin: 8px;
   height: 37px;
-  color:#0928c5;
+  color:#d2d626;
   font-family: "My Custom Font 2";
 }
 
@@ -27,7 +27,7 @@
   width: 90%;
   font-size: 60px;
   margin-top: 21%;
-  color:#0928c5;
+  color:#ffffff;
   font-family: "My Custom Font 4";
 }
 
@@ -43,7 +43,7 @@
 }
 
 .list-players{
-  background-color:#74a1c1;
+  background-color:#d6ff24;
   border-top:0;
   border-left:0;
   border-right:0;
@@ -57,15 +57,15 @@
 }
 
 .list-player{
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #383737;
+  color: #b2ff00;
   font-size: 20px;
   padding-top: 2%;
   padding-bottom: 2%;
   padding-left:5%;
   text-align: center;
-  border-radius: 10px;
-  width: 90%;
+  border-radius: 15px;
+  width: 85%;
 }
 
 .iconOk{
@@ -76,7 +76,7 @@
   float:right;
   border-radius: 4px;
   font-size:20px;
-  color: #757575;
+  color: #383737;
   font-weight: bold;
 }
 

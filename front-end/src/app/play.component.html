@@ -3,10 +3,11 @@
     <p class="question center-block">{{question.question}}</p>
     <img *ngIf="question.image" src="{{baseUrl}}/{{question.image}}" class="center-block image-question">
 </div>
+
 <div class="col-md-4 content">
     <div class="btnNextQuestion">
-        <button type="button" class="btn btn-info btn-lg" *ngIf="isAllowNextQuestion" data-toggle="modal" data-target="#myModal">Open Modal</button>
-        <button class="btn btn-default btnNext" *ngIf="isAllowNextQuestion" (click)="nextQuestion()">NEXT</button>
+        <div class="openNext glyphicon glyphicon-arrow-right" *ngIf="isAllowNextQuestion" (click)="nextQuestion()"></div>
+        <div class="openModal glyphicon glyphicon-stats" *ngIf="isAllowNextQuestion" data-toggle="modal" data-target="#myModal"></div>
     </div>
     <div class="divInfo ">
         <div class="row">
@@ -20,14 +21,12 @@
             </div>
         </div>
     </div>
-
     <div class="group-button-answer">
         <button class="btn btn-block btn-success button-answer" id="answer0" (click)="chooseAnswer(0)">{{question.answers[0]}}</button>
         <button class="btn btn-block btn-info button-answer" id="answer1" (click)="chooseAnswer(1)">{{question.answers[1]}}</button>
         <button class="btn btn-block btn-warning button-answer" id="answer2" (click)="chooseAnswer(2)">{{question.answers[2]}}</button>
         <button class="btn btn-block btn-danger button-answer" id="answer3" (click)="chooseAnswer(3)">{{question.answers[3]}}</button>
     </div>
-
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
