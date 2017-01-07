@@ -18,11 +18,13 @@ export class HomeComponent implements OnInit, OnDestroy{
     gamePIN: string;
     username: string;
     isLogin: boolean = false;
+    isNotLogin: boolean = false;
 
     constructor(private router: Router, private storage:LocalStorageService) {}
 
     ngOnInit(): void {
         this.isLogin = this.storage.retrieve('is_login');
+        this.isNotLogin = !this.isLogin;
         SocketClient.getInstance().on('joinRoomSuccess', data => {
             SocketClient.getData().gamePIN = data.gamePIN;
             this.router.navigate(['waiting']);

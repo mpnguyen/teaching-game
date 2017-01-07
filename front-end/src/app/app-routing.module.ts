@@ -12,6 +12,7 @@ import {DashboardComponent} from "./dashboard.component";
 import {ErrorComponent} from "./error.component";
 import {PlayComponent} from "./play.component";
 import {WaitingScreenComponent} from "./waiting-screen.component";
+import {CreateGameComponent} from "./create-game.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,12 +24,14 @@ const routes: Routes = [
     { path: 'reset/:token',     component: ResetComponent },
     { path: 'error', component: ErrorComponent},
     { path: 'play', component: PlayComponent},
-    { path: 'waiting', component: WaitingScreenComponent}
+    { path: 'waiting', component: WaitingScreenComponent},
+    { path: 'create-game', component: CreateGameComponent},
+    { path: '**', redirectTo: '/home', pathMatch: 'full' }
 
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
+    imports: [ RouterModule.forRoot(routes, { useHash: true }) ],
     exports: [ RouterModule ]
 })
 

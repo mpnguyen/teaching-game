@@ -126,6 +126,11 @@ export class PlayComponent implements OnInit, OnDestroy{
             SocketClient.getInstance().emit('currentQuestion');
         });
 
+        SocketClient.getInstance().on('endGame', data => {
+            Utils.ShowInfo(data.message);
+            this.router.navigate(['home']);
+        });
+
         setTimeout(() => SocketClient.getInstance().emit('currentQuestion', {}), 10);
     }
 
@@ -141,7 +146,9 @@ export class PlayComponent implements OnInit, OnDestroy{
         if (this.isHost) {
             return;
         }
-
+        if ($('#answer' + answer).hasClass('chooseAnswer')) {
+            return;
+        }
         for (let i = 0; i < 4; i++) {
             if (i === answer) {
                 $('#answer' + i).addClass('chooseAnswer');

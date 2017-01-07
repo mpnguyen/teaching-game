@@ -30,6 +30,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     baseUrl: string = Constants.BASE_URL;
 
     ngOnInit(): void {
+        if (SocketClient.getData().isFBLogin) {
+            window.location.reload(true);
+        }
         this.access_token = this.storage.retrieve("access_token");
         if (this.access_token == null || this.access_token == "" || !this.storage.retrieve("is_login")) {
             this.storage.store("is_login", false);
@@ -125,7 +128,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
             .then(res => {
                 if(res.success) {
                     let question: Question = res.question;
-                    console.log(question);
                     this.questions.push(question);
                     this.showSuccessAddingQuestion();
                 } else {
@@ -145,7 +147,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.questionService.addNewPackage(this.newPackage, this.access_token)
             .then(res => {
-
                 if (res.success) {
                     this.packages.push(res.package);
                     this.newPackage = '';
@@ -158,6 +159,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     deletePackage(idPackage: string) {
+        if (idPackage === this.idPackage) {
+            this.idPackage = "";
+        }
+
         this.questionService.deletePackage(idPackage, this.access_token)
             .then(res => {
 

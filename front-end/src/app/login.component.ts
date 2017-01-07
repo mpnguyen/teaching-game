@@ -8,6 +8,9 @@ import { UserService } from "./services/user.service"
 import {LocalStorageService} from 'ng2-webstorage';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Utils} from "./others/Utils";
+import {SocketClient} from "./services/socket.service";
+
+declare let FB: any;
 
 @Component({
     selector: 'user-login',
@@ -53,20 +56,51 @@ export class LoginComponent implements OnDestroy{
     }
 
     loginFB(): void {
+        SocketClient.getData().isFBLogin = true;
+        FB.getLoginStatus((response) => {
+            if (response.status === 'connected') {
+                var uid = response.authResponse.userID;
+                this.userService.loginFB(uid).then(res => {
+                    if (res.success) {
+                        this.message = null;
+                        this.storage.store('access_token', res.token);
+                        this.storage.store('is_login', true);
+                        this.navigateToDashboard();
+                    } else {
+                        this.message = res.message;
+                        this.showError(res.message);
+                    }
+                }).catch(err => console.log(err));
+            }
+            else {
+                FB.login((response) => {
+                    if (response.authResponse) {
+                      console.log('Welcome!  Fetching your information.... ');
+                      FB.api('/me', (response) => {
+                          console.log('Good to see you, ' + response.name + '.');
+                          var uid = response.id;
+                          this.userService.loginFB(uid).then(res => {
+                              if (res.success) {
+                                  this.message = null;
+                                  this.storage.store('access_token', res.token);
+                                  this.storage.store('is_login', true);
+                                  this.navigateToDashboard();
+                              } else {
+                                  this.message = res.message;
+                                  this.showError(res.message);
+                              }
+                          }).catch(err => console.log(err));
+                      });
+                    } else {
+                      console.log('User cancelled login or did not fully authorize.');
+                    }
+                });
+          }
+        });
+    }
 
-        this.userService.loginFB()
-            .then(res => {
-                if (res.success) {
-                    this.message = null;
-                    this.storage.store('access_token', res.token);
-                    this.storage.store('is_login', true);
-                    this.router.navigate(['/dashboard']);
-                } else {
-                    this.message = res.message;
-                    this.showError(res.message);
-                }
-            })
-            .catch(err => console.log(err));
+    navigateToDashboard(): void {
+        this.router.navigate(['dashboard']);
     }
 
     register(): void {
