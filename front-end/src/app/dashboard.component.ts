@@ -8,7 +8,6 @@ import {Package} from "./models/package.model";
 import {Question} from "./models/question.model";
 import {QuestionService} from "./services/question.service";
 import {Constants} from "./others/Config";
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {SocketClient} from "./services/socket.service";
 import {Utils} from "./others/Utils";
 
@@ -272,6 +271,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     showError(error: string) {
         Utils.ShowError(error);
+    }
+
+    navigateToHome() {
+        this.router.navigate(['home']);
     }
 
     constructor(private router: Router, private questionService: QuestionService, private storage:LocalStorageService) {}

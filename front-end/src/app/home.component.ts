@@ -4,7 +4,6 @@
 import {Component, OnInit, ViewContainerRef, OnDestroy} from '@angular/core';
 import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
-import {ToastsManager} from "ng2-toastr";
 import {Utils} from "./others/Utils";
 import {LocalStorageService} from "ng2-webstorage";
 
@@ -55,5 +54,9 @@ export class HomeComponent implements OnInit, OnDestroy{
 
     showError(error: string) {
         Utils.ShowError(error);
+    }
+
+    navigateToHome() {
+        this.router.navigate(['home']);
     }
 }
