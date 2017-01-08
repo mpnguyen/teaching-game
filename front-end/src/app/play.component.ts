@@ -51,7 +51,7 @@ export class PlayComponent implements OnInit, OnDestroy{
             }
             this.userCount = 0;
             this.showInfo('New question!');
-            $('#clock').countdown((new Date(data.deadline)).toLocaleString())
+            $('#clock').countdown(this.getDateTimeString((new Date(data.deadline))))
               .on('update.countdown', function(event:any) {
                 let format = '%S';
                 $(this).html(event.strftime(format));
@@ -158,6 +158,11 @@ export class PlayComponent implements OnInit, OnDestroy{
         }
 
         SocketClient.getInstance().emit('answerQuestion', answer);
+    }
+
+    getDateTimeString(date: Date): string {
+        return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ', '
+            + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     }
 
     showSuccess(msg: string) {
