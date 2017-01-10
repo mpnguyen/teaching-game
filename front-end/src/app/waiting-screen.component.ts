@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import {Router} from "@angular/router";
-import {ToastsManager} from "ng2-toastr";
 import {SocketClient} from "./services/socket.service";
 import {Utils} from "./others/Utils";
 @Component({
@@ -74,5 +73,9 @@ export class WaitingScreenComponent implements OnInit, OnDestroy{
 
     showSuccess(success: string){
         Utils.ShowSuccess(success);
+    }
+
+    navigateToHome() {
+        this.router.navigate(['home']);
     }
 }

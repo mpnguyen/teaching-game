@@ -6,7 +6,6 @@ import { User } from "./models/user.model";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import { UserService } from "./services/user.service"
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Utils} from "./others/Utils";
 
 @Component({
@@ -46,4 +45,7 @@ export class ForgetComponent {
             .catch(err => console.log(err));
     }
 
+    navigateToHome() {
+        this.router.navigate(['home']);
+    }
 }

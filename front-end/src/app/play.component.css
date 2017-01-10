@@ -25,6 +25,9 @@
     margin-top: 10px;
     font-size: 4rem;
     line-height: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: normal;
 }
 
 .group-button-answer {

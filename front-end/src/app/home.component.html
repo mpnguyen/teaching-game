@@ -1,6 +1,6 @@
-<div class="col-md-12 content">
+<div class="col-md-12 col-sm-12 col-xs-12 content">
   <div class="intro">
-    <h3 class="logo">SPQ Corp</h3>
+    <h3 class="logo" (click)="navigateToHome()">SPQ Corp</h3>
     <a class="button-bar hidden-sm hidden-xs" *ngIf="isNotLogin" routerLink="/login">Login</a>
     <a class="button-bar hidden-sm hidden-xs" *ngIf="isLogin" routerLink="/dashboard">Dashboard</a>
     <a class="button-bar" routerLink="/create-game">Create</a>

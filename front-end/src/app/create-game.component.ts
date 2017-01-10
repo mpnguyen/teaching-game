@@ -44,4 +44,7 @@ export class CreateGameComponent implements OnInit{
         SocketClient.getInstance().emit("createNewGame", this.idPackage);
     }
 
+    navigateToHome() {
+        this.router.navigate(['home']);
+    }
 }

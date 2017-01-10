@@ -79,3 +79,7 @@
 .content {
   display: inline-table;
 }
+
+.logo {
+   cursor: pointer;
+}

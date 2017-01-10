@@ -6,7 +6,6 @@ import { User } from "./models/user.model";
 import {Router} from "@angular/router";
 import { UserService } from "./services/user.service"
 import {LocalStorageService} from 'ng2-webstorage';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Utils} from "./others/Utils";
 import {SocketClient} from "./services/socket.service";
 
@@ -109,5 +108,9 @@ export class LoginComponent implements OnDestroy{
 
     forgetPass(): void {
         this.router.navigate(['/forget']);
+    }
+
+    navigateToHome() {
+        this.router.navigate(['home']);
     }
 }

@@ -2,8 +2,6 @@
  * Created by mp_ng on 12/3/2016.
  */
 import {Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import * as io from 'socket.io-client';
 import {SocketClient} from "./services/socket.service";
 import {Router} from "@angular/router";
 import {Question} from "./models/question.model";
@@ -51,7 +49,7 @@ export class PlayComponent implements OnInit, OnDestroy{
             }
             this.userCount = 0;
             this.showInfo('New question!');
-            $('#clock').countdown((new Date(data.deadline)).toLocaleString())
+            $('#clock').countdown(this.getDateTimeString((new Date(data.deadline))))
               .on('update.countdown', function(event:any) {
                 let format = '%S';
                 $(this).html(event.strftime(format));
@@ -160,6 +158,11 @@ export class PlayComponent implements OnInit, OnDestroy{
         SocketClient.getInstance().emit('answerQuestion', answer);
     }
 
+    getDateTimeString(date: Date): string {
+        return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear() + ', '
+            + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    }
+
     showSuccess(msg: string) {
         Utils.ShowSuccess(msg);
     }
@@ -174,5 +177,9 @@ export class PlayComponent implements OnInit, OnDestroy{
 
     ngAfterViewInit() {
 
+    }
+
+    navigateToHome() {
+        this.router.navigate(['home']);
     }
 }

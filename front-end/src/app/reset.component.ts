@@ -6,7 +6,6 @@ import { User } from "./models/user.model";
 import {Router, Params, ActivatedRoute} from "@angular/router";
 import {UserService} from "./services/user.service";
 import 'rxjs/add/operator/switchMap';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {Utils} from "./others/Utils";
 
 @Component({
@@ -72,4 +71,7 @@ export class ResetComponent implements OnInit{
             });
     }
 
+    navigateToHome() {
+        this.router.navigate(['home']);
+    }
 }
