@@ -12,29 +12,27 @@ Required:
 
 For Windows, you need to follow 3 steps below to open our project.
 
-* Firstly, you need to create a database folder by using mongodb and run this database by:
-``` 
-    mongod --dbpath the-address-folder-of-database &amp;
-```
-  
-* Secondly, you enter the back-end folder and use nodejs to run this backend by typing:
+* Firstly, you need to start mongodb.
+* Secondly, you enter the back-end folder and use npm to install and run this backend by typing:
 ``` 
     npm install
     npm start
 ```
-* Thirdly, you enter the front-end folder and use nodejs to run this frontend by typing:
+* Thirdly, you enter the front-end folder and use npm to install and run frontend by typing:
 ``` 
+    npm install -g angular-cli
     npm install
-    typings install dt~socket.io-client --global --save
-    npm start
+    ng serve
 ```
-If you do exactly what the instruction above says, our homepage will be enter automatically.
+* Finally, navigate to `http://localhost:4200/`.
+
+If you do exactly what the instruction above says, our homepage will be appeared.
 
     
 
 ###3.Usage
-* You need to access the login page at: localhost/login. If you do not have an account, click on Register and create a new account.
-* After logining, you will go to dashboard page at: localhost/dashboard. Then, you can create your package questions and questions of each package.
+* You need to access the login page at: `http://localhost:4200/#/login`. If you do not have an account, click on Register and create a new account.
+* After logining, you will go to dashboard page at: `http://localhost:4200/#/dashboard`. Then, you can create your package questions and questions of each package.
 
 ###4. Creator
 **Minh Phu Nguyen**

@@ -1,7 +1,7 @@
 <div class=" col-md-8 hidden-xs hidden-sm">
     <h3 class="logo" (click)="navigateToHome()">SPQ Corp</h3>
     <p class="question center-block">{{question.question}}</p>
-    <img *ngIf="question.image" src="{{baseUrl}}/{{question.image}}" class="center-block image-question">
+    <img *ngIf="question.image" src="{{question.image}}" class="center-block image-question">
 </div>
 
 <div class="col-md-4 col-sm-12 col-xs-12 content">

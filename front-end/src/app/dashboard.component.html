@@ -44,7 +44,7 @@
                 <div id="collapseAdd" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingAdd">
                     <div class="panel-body">
                         <form>
-                            <img class="center-block image-picker" *ngIf="newQuestion.image" src="{{baseUrl}}/{{newQuestion.image}}">
+                            <img class="center-block image-picker" *ngIf="newQuestion.image" src="{{newQuestion.image}}">
 
                             <div class="fileUpload btn btn-primary">
                                 <span>Select image</span>
@@ -110,7 +110,7 @@
                 <div id="{{question._id}}" class="panel-collapse collapse" role="tabpanel">
                     <div class="panel-body">
                         <form>
-                            <img class="center-block image-picker" *ngIf="question.image" src="{{baseUrl}}/{{question.image}}">
+                            <img class="center-block image-picker" *ngIf="question.image" src="{{question.image}}">
 
                             <div class="fileUpload btn btn-primary">
                                 <span>Select image</span>
