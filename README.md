@@ -1,14 +1,13 @@
 # Teaching-game
 
-###1.Description
+###1. Description
 Website for all teachers who want to improve the quality of lessons because the students will be encouraged to participate this mini webgame.  
 
-###2.Installation
+###2. Installation
 Required:
  1. Nodejs
  2. Mongodb
- 3. Typing
- 4. AngularJs 2.0
+ 3. Angular CLI
 
 For Windows, you need to follow 3 steps below to open our project.
 
@@ -30,7 +29,7 @@ If you do exactly what the instruction above says, our homepage will be appeared
 
     
 
-###3.Usage
+###3. Usage
 * You need to access the login page at: `http://localhost:4200/#/login`. If you do not have an account, click on Register and create a new account.
 * After logining, you will go to dashboard page at: `http://localhost:4200/#/dashboard`. Then, you can create your package questions and questions of each package.
 
