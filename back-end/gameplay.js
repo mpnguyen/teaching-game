@@ -93,7 +93,7 @@ function nextQuestion() {
             var deadline = new Date(Date.now());
             deadline.setSeconds(deadline.getSeconds()+20);
             room[0].time = deadline.getTime();
-
+            room[0].currentIndex = room[0].currentIndex + 1;
             var question = room[0].package.questions[room[0].currentIndex];
             setTimeout(function () {
                 var scores = [];
@@ -102,7 +102,6 @@ function nextQuestion() {
                 io.sockets.in(sock.data.currentRoom).emit('endQuestion',{correct: question.correct, score: scores});
             }, 20000);
             room[0].counter = 0;
-            room[0].currentIndex = room[0].currentIndex + 1;
             io.sockets.in(sock.data.currentRoom).emit('questionChanged', {message: 'Next question'});
         }
         else
