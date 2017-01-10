@@ -8,27 +8,16 @@ var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var cloudinary = require('cloudinary');
 
 var User = mongoose.model('User');
 var Package = mongoose.model('Package');
 var Question = mongoose.model('Question');
 
-passport.use(new FacebookStrategy({
-        clientID: '1571907532826078',
-        clientSecret: '907b40f72deed38d573a96593d84a001',
-        callbackURL: "/users/facebook/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        done(null, profile);
-    }
-));
-
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+cloudinary.config({
+    cloud_name: 'duqvgbkhv',
+    api_key: '746766614426462',
+    api_secret: '64P-Mc9548hWYoMBH4TJ8pu07pA'
 });
 
 router.use(passport.initialize());
@@ -467,17 +456,26 @@ router.delete('/profile/packages/:package/questions/:question', function (req, r
 });
 
 router.post('/file', upload.single('image'), function (req, res, next) {
-    console.log(req.file);
     if(req.file === undefined || req.file === null){
-        return res.json({
-            success: false,
-            message: "Error occurred"
-        })
-    }
-    var image = req.file.filename;
-    res.json({
-        success: true,
-        image: image
+            return res.json({
+                success: false,
+                message: "Error occurred"
+            })
+        }
+	
+	cloudinary.uploader.upload(req.file.path, function(result) {
+        console.log(result);
+		if(result.error){
+			return res.json({
+                success: false,
+                message: "Invalid image file"
+            })
+		}
+        var image = result.url;
+        res.json({
+            success: true,
+            image: image
+        });
     });
 });
 

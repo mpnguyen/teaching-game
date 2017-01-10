@@ -92,7 +92,7 @@ function nextQuestion() {
         if(room[0].currentIndex < room[0].package.questions.length - 1) {
             var deadline = new Date(Date.now());
             deadline.setSeconds(deadline.getSeconds()+20);
-            room[0].time = deadline;
+            room[0].time = deadline.getTime();
 
             var question = room[0].package.questions[room[0].currentIndex];
             setTimeout(function () {
