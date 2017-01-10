@@ -16,7 +16,7 @@ For Windows, you need to follow 3 steps below to open our project.
 * Secondly, you enter the back-end folder and use npm to install and run this backend by typing:
 ``` 
     npm install
-    npm start
+    node app.js
 ```
 * Thirdly, you enter the front-end folder and use npm to install and run frontend by typing:
 ``` 
