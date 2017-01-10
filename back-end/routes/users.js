@@ -6,13 +6,95 @@ var crypto = require('crypto');
 var mailer = require('nodemailer');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var cloudinary = require('cloudinary');
 
 var User = mongoose.model('User');
 var Package = mongoose.model('Package');
 var Question = mongoose.model('Question');
 
+cloudinary.config({
+    cloud_name: 'duqvgbkhv',
+    api_key: '746766614426462',
+    api_secret: '64P-Mc9548hWYoMBH4TJ8pu07pA'
+});
+
+router.use(passport.initialize());
+
+router.post('/loginfacebook', function (req, res, next) {
+    User.findOne({username: req.body.uid}, function (err, user) {
+        if (err) {
+            return res.json(err);
+        }
+        if(!user) {
+            var temp = new User({username: req.body.uid, password: req.body.uid, email: req.body.uid});
+            temp.save(function (err, user) {
+                if(err) {
+                    return res.json(err)
+                }
+                var token = jwt.sign(user, "user", {
+                    expiresIn: 60 * 60 * 24
+                });
+                return res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            })
+        }
+        else{
+            var token = jwt.sign(user, "user", {
+                expiresIn: 60 * 60 * 24
+            });
+            return res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
+        }
+    });
+});
+
+router.get('/facebook',
+    passport.authenticate('facebook' , { scope : 'email' }));
+
+router.get('/facebook/callback', passport.authenticate('facebook'), function (req, res, next) {
+    User.findOne({username: req.user.id}, function (err, user) {
+        if (err) {
+            return res.json(err);
+        }
+        if(!user) {
+            var temp = new User({username: req.user.id, password: req.user.id, email: req.user.id});
+            temp.save(function (err, user) {
+                if(err) {
+                    return res.json(err)
+                }
+                var token = jwt.sign(user, "user", {
+                    expiresIn: 60 * 60 * 24
+                });
+                return res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            })
+        }
+        else{
+            var token = jwt.sign(user, "user", {
+                expiresIn: 60 * 60 * 24
+            });
+            return res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
+        }
+    });
+});
 
 /* GET users listing. */
+
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
 });
@@ -121,8 +203,8 @@ router.post('/forget', function (req, res, next) {
                 var smtpTransport = mailer.createTransport({
                     service: 'SendGrid',
                     auth: {
-                        user: 'spqcorp',
-                        pass: 'spq123456'
+                        user: 'apikey',
+                        pass: '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'
                     }
                 });
 
@@ -132,7 +214,7 @@ router.post('/forget', function (req, res, next) {
                     subject: 'Teaching-game Password Reset',
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                    'http://' + req.headers.host + '/reset/' + user.resetPasswordToken + '\n\n' +
+                    'http://' + 'teaching-game-90ac5.firebaseapp.com' + '/reset/' + user.resetPasswordToken + '\n\n' +
                     'If you did not request this, please ignore this email and your password will remain unchanged.\n'
                 };
 
@@ -145,7 +227,9 @@ router.post('/forget', function (req, res, next) {
                             token: user.resetPasswordToken
                         });
                     }
-                    res.json({ success: true });
+                    res.json({
+                        success: true
+                    });
                 });
             });
         });
@@ -372,17 +456,26 @@ router.delete('/profile/packages/:package/questions/:question', function (req, r
 });
 
 router.post('/file', upload.single('image'), function (req, res, next) {
-    console.log(req.file);
     if(req.file === undefined || req.file === null){
-        return res.json({
-            success: false,
-            message: "Error occurred"
-        })
-    }
-    var image = req.file.filename;
-    res.json({
-        success: true,
-        image: image
+            return res.json({
+                success: false,
+                message: "Error occurred"
+            })
+        }
+	
+	cloudinary.uploader.upload(req.file.path, function(result) {
+        console.log(result);
+		if(result.error){
+			return res.json({
+                success: false,
+                message: "Invalid image file"
+            })
+		}
+        var image = result.url;
+        res.json({
+            success: true,
+            image: image
+        });
     });
 });
 

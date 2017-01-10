@@ -1,0 +1,17 @@
+<div class="container col-md-4 col-sm-12 col-xs-12">
+    <h3 class="logo" (click)="navigateToHome()">SPQ Corp</h3>
+    <h1 class="title-form">Forget</h1>
+    <form class="my-form" (submit)="forgetPass()">
+        <div class="form-group " >
+            <input type="text" class="form-control input-field center-block" id="email"
+                   placeholder="Email" [(ngModel)]="user.email" name="email" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="message" role="alert">{{message}}</div>
+        <button type="submit" class="btn btnForget btn-submit center-block">Forget password</button>
+    </form>
+</div>
+<div class="col-md-8 content hidden-xs hidden-sm">
+  <div class="image1 center-block">
+  </div>
+
+</div>

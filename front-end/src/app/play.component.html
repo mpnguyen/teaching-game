@@ -1,0 +1,49 @@
+<div class=" col-md-8 hidden-xs hidden-sm">
+    <h3 class="logo" (click)="navigateToHome()">SPQ Corp</h3>
+    <p class="question center-block">{{question.question}}</p>
+    <img *ngIf="question.image" src="{{question.image}}" class="center-block image-question">
+</div>
+
+<div class="col-md-4 col-sm-12 col-xs-12 content">
+    <div class="btnNextQuestion">
+        <div class="openNext glyphicon glyphicon-arrow-right" *ngIf="isAllowNextQuestion" (click)="nextQuestion()"></div>
+        <div class="openModal glyphicon glyphicon-stats" *ngIf="isAllowNextQuestion" data-toggle="modal" data-target="#myModal"></div>
+    </div>
+    <div class="divInfo ">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <span class="info-counter center-block">{{userCount}}</span>
+              <i class="glyphicon glyphicon-user center-block icon-counter"></i>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 countdown-clock">
+              <span class="info-counter center-block" id="clock"></span>
+              <i class="glyphicon glyphicon-time center-block icon-counter"></i>
+            </div>
+        </div>
+    </div>
+    <div class="group-button-answer">
+        <button class="btn btn-block btn-success button-answer" id="answer0" (click)="chooseAnswer(0)">{{question.answers[0]}}</button>
+        <button class="btn btn-block btn-info button-answer" id="answer1" (click)="chooseAnswer(1)">{{question.answers[1]}}</button>
+        <button class="btn btn-block btn-warning button-answer" id="answer2" (click)="chooseAnswer(2)">{{question.answers[2]}}</button>
+        <button class="btn btn-block btn-danger button-answer" id="answer3" (click)="chooseAnswer(3)">{{question.answers[3]}}</button>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Top Players</h4>
+      </div>
+      <div class="modal-body">
+        <canvas id="myChart" width="400" height="400" style="max-height: 400px"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

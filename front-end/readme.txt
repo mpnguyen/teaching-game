@@ -1,1 +1,0 @@
-typings install dt~socket.io-client --global --save

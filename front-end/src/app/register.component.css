@@ -1,0 +1,75 @@
+.content {
+    background-color: #BBDEFB;
+    height: 100vh;
+}
+.image1{
+  background: url("../assets/img/registerQuote.png") 0px 0px;
+  border-style:none;
+  width:450px;
+  height:450px;
+  margin-top: 5%;
+  background-repeat: no-repeat;
+  margin-top: 17%;
+  background-size: 450px;
+}
+
+.logo {
+    margin: 8px;
+    height: 37px;
+    color: #e62739;
+    font-family: "My Custom Font 2";
+}
+
+.input-field {
+    font-size: 2rem !important;
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    width: 80%;
+}
+
+.my-form {
+    margin-top: 10%;
+}
+
+.btn-submit {
+    margin-top: 30px;
+    font-size: 2rem;
+    width: 80%;
+}
+
+.btn-second {
+    margin-top: 10px;
+    font-size: 2rem;
+    width: 80%;
+}
+
+.title-form {
+    font-size: 8rem;
+    opacity: 0.8;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: #e62739;
+    font-family: "My Custom Font 2";
+}
+
+.message {
+    width: 80%;
+}
+
+.btnRegister{
+  background-color: #e62739;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+.btnLogin{
+  background-color: #9068be;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}

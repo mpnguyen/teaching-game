@@ -1,0 +1,89 @@
+.content {
+    background-color: #842c81;
+    height: 100vh;
+    display: inline-table;
+}
+
+.logo {
+    padding: 1%;
+    height: 2%;
+    font-family: "My Custom Font 2";
+}
+
+.image-question {
+    height: 500px;
+    max-width: 80%;
+}
+
+.question {
+    font-size:30px;
+    width: 80%;
+    text-align: center;
+}
+
+.button-answer {
+    margin-top: 10px;
+    font-size: 4rem;
+    line-height: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: normal;
+}
+
+.group-button-answer {
+    margin-top: 10%;
+    text-align: center;
+    margin-bottom: 10%;
+}
+.openModal{
+  font-size: 28px;
+  color:#FFFFFF;
+  cursor: pointer;
+  float:right;
+  margin-right: 15px;
+}
+
+.openNext {
+  font-size: 28px;
+  color: #FFFFFF;
+  cursor: pointer;
+  float: right;
+}
+
+.btnNextQuestion{
+    padding-top: 5%;
+}
+
+.divInfo {
+    padding-top: 16%;
+    width: 100%;
+}
+
+.info-counter {
+    font-size: 10rem;
+    text-align: center;
+    color: white;
+}
+
+.correct {
+    opacity: 1 !important;
+    border: 3px solid #fff;
+}
+
+.chooseAnswer {
+    border: 3px solid #fff;
+}
+
+button:disabled {
+    opacity: 0.15;
+}
+
+.countdown-clock{
+    border-left: 1px solid #fff;
+}
+
+.icon-counter {
+    text-align: center;
+    font-size: 3rem;
+    color: #fff;
+}

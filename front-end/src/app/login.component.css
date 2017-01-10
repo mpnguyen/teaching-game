@@ -1,0 +1,101 @@
+.content {
+    background-color: #BBDEFB;
+    height: 100vh;
+
+}
+.image{
+  background: url("../assets/img/loginQuote.png") 0px 0px;
+  border-style:none;
+  width: 600px;
+  height: 340px;
+  margin-top: 21%;
+  background-repeat: no-repeat;
+}
+
+.logo {
+    margin: 1%;
+    height: 2%;
+    color: #e62739;
+    font-family: "My Custom Font 2";
+
+}
+
+.input-field {
+    font-size: 2rem !important;
+    padding-top: 2.25rem;
+    padding-bottom: 2.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    width: 80%;
+
+
+}
+
+.my-form {
+    margin-top: 20%;
+}
+
+.btn-submit {
+    margin-top: 30px;
+    font-size: 2rem;
+    width: 80%;
+}
+.btn-submitFb {
+  margin-top: 10px;
+  font-size: 2rem;
+  width: 80%;
+}
+
+.btn-second {
+    margin-top: 10px;
+    font-size: 2rem;
+    width: 80%;
+}
+
+.title-form {
+    font-size: 8rem;
+    opacity: 0.8;
+    margin-top: 15%;
+    margin-right: 10%;
+    margin-left: 10%;
+    color:#e62739;
+    font-family: "My Custom Font 2";
+
+}
+
+.message {
+    width: 80%;
+}
+.loginform{
+  background-color: #9068be;
+}
+.btnLogin{
+  background-color: #9068be;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+.btnLoginFb{
+  background-color: #3b5998;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+.btnForget{
+  background-color: #6ed3cf;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+.btnRegister{
+  background-color: #e62739;
+  color: #F6FAFB;
+  font-weight: bold;
+  font-family: "Arial";
+
+}
+
+

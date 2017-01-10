@@ -1,0 +1,113 @@
+.content {
+  background-color:#d6ff24;
+  height: 100vh;
+}
+
+.intro{
+  height: 100vh;
+  background-image: url("../assets/img/seoul.jpg");
+  background-repeat: no-repeat;
+  background-size: 1000px 800px;
+
+}
+
+.logo {
+  margin: 8px;
+  height: 37px;
+  color:#d2d626;
+  font-family: "My Custom Font 2";
+}
+
+.image-question {
+  height: 480px;
+  max-width: 80%;
+}
+
+.hello {
+  width: 90%;
+  font-size: 60px;
+  margin-top: 21%;
+  color:#ffffff;
+  font-family: "My Custom Font 4";
+}
+
+.divInfo {
+  margin-top: 20%;
+  width: 100%;
+}
+
+.info-counter {
+  font-size: 10rem;
+  text-align: center;
+  color: white;
+}
+
+.list-players{
+  background-color:#d6ff24;
+  border-top:0;
+  border-left:0;
+  border-right:0;
+  border-left: 0;
+  padding: 5px 15px;
+  font-family: "My Custom Font 4";
+}
+
+.list-group-item{
+  border:0px;
+}
+
+.list-player{
+  background-color: #383737;
+  color: #b2ff00;
+  font-size: 20px;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  text-align: center;
+  border-radius: 15px;
+  width: 85%;
+}
+
+.iconOk{
+  float: right;
+}
+
+.btnStartGame{
+  float:right;
+  border-radius: 4px;
+  font-size:20px;
+  color: #383737;
+  font-weight: bold;
+  background-color: #ffffff;
+  font-family: "My Custom Font 4";
+}
+
+.buttonArea{
+  padding: 2%;
+}
+
+.clearfix {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.content-package {
+  overflow:auto;
+  height:72vh;
+  margin-top: 30px
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #FFFFFF;
+  -webkit-box-shadow: inset 0 0 6px #FFFFFF;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #CCFFCC;
+}
+

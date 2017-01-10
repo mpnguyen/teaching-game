@@ -1,0 +1,24 @@
+<div class="col-md-12 col-sm-12 col-xs-12 content">
+  <div class="intro">
+    <h3 class="logo" (click)="navigateToHome()">SPQ Corp</h3>
+    <a class="button-bar hidden-sm hidden-xs" *ngIf="isNotLogin" routerLink="/login">Login</a>
+    <a class="button-bar hidden-sm hidden-xs" *ngIf="isLogin" routerLink="/dashboard">Dashboard</a>
+    <a class="button-bar" routerLink="/create-game">Create</a>
+  </div>
+  <div class="gameNameArea">
+    <p class="gameName">Teaching Game</p>
+  </div>
+  <form (submit)="joinGame()">
+    <div class="inputUsername">
+      <input type="text" class="input" id="username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'NAME'"
+             placeholder="NAME" [(ngModel)]="username" name="username" required>
+    </div>
+    <div class="inputPin">
+      <input type="text" class="input" id="pin" onfocus="this.placeholder = ''" onblur="this.placeholder = 'PIN'"
+             placeholder="PIN" [(ngModel)]="gamePIN" name="pin" required>
+    </div>
+    <div class="buttonArea">
+      <button type="submit" class="button">ENTER</button>
+    </div>
+  </form>
+</div>
